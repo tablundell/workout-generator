@@ -64,6 +64,7 @@
   .b-fmt-box.locked .b-fmt-lbl { color: var(--teal-text); opacity: 0.7; }
   .b-fmt-box.locked .b-fmt-name { color: var(--teal-text); }
   .b-fmt-box.locked .b-fmt-desc { color: var(--teal-text); opacity: 0.7; }
+  .b-fmt-name.spinning { animation: tick 0.09s linear infinite; }
   .fmt-lock-icon { position: absolute; top: 8px; right: 10px; font-size: 11px; display: none; }
   .b-fmt-box.locked .fmt-lock-icon { display: block; }
   .b-fmt-lbl { font-size: 10px; font-weight: 500; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text2); margin-bottom: 4px; }
@@ -84,9 +85,9 @@
 
   .modal-wrap { background: rgba(0,0,0,0.7); display: none; align-items: flex-end; justify-content: center; position: fixed; inset: 0; z-index: 200; }
   .modal-wrap.open { display: flex; }
-  .modal { background: var(--bg2); border-radius: 18px 18px 0 0; width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto; padding-bottom: 2.5rem; }
-  .modal-handle { width: 36px; height: 4px; background: var(--border2); border-radius: 2px; margin: 12px auto 0; }
-  .modal-head { padding: 14px 20px 12px; border-bottom: 1px solid var(--border2); display: flex; align-items: flex-start; justify-content: space-between; }
+  .modal { background: var(--bg2); border-radius: 18px 18px 0 0; width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto; padding-bottom: 2.5rem; display: flex; flex-direction: column; }
+  .modal-handle { width: 36px; height: 4px; background: var(--border2); border-radius: 2px; margin: 12px auto 0; flex-shrink: 0; }
+  .modal-head { padding: 14px 20px 12px; border-bottom: 1px solid var(--border2); display: flex; align-items: flex-start; justify-content: space-between; position: sticky; top: 0; background: var(--bg2); z-index: 10; flex-shrink: 0; }
   .modal-tag { font-size: 11px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; color: var(--teal); margin-bottom: 3px; }
   .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; color: var(--text); }
   .close-btn { background: var(--bg3); border: 1px solid var(--border2); border-radius: 50%; width: 36px; height: 36px; font-size: 18px; cursor: pointer; color: var(--text2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-left: 12px; transition: background 0.15s; }
@@ -507,17 +508,25 @@ const AFORMATS_BY = {
 const B_FORMATS_BY = {
   "20": [
     {name:"10 to 1 Ladder",desc:"Start at 10 reps each. Every round drop 1 rep down to 1. All three exercises per round, no rest between movements."},
-    {name:"AMRAP 8",desc:"As many rounds as possible in 8 mins: 8 weighted, 8 HR spike, 8 cals cardio. Keep moving."}
+    {name:"AMRAP 8",desc:"As many rounds as possible in 8 mins: 8 weighted, 8 HR spike, 8 cals cardio. Keep moving."},
+    {name:"15-12-9",desc:"3 rounds: 15 reps, then 12, then 9. All 3 exercises per round, straight through. Rest only between rounds."},
+    {name:"5-4-3-2-1",desc:"5 rounds descending: 5 reps, then 4, 3, 2, 1 of each exercise. No rest between movements — pure intensity."}
   ],
   "30": [
     {name:"21-15-9",desc:"3 rounds: 21 reps, then 15, then 9. All 3 exercises per round, straight through. Rest only between rounds."},
     {name:"EMOM 12",desc:"Every minute on the minute for 12 mins. Min 1 = weighted, Min 2 = HR spike, Min 3 = cardio. 4 full cycles. Work ~40s, rest the remainder."},
-    {name:"5 Rounds For Time",desc:"10 reps of each exercise, 5 rounds. No fixed rest — the clock is the motivation. Note your finish time."}
+    {name:"5 Rounds For Time",desc:"10 reps of each exercise, 5 rounds. No fixed rest — the clock is the motivation. Note your finish time."},
+    {name:"18-12-6",desc:"3 rounds: 18 reps, then 12, then 6. Heavier loading than 21-15-9 — push the weight up on each round as reps drop."},
+    {name:"The Gauntlet",desc:"4 rounds of: 10 weighted, 15 HR spike, 20 cals cardio. No rest between exercises. 90 seconds rest between rounds."},
+    {name:"Tabata Complex",desc:"8 rounds of 20s work / 10s rest on each exercise in sequence. 2 full laps of all 3 movements = 12 mins total."}
   ],
   "45": [
     {name:"AMRAP 15",desc:"As many rounds as possible in 15 mins: 10 weighted, 10 HR spike, 12 cals cardio. Keep moving. Log your rounds."},
     {name:"Death By Reps",desc:"Min 1: 1 rep each. Min 2: 2 reps each. Keep adding until you can't finish the minute. Cardio is 5 cals every minute throughout."},
-    {name:"5 Rounds For Time",desc:"12 reps of each exercise, 5 rounds. No fixed rest — push hard. Note your total time."}
+    {name:"5 Rounds For Time",desc:"12 reps of each exercise, 5 rounds. No fixed rest — push hard. Note your total time."},
+    {name:"30-20-10",desc:"3 rounds: 30 reps, then 20, then 10. Scale cardio to cals. This is a long one — pace the first round or you won't finish."},
+    {name:"The Pyramid",desc:"Go up: 3-6-9-12 reps of each exercise, then back down 12-9-6-3. Cardio doubles each round on the way up, halves on the way down."},
+    {name:"EMOM 18",desc:"Every minute on the minute for 18 mins. Min 1 = weighted, Min 2 = HR spike, Min 3 = cardio. 6 full cycles. Work ~40s, rest the remainder."}
   ]
 };
 
@@ -590,6 +599,25 @@ function stopSpinBtn(btnId) {
   btn.disabled = false;
 }
 
+function spinFmt(nameId, descId, fmt) {
+  const nameEl = document.getElementById(nameId);
+  const descEl = document.getElementById(descId);
+  nameEl.classList.add('spinning');
+  const fmtNames = ['21-15-9','AMRAP','EMOM','Ladder','For Time','Tabata','Pyramid','Gauntlet'];
+  let t = 0, total = 8 + Math.floor(Math.random()*4);
+  const iv = setInterval(() => {
+    nameEl.textContent = pick(fmtNames); t++;
+    if (t >= total) {
+      clearInterval(iv);
+      setTimeout(() => {
+        nameEl.classList.remove('spinning');
+        nameEl.textContent = fmt.name;
+        descEl.textContent = fmt.desc;
+      }, 80);
+    }
+  }, 75);
+}
+
 function spinReel(id, arr, finalVal, delayMs, cb) {
   if (locked[id]) { if (cb) cb(); return; }
   const el = document.getElementById(id + 'v');
@@ -628,9 +656,8 @@ function spinBlock(block) {
     spinReel('aR1', A_PUSH_ALL, pick(A_PUSH_ALL), 0);
     spinReel('aR2', A_PULL_ALL, pick(A_PULL_ALL), 100, () => {
       if (!fmtLocked['aFmt']) {
-        document.getElementById('aFmtName').textContent = fmt.name;
-        document.getElementById('aFmtDesc').textContent = fmt.desc;
         document.getElementById('aFmtBox').style.display = 'block';
+        spinFmt('aFmtName', 'aFmtDesc', fmt);
       }
       stopSpinBtn('spinA');
       updateSpinBtnState('A');
@@ -650,9 +677,8 @@ function spinBlock(block) {
     spinReel('bR2', hrPool, pickExcluding(hrPool, excluded), 100);
     spinReel('bR3', B_CARDIO_ALL, pickExcluding(B_CARDIO_ALL, excluded), 200, () => {
       if (!fmtLocked['bFmt']) {
-        document.getElementById('bFmtName').textContent = fmt.name;
-        document.getElementById('bFmtDesc').textContent = fmt.desc;
         document.getElementById('bFmtBox').style.display = 'block';
+        spinFmt('bFmtName', 'bFmtDesc', fmt);
       }
       stopSpinBtn('spinB');
       updateSpinBtnState('B');
