@@ -2,8 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Generate a personalised strength and conditioning workout. Shuffle exercises, lock your favourites, and save your session to Notes.">
+<meta name="theme-color" content="#0e0e0e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Workout Generator">
+<meta property="og:title" content="Workout Generator">
+<meta property="og:description" content="Shuffle a full-body strength and conditioning session in seconds.">
+<meta property="og:type" content="website">
 <title>Workout Generator</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><rect width='36' height='36' rx='9' fill='%23003d2e'/><rect x='4' y='14' width='5' height='8' rx='2' fill='%2300D4A0'/><rect x='7' y='11' width='3.5' height='14' rx='1.5' fill='%235fffd4'/><rect x='10' y='16.5' width='16' height='3' rx='1.5' fill='%2300D4A0'/><rect x='25.5' y='11' width='3.5' height='14' rx='1.5' fill='%235fffd4'/><rect x='27' y='14' width='5' height='8' rx='2' fill='%2300D4A0'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><rect width='36' height='36' rx='9' fill='%23003d2e'/><rect x='4' y='14' width='5' height='8' rx='2' fill='%2300D4A0'/><rect x='7' y='11' width='3.5' height='14' rx='1.5' fill='%235fffd4'/><rect x='10' y='16.5' width='16' height='3' rx='1.5' fill='%2300D4A0'/><rect x='25.5' y='11' width='3.5' height='14' rx='1.5' fill='%235fffd4'/><rect x='27' y='14' width='5' height='8' rx='2' fill='%2300D4A0'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -16,19 +28,42 @@
     --radius: 14px; --radius-sm: 9px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg3); font-family: 'DM Sans', sans-serif; color: var(--text); min-height: 100vh; }
-  .page { max-width: 680px; margin: 0 auto; padding: 0.75rem 1rem 3rem; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg3);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    min-height: 100dvh;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+  }
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 1.25rem 1rem 3rem;
+    padding-bottom: max(3rem, calc(1.5rem + env(safe-area-inset-bottom)));
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 
-  .hdr { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; padding-top: 0.25rem; }
+  .hdr { display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem; }
   .hdr-icon { width: 36px; height: 36px; flex-shrink: 0; }
   .hdr-title { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 3px; color: var(--text); line-height: 1; }
 
-  .hdr-subtitle { font-size: 12px; color: var(--text2); margin: 2px 0 1rem; line-height: 1.5; } background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 1rem; }
+  .inputs-panel { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 1rem; }
   .inputs-row { display: flex; gap: 16px; flex-wrap: wrap; }
   .input-group { flex: 1; min-width: 100px; }
   .input-label { font-size: 10px; font-weight: 500; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text2); margin-bottom: 7px; display: block; }
   .chip-group { display: flex; gap: 5px; flex-wrap: wrap; }
-  .chip { font-size: 12px; font-weight: 500; padding: 5px 10px; border-radius: 6px; border: 1px solid var(--border2); background: var(--bg3); color: var(--text2); cursor: pointer; transition: border-color 0.15s, background 0.15s, color 0.15s; user-select: none; }
+  .chip { font-size: 12px; font-weight: 500; padding: 5px 10px; border-radius: 6px; border: 1px solid var(--border2); background: var(--bg3); color: var(--text2); cursor: pointer; transition: border-color 0.15s, background 0.15s, color 0.15s; user-select: none; touch-action: manipulation; }
   @media (hover: hover) { .chip:hover { border-color: var(--teal); color: var(--teal); } }
   .chip.active { border-color: var(--teal); background: var(--teal-bg); color: var(--teal-text); }
   .chip:not(.active) { border-color: var(--border2); background: var(--bg3); color: var(--text2); }
@@ -38,24 +73,25 @@
   .card-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1.5px; color: var(--teal); }
 
   .reels { display: flex; gap: 8px; padding: 14px 16px 10px; }
-  .reel { flex: 1; min-width: 0; position: relative; background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--radius-sm); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 8px; min-height: 84px; cursor: pointer; transition: border-color 0.15s, background 0.15s; user-select: none; }
-  .reel:hover { border-color: var(--teal); }
+  .reel { flex: 1; min-width: 0; position: relative; background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--radius-sm); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 8px; min-height: 84px; cursor: default; transition: border-color 0.15s, background 0.15s; user-select: none; touch-action: manipulation; will-change: border-color, background; }
   .reel.locked { border-color: var(--teal); background: var(--teal-bg); }
   .reel.locked .reel-tag { color: var(--teal-text); opacity: 0.8; }
   .reel.locked .reel-val { color: var(--teal-text); }
   .reel.pop { animation: rpop 0.3s ease; }
   @keyframes rpop { 0%{transform:scale(1)} 45%{transform:scale(1.06)} 100%{transform:scale(1)} }
   .reel-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text2); margin-bottom: 5px; text-align: center; }
-  .reel-val { font-family: 'Bebas Neue', sans-serif; font-size: 17px; color: var(--text); text-align: center; line-height: 1.2; }
+  .reel-val { font-family: 'Bebas Neue', sans-serif; font-size: 17px; color: var(--text); text-align: center; line-height: 1.2; will-change: transform, opacity; }
   .reel-val.spinning { animation: tick 0.09s linear infinite; }
   @keyframes tick { 0%{opacity:1;transform:translateY(0)} 50%{opacity:0.25;transform:translateY(-3px)} 100%{opacity:1;transform:translateY(0)} }
 
-  .info-dot { position: absolute; top: 4px; right: 5px; width: 20px; height: 20px; font-size: 12px; font-weight: 700; font-style: italic; font-family: Georgia, serif; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; color: rgba(255,255,255,0.35); display: none; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; padding: 0; line-height: 1; }
+  .info-dot { position: absolute; top: 4px; right: 5px; width: 20px; height: 20px; font-size: 12px; font-weight: 700; font-style: italic; font-family: Georgia, serif; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; color: rgba(255,255,255,0.35); display: none; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; padding: 0; line-height: 1; touch-action: manipulation; }
+  .info-dot::after { content: ''; position: absolute; inset: -12px; }
   .info-dot:hover { background: var(--bg3); color: var(--text2); border-color: var(--border2); }
   .reel.locked .info-dot { background: var(--teal-bg); border-color: var(--teal); color: var(--teal-text); }
 
   .lock-icon { position: absolute; top: 5px; left: 6px; font-size: 11px; display: none; line-height: 1; pointer-events: none; }
   .reel.locked .lock-icon { display: block; }
+  .reel.has-value { cursor: pointer; }
   .reel.has-value:not(.locked):hover { border-color: var(--teal); }
   .reel:not(.has-value) { pointer-events: none; }
   .lock-strip { padding: 0 16px 8px; text-align: center; font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 0.3px; }
@@ -76,30 +112,32 @@
   .b-fmt-desc { font-size: 12px; color: var(--fmt-text); line-height: 1.6; }
 
   .spin-row { padding: 0 16px 14px; display: flex; justify-content: center; }
-  .spin-btn { display: inline-flex; align-items: center; gap: 7px; padding: 7px 20px; font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 2px; border: 1px solid var(--teal); border-radius: 20px; background: transparent; color: var(--teal); cursor: pointer; transition: background 0.15s, transform 0.05s, opacity 0.15s; }
-  .spin-btn:hover { background: var(--teal-light); }
+  .spin-btn { display: inline-flex; align-items: center; gap: 7px; padding: 7px 36px; font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 2px; border: 1.5px solid var(--teal); border-radius: 20px; background: var(--teal-bg); color: var(--teal-text); cursor: pointer; transition: background 0.2s, transform 0.05s, opacity 0.15s; touch-action: manipulation; will-change: background; }
+  .spin-btn:hover { background: rgba(0,212,160,0.15); }
   .spin-btn:active { transform: scale(0.96); }
-  .spin-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .spin-btn.all-locked { opacity: 0.25; cursor: not-allowed; border-color: var(--border2); color: var(--text2); }
-  .spin-arrow { display: inline-block; font-size: 15px; line-height: 1; transform-origin: center; }
-  .spin-btn.spinning .spin-arrow { animation: spin-arrow 0.45s cubic-bezier(0.4,0,0.6,1) infinite; }
-  @keyframes spin-arrow { 0% { transform: rotate(0deg); opacity: 1; } 40% { opacity: 0.4; } 100% { transform: rotate(-360deg); opacity: 1; } }
+  .spin-btn:disabled { cursor: not-allowed; }
+  .spin-btn.all-locked { opacity: 0.25; cursor: not-allowed; border-color: var(--border2); color: var(--text2); background: transparent; }
+  .spin-arrow { display: inline-block; font-size: 18px; line-height: 1; transform-origin: center; }
+  .spin-btn.spinning { animation: spin-btn-pulse 0.7s ease-in-out infinite; }
+  .spin-btn.spinning .spin-arrow { animation: spin-arrow 0.5s linear infinite; }
+  @keyframes spin-btn-pulse { 0%,100% { background: var(--teal-bg); } 50% { background: rgba(0,212,160,0.18); } }
+  @keyframes spin-arrow { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
 
   .footer { text-align: center; margin-top: 6px; font-size: 11px; color: var(--text2); }
-  .export-btn { width: 100%; padding: 13px 0; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.3px; border: 1px solid var(--border2); border-radius: var(--radius-sm); background: var(--bg2); color: var(--text2); cursor: not-allowed; display: flex; align-items: center; justify-content: center; gap: 8px; opacity: 0.4; transition: all 0.3s; }
+  .save-bar { margin-bottom: 1rem; }
+  .export-btn { width: 100%; padding: 13px 0; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.3px; border: 1px solid var(--border2); border-radius: var(--radius-sm); background: var(--bg2); color: var(--text2); cursor: not-allowed; display: flex; align-items: center; justify-content: center; gap: 8px; opacity: 0.65; transition: all 0.3s; }
   .export-btn.ready { border-color: var(--teal); background: var(--teal-bg); color: var(--teal-text); cursor: pointer; opacity: 1; }
   .export-btn.ready:hover { background: rgba(0,212,160,0.15); }
   .export-btn.ready:active { transform: scale(0.98); }
   .export-btn.pulse { animation: export-pulse 0.6s ease 0.1s 3; }
   @keyframes export-pulse { 0%{box-shadow:0 0 0 0 rgba(0,212,160,0.4)} 60%{box-shadow:0 0 0 8px rgba(0,212,160,0)} 100%{box-shadow:0 0 0 0 rgba(0,212,160,0)} }
-  .export-hint { text-align: center; font-size: 11px; color: var(--text2); opacity: 0.4; margin-top: 6px; transition: opacity 0.3s; }
-  .export-hint.hidden { opacity: 0; }
 
-  .modal-wrap { background: rgba(0,0,0,0.7); display: none; align-items: flex-end; justify-content: center; position: fixed; inset: 0; z-index: 200; }
+  .modal-wrap { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: none; align-items: flex-end; justify-content: center; position: fixed; inset: 0; z-index: 200; }
   .modal-wrap.open { display: flex; }
-  .modal { background: var(--bg2); border-radius: 18px 18px 0 0; width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto; padding-bottom: 2.5rem; display: flex; flex-direction: column; }
-  .modal-handle { width: 48px; height: 5px; background: var(--border2); border-radius: 3px; margin: 14px auto 0; flex-shrink: 0; cursor: pointer; }
-  .modal-handle:active { background: var(--text2); }
+  .modal { background: var(--bg2); border-radius: 18px 18px 0 0; width: 100%; max-width: 680px; max-height: 90vh; max-height: 90dvh; overflow-y: auto; overscroll-behavior: contain; padding-bottom: max(2.5rem, env(safe-area-inset-bottom)); display: flex; flex-direction: column; will-change: transform; }
+  .modal-handle-wrap { padding: 8px 0 4px; cursor: pointer; touch-action: none; }
+  .modal-handle { width: 48px; height: 5px; background: var(--border2); border-radius: 3px; margin: 0 auto; flex-shrink: 0; transition: background 0.15s; }
+  .modal-handle-wrap:active .modal-handle { background: var(--text2); }
   .modal-head { padding: 12px 20px 12px; border-bottom: 1px solid var(--border2); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: var(--bg2); z-index: 10; flex-shrink: 0; }
   .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px; color: var(--text); }
   .close-btn { background: none; border: none; font-size: 13px; cursor: pointer; color: var(--text2); padding: 6px 10px; border-radius: 6px; transition: background 0.15s; letter-spacing: 0.3px; font-family: 'DM Sans', sans-serif; }
@@ -150,16 +188,15 @@
     </svg>
     <div class="hdr-title">Workout Generator</div>
   </div>
-  <div class="hdr-subtitle">Generate a strength and conditioning session, then save it to your notes for the gym.</div>
 
   <div class="inputs-panel">
     <div class="inputs-row">
       <div class="input-group">
         <span class="input-label">Duration</span>
         <div class="chip-group">
-          <div class="chip" data-group="duration" data-val="20">20–30</div>
-          <div class="chip active" data-group="duration" data-val="30">30–45</div>
-          <div class="chip" data-group="duration" data-val="45">45–60</div>
+          <div class="chip" data-group="duration" data-val="20">20–30 mins</div>
+          <div class="chip active" data-group="duration" data-val="30">30–45 mins</div>
+          <div class="chip" data-group="duration" data-val="45">45–60 mins</div>
         </div>
       </div>
       <div class="input-group">
@@ -211,8 +248,8 @@
         <div class="b-fmt-desc" id="aFmtDesc">—</div>
       </div>
     </div>
-    <div class="lock-strip">Tap to lock</div>
-    <div class="spin-row"><button class="spin-btn" id="spinA" onclick="spinBlock('A')"><span class="spin-arrow">↺</span> Spin</button></div>
+    <div class="lock-strip">Tap each exercise to lock</div>
+    <div class="spin-row"><button class="spin-btn" id="spinA" onclick="spinBlock('A')"><span class="spin-arrow">↺</span><span class="spin-label">Shuffle</span></button></div>
   </div>
 
   <div class="card">
@@ -247,23 +284,25 @@
         <div class="b-fmt-desc" id="bFmtDesc">—</div>
       </div>
     </div>
-    <div class="spin-row"><button class="spin-btn" id="spinB" onclick="spinBlock('B')"><span class="spin-arrow">↺</span> Spin</button></div>
+    <div class="lock-strip">Tap each exercise to lock</div>
+    <div class="spin-row"><button class="spin-btn" id="spinB" onclick="spinBlock('B')"><span class="spin-arrow">↺</span><span class="spin-label">Shuffle</span></button></div>
   </div>
 
-  <div style="padding: 0 0 1.5rem;">
-    <button class="export-btn" id="exportBtn" onclick="exportWorkout()">
-      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 1v9M4 7l3.5 3.5L11 7M2.5 13h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="save-bar">
+    <button class="export-btn" id="exportBtn" onclick="exportWorkout()" disabled>
+      <svg width="14" height="14" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 1v9M4 7l3.5 3.5L11 7M2.5 13h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Save Workout
     </button>
-    <div class="export-hint" id="exportHint">Spin both blocks first</div>
   </div>
 
-  <div class="footer">Tap to lock · tap i for movement guide</div>
+  <div class="footer">Imagined and built by Tom Blundell ✦</div>
 </div>
 
 <div class="modal-wrap" id="modalWrap" onclick="closeModalOutside(event)">
   <div class="modal" id="modalInner">
-    <div class="modal-handle" id="modalHandle" onclick="closeModal()"></div>
+    <div class="modal-handle-wrap" id="modalHandle" onclick="closeModal()">
+      <div class="modal-handle"></div>
+    </div>
     <div class="modal-head">
       <div>
         <div class="modal-title" id="mTitle">—</div>
@@ -503,18 +542,84 @@ const GUIDES = {
     steps: [], cues: ["Lean forward — more lean means more power", "Drive through the full foot on every step", "Arms stay rigid to transfer force", "Short, powerful steps rather than long strides", "Keep your hips low — don't stand upright"],
     muscles_primary: ["Quadriceps", "Glutes", "Hamstrings"], muscles_secondary: ["Calves", "Core", "Anterior deltoid"],
     tip: "No eccentric load means this is excellent for volume work — your legs won't be as sore the next day as with squats."
+  },
+  "Barbell Deadlift": {
+    overview: "The deadlift is the most complete strength exercise available. It trains the entire posterior chain, grip, and core under maximal load through a fundamental movement pattern — picking a heavy object off the floor.",
+    steps: [], cues: ["Bar over mid-foot before you touch it", "Hinge to the bar — don't squat down to it", "Chest up, lats tight before you pull", "Push the floor away — don't think 'pull'", "Lock hips and knees out at the same time"],
+    muscles_primary: ["Glutes", "Hamstrings", "Erector spinae"], muscles_secondary: ["Quadriceps", "Latissimus dorsi", "Trapezius", "Core"],
+    tip: "If the bar drifts away from your legs during the pull, your lats aren't engaged. Think 'protect your armpits' to keep it close."
+  },
+  "DB Romanian Deadlift": {
+    overview: "The dumbbell Romanian deadlift trains the posterior chain through a hip hinge with dumbbells, allowing a more natural range of motion and helping identify strength imbalances. A foundational hamstring and glute builder.",
+    steps: [], cues: ["Push your hips back — don't bend your knees first", "Feel the stretch in your hamstrings before reversing", "Keep the dumbbells close to your legs throughout", "Neutral spine — no rounding at the bottom", "Drive hips forward to stand, squeeze glutes at the top"],
+    muscles_primary: ["Hamstrings", "Glutes"], muscles_secondary: ["Erector spinae", "Core", "Forearms"],
+    tip: "Use a mirror to check that your back stays flat. Most people round early — if you feel it in your lower back, you've gone too far."
+  },
+  "Face Pull": {
+    overview: "The face pull trains the rear delts and external rotators of the shoulder — muscles that are chronically underdeveloped in most lifters. Essential for shoulder health, posture, and balancing the press-heavy nature of most training.",
+    steps: [], cues: ["Pull to your face — not your neck or chest", "Elbows high and wide at the end position", "Think 'external rotation' at the end — hands finish above elbows", "Light weight, full range of motion beats heavy weight with partial reps", "Two second squeeze at end position every rep"],
+    muscles_primary: ["Posterior deltoid", "External rotators"], muscles_secondary: ["Trapezius (mid)", "Rhomboids", "Biceps"],
+    tip: "Most shoulder problems in lifters come from the rear delt and rotator cuff being outpaced by the pushing muscles. Face pulls are the fix."
+  },
+  "DB Shoulder Press": {
+    overview: "The dumbbell shoulder press trains each shoulder independently through an overhead pressing pattern. Slightly more range of motion than a barbell and highly effective for building balanced shoulder development.",
+    steps: [], cues: ["Dumbbells at ear height to start — not lower", "Press in a slight arc inward as you drive up", "Keep core braced — don't lean back", "Full extension at the top without locking out aggressively", "Controlled descent — 2 seconds down"],
+    muscles_primary: ["Anterior deltoid", "Medial deltoid"], muscles_secondary: ["Triceps brachii", "Upper trapezius", "Serratus anterior"],
+    tip: "If you can't press overhead without arching your lower back significantly, your thoracic mobility needs work — start with lighter weight and build the range."
+  },
+  "Chest-Supported Row": {
+    overview: "The chest-supported row uses a bench to brace your chest, eliminating momentum and isolating the upper back. Excellent for targeting the mid-back with strict form that most free-standing rows can't achieve.",
+    steps: [], cues: ["Chest stays in contact with the bench throughout", "Lead with your elbows, not your hands", "Squeeze your shoulder blades together at the top", "Full extension at the bottom — feel the stretch", "No rocking or using the hips"],
+    muscles_primary: ["Rhomboids", "Trapezius (mid)", "Rear deltoid"], muscles_secondary: ["Latissimus dorsi", "Biceps", "Teres major"],
+    tip: "The chest-supported row is honest — you can't use momentum. If you have to, the weight is too heavy."
+  },
+  "Arnold Press": {
+    overview: "The Arnold press combines a rotation with an overhead press, training the anterior, medial, and posterior deltoid across the full range of motion. One of the most complete shoulder exercises available.",
+    steps: [], cues: ["Start with palms facing you at chin height", "Rotate palms outward as you press", "Full rotation before you reach full extension", "Control the rotation on the way down too", "Slow and deliberate beats fast and sloppy"],
+    muscles_primary: ["Anterior deltoid", "Medial deltoid"], muscles_secondary: ["Posterior deltoid", "Triceps brachii", "Upper trapezius"],
+    tip: "Invented by Arnold Schwarzenegger to hit all three heads of the deltoid in one movement. Keep it lighter than your standard press — the rotation adds significant demand."
+  },
+  "KB Thruster": {
+    overview: "The kettlebell thruster combines a front squat and an overhead press into one fluid explosive movement. One of the most metabolically demanding exercises available — it trains the legs, shoulders, and core simultaneously.",
+    steps: [], cues: ["Clean the bells to the rack position before starting", "Full squat depth — thighs parallel or below", "Drive from the bottom of the squat straight into the press", "The leg drive powers the press — use it", "Bells stay in front rack throughout the squat"],
+    muscles_primary: ["Quadriceps", "Glutes", "Anterior deltoid"], muscles_secondary: ["Core", "Triceps", "Hamstrings"],
+    tip: "The transition from squat to press should be seamless — the squat generates the momentum that drives the press. If you're stopping at the top of the squat before pressing, you're working harder than you need to."
+  },
+  "DB Thruster": {
+    overview: "The dumbbell thruster is a squat-to-press combination that trains the full body with high intensity. Slightly more accessible than the barbell version and excellent for conditioning blocks.",
+    steps: [], cues: ["Dumbbells at shoulder height, elbows forward", "Full depth squat before the press", "Drive through the heels and use leg momentum into the press", "Lock out overhead at the top", "Control the descent — don't crash into the bottom"],
+    muscles_primary: ["Quadriceps", "Glutes", "Shoulders"], muscles_secondary: ["Core", "Triceps", "Hamstrings"],
+    tip: "If your thrusters look like a quarter-squat to press, you're missing most of the benefit. Depth is non-negotiable."
+  },
+  "KB Farmer Carry": {
+    overview: "The farmer carry is brutally simple and brutally effective. Walking with heavy loads builds grip strength, core stability, and postural endurance — qualities that transfer to every other lift.",
+    steps: [], cues: ["Stand tall — don't lean to one side", "Shoulders packed down and back", "Short, controlled steps — don't rush", "Core braced the entire way", "Let the weight hang — don't bend your elbows"],
+    muscles_primary: ["Core", "Trapezius", "Grip"], muscles_secondary: ["Glutes", "Quadriceps", "Erector spinae"],
+    tip: "Go heavier than you think. Most people underload farmer carries. If you're not being challenged at 10 metres, add weight."
+  },
+  "Bear Crawl": {
+    overview: "The bear crawl is a ground-based full body conditioning exercise that trains contralateral coordination, core stability, and shoulder endurance. Deceptively hard when done correctly at speed.",
+    steps: [], cues: ["Knees hover one inch off the floor throughout", "Opposite hand and foot move together", "Keep your back flat — don't let your hips rise", "Slow is controlled; fast is conditioning", "Eyes down to keep a neutral neck"],
+    muscles_primary: ["Core", "Anterior deltoid", "Quadriceps"], muscles_secondary: ["Triceps", "Glutes", "Hip flexors"],
+    tip: "The hover is what makes it hard. Most people let their knees rest on the floor and lose the core demand entirely."
+  },
+  "Barbell Floor Press": {
+    overview: "The barbell floor press is a press variation where the upper arms contact the floor at the bottom, eliminating leg drive and limiting range of motion. Excellent for building lockout strength and working around shoulder discomfort.",
+    steps: [], cues: ["Upper arms rest on the floor at the bottom — pause there", "No leg drive — this is pure upper body pressing", "Grip slightly narrower than your bench press", "Press straight up, not back toward your face", "Control the descent until your triceps touch down"],
+    muscles_primary: ["Pectoralis major", "Triceps brachii"], muscles_secondary: ["Anterior deltoid", "Forearms"],
+    tip: "The floor press is honest about your tricep strength — if that's your weak point in the bench, the floor press will expose and fix it."
   }
 };
 
-const A_PUSH_ALL = ["Barbell Bench Press","Incline Barbell Press","Incline DB Press","Flat DB Press","Overhead Press","Close Grip Bench Press","Dips (Weighted)","Push Press","Z Press"];
-const A_PULL_ALL = ["Barbell Row","Weighted Pull-Up","Weighted Chin-Up","Pendlay Row","DB Row","Cable Row","T-Bar Row","Lat Pulldown"];
-const B_WEIGHTED_ALL = ["DB Push Press","KB Swings","KB Clean to Press","KB Gorilla Row","Single Arm KB Snatch","KB Windmill","Tall Kneeling Press"];
-const B_HR_ALL = ["Box Jumps","Burpees","Tuck Jumps","Broad Jumps","Jump Squats","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds"];
+const A_PUSH_ALL = ["Barbell Bench Press","Incline Barbell Press","Incline DB Press","Flat DB Press","Overhead Press","Close Grip Bench Press","Dips (Weighted)","Push Press","Z Press","DB Shoulder Press","Arnold Press","Barbell Floor Press"];
+const A_PULL_ALL = ["Barbell Row","Weighted Pull-Up","Weighted Chin-Up","Pendlay Row","DB Row","Cable Row","T-Bar Row","Lat Pulldown","Face Pull","Barbell Deadlift","Chest-Supported Row","DB Romanian Deadlift"];
+const B_WEIGHTED_ALL = ["DB Push Press","KB Swings","KB Clean to Press","KB Gorilla Row","Single Arm KB Snatch","KB Windmill","Tall Kneeling Press","KB Thruster","DB Thruster","KB Farmer Carry"];
+const B_HR_ALL = ["Box Jumps","Burpees","Tuck Jumps","Broad Jumps","Jump Squats","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Bear Crawl"];
 const B_CARDIO_ALL = ["Ski Erg","Rowing Machine","Assault Bike","Bike Erg","Shuttle Runs","Sled Push"];
 
 // Level: beginner excludes advanced movements, advanced excludes beginner ones
-const ADVANCED = ["Z Press","Pendlay Row","Single Arm KB Snatch","KB Windmill","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Death By Reps","The Pyramid"];
-const BEGINNER = ["Lat Pulldown","DB Row","Incline DB Press","Flat DB Press","Box Jumps","Jump Squats","Rowing Machine","Bike Erg"];
+const ADVANCED = ["Z Press","Pendlay Row","Single Arm KB Snatch","KB Windmill","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Death By Reps","The Pyramid","Arnold Press","KB Thruster","Barbell Deadlift","Bear Crawl"];
+const BEGINNER = ["Lat Pulldown","DB Row","Incline DB Press","Flat DB Press","Box Jumps","Jump Squats","Rowing Machine","Bike Erg","DB Shoulder Press","DB Romanian Deadlift","DB Thruster","Chest-Supported Row","Barbell Floor Press"];
 
 // Muscle group mappings — each exercise maps to one or more high-level groups
 const MUSCLE_MAP = {
@@ -550,6 +655,17 @@ const MUSCLE_MAP = {
   "Plyo Push-Ups":          ["chest"],
   "Battle Rope Slams":      ["back","full"],
   "Lateral Bounds":         ["legs"],
+  "Barbell Deadlift":       ["legs","back","full"],
+  "DB Romanian Deadlift":   ["legs"],
+  "Face Pull":              ["back","shoulders"],
+  "DB Shoulder Press":      ["shoulders"],
+  "Chest-Supported Row":    ["back"],
+  "Arnold Press":           ["shoulders"],
+  "KB Thruster":            ["legs","shoulders","full"],
+  "DB Thruster":            ["legs","shoulders","full"],
+  "KB Farmer Carry":        ["core","full"],
+  "Bear Crawl":             ["core","full"],
+  "Barbell Floor Press":    ["chest"],
   "Ski Erg":                ["back","full"],
   "Rowing Machine":         ["back","full"],
   "Assault Bike":           ["full"],
@@ -557,46 +673,6 @@ const MUSCLE_MAP = {
   "Shuttle Runs":           ["legs","full"],
   "Sled Push":              ["legs","full"]
 };
-
-function filterBySettings(arr) {
-  const level = document.querySelector('.chip.active[data-group="level"]')?.dataset.val || "any";
-  const muscles = [...document.querySelectorAll('.chip.active[data-group="muscle"]')].map(c => c.dataset.val);
-  const allMuscles = muscles.includes('all');
-
-  return arr.filter(ex => {
-    // Level filter
-    if (level === 'beginner' && ADVANCED.includes(ex)) return false;
-    if (level === 'advanced' && BEGINNER.includes(ex)) return false;
-    // Muscle filter
-    if (!allMuscles) {
-      const exMuscles = MUSCLE_MAP[ex] || [];
-      if (!muscles.some(m => exMuscles.includes(m))) return false;
-    }
-    return true;
-  });
-}
-
-function getSettings() {
-  return {
-    duration: document.querySelector('.chip.active[data-group="duration"]')?.dataset.val || "30"
-  };
-}
-
-function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-function pickExcluding(arr, ex) { const f = arr.filter(x => !ex.includes(x)); return f.length ? pick(f) : pick(arr); }
-function getActiveAMoves() { return ['aR1','aR2'].map(id => reelData[id]).filter(Boolean); }
-
-function isBlockAllLocked(block) {
-  if (block === 'A') return locked['aR1'] && locked['aR2'] && fmtLocked['aFmt'];
-  if (block === 'B') return locked['bR1'] && locked['bR2'] && locked['bR3'] && fmtLocked['bFmt'];
-}
-
-function updateSpinBtnState(block) {
-  const btnId = block === 'A' ? 'spinA' : 'spinB';
-  const btn = document.getElementById(btnId);
-  if (isBlockAllLocked(block)) btn.classList.add('all-locked');
-  else btn.classList.remove('all-locked');
-}
 
 // Duration: single select. Level: single select. Muscle: multi-select with All toggle
 document.querySelectorAll('.chip').forEach(chip => {
@@ -610,7 +686,6 @@ document.querySelectorAll('.chip').forEach(chip => {
       } else {
         document.querySelector('.chip[data-group="muscle"][data-val="all"]').classList.remove('active');
         chip.classList.toggle('active');
-        // If nothing selected, fall back to All
         const anyActive = document.querySelectorAll('.chip.active[data-group="muscle"]').length > 0;
         if (!anyActive) document.querySelector('.chip[data-group="muscle"][data-val="all"]').classList.add('active');
       }
@@ -678,9 +753,25 @@ function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 function pickExcluding(arr, ex) { const f = arr.filter(x => !ex.includes(x)); return f.length ? pick(f) : pick(arr); }
 function getActiveAMoves() { return ['aR1','aR2'].map(id => reelData[id]).filter(Boolean); }
 
+function filterBySettings(arr) {
+  const level = document.querySelector('.chip.active[data-group="level"]')?.dataset.val || "any";
+  const muscles = [...document.querySelectorAll('.chip.active[data-group="muscle"]')].map(c => c.dataset.val);
+  const allMuscles = muscles.includes('all');
+  return arr.filter(ex => {
+    if (level === 'beginner' && ADVANCED.includes(ex)) return false;
+    if (level === 'advanced' && BEGINNER.includes(ex)) return false;
+    if (!allMuscles) {
+      const exMuscles = MUSCLE_MAP[ex] || [];
+      if (!muscles.some(m => exMuscles.includes(m))) return false;
+    }
+    return true;
+  });
+}
+
 function isBlockAllLocked(block) {
-  if (block === 'A') return locked['aR1'] && locked['aR2'] && fmtLocked['aFmt'];
-  if (block === 'B') return locked['bR1'] && locked['bR2'] && locked['bR3'] && fmtLocked['bFmt'];
+  if (block === 'A') return !!(locked['aR1'] && locked['aR2'] && fmtLocked['aFmt']);
+  if (block === 'B') return !!(locked['bR1'] && locked['bR2'] && locked['bR3'] && fmtLocked['bFmt']);
+  return false;
 }
 
 function updateSpinBtnState(block) {
@@ -710,11 +801,13 @@ function startSpinBtn(btnId) {
   const btn = document.getElementById(btnId);
   btn.classList.add('spinning');
   btn.disabled = true;
+  btn.querySelector('.spin-label').textContent = 'Shuffling';
 }
 function stopSpinBtn(btnId) {
   const btn = document.getElementById(btnId);
   btn.classList.remove('spinning');
   btn.disabled = false;
+  btn.querySelector('.spin-label').textContent = 'Shuffle';
 }
 
 function spinFmt(nameId, descId, fmt) {
@@ -839,41 +932,47 @@ async function openInfo(id) {
 
   const g = GUIDES[name];
 
+  // Timeout helper — prevents spinner hanging indefinitely
+  const withTimeout = (promise, ms) => Promise.race([promise, new Promise(r => setTimeout(() => r(null), ms))]);
+
   const [apiData, ytId] = await Promise.all([
-    (async () => {
+    withTimeout((async () => {
       if (apiCache[name]) return apiCache[name];
       try {
         const res = await fetch(`/.netlify/functions/exercise?name=${encodeURIComponent(name.toLowerCase())}`);
         if (res.ok) { const d = await res.json(); if (d) { apiCache[name] = d; return d; } }
       } catch(e) {}
       return null;
-    })(),
-    (async () => {
+    })(), 5000),
+    withTimeout((async () => {
       if (ytCache[name]) return ytCache[name];
       try {
-        // Pass the exercise name directly — the serverless function handles query building
-        // Keep KB/DB/Barbell prefixes so the right equipment shows in results
         const res = await fetch(`/.netlify/functions/youtube?q=${encodeURIComponent(name)}`);
         if (res.ok) { const d = await res.json(); if (d?.id) { ytCache[name] = d.id; return d.id; } }
       } catch(e) {}
       return null;
-    })()
+    })(), 5000)
   ]);
 
   const videoHtml = ytId
     ? `<div class="video-wrap"><iframe src="https://www.youtube.com/embed/${ytId}?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe></div>`
-    : `<div class="video-wrap"><div class="video-err">No video found for this movement</div></div>`;
+    : ``;  // Silently omit video section if none found — guide data is sufficient
 
-  const overviewText = apiData?.description || g?.overview || '';
+  const overviewText = apiData?.description || g?.overview || 'No guide available for this exercise.';
   const diffHtml = apiData?.difficulty ? `<span class="diff-badge diff-${apiData.difficulty}">${apiData.difficulty}</span>` : '';
 
   const instructionsHtml = apiData?.instructions?.length
     ? `<div class="guide-section"><div class="guide-section-title">Instructions</div><ol class="steps-ol">${apiData.instructions.map(s=>`<li>${s}</li>`).join('')}</ol></div>` : '';
 
-  const musclesHtml = `<div class="guide-section"><div class="guide-section-title">Muscles</div><div class="muscles-row">
-    ${apiData?.target ? `<span class="muscle-tag primary">${apiData.target}</span>` : g?.muscles_primary?.map(m=>`<span class="muscle-tag primary">${m}</span>`).join('') || ''}
-    ${apiData?.secondaryMuscles?.map(m=>`<span class="muscle-tag">${m}</span>`).join('') || g?.muscles_secondary?.map(m=>`<span class="muscle-tag">${m}</span>`).join('') || ''}
-  </div></div>`;
+  const primaryMuscles = apiData?.target
+    ? `<span class="muscle-tag primary">${apiData.target}</span>`
+    : (g?.muscles_primary?.map(m=>`<span class="muscle-tag primary">${m}</span>`).join('') || '');
+  const secondaryMuscles = apiData?.secondaryMuscles?.length
+    ? apiData.secondaryMuscles.map(m=>`<span class="muscle-tag">${m}</span>`).join('')
+    : (g?.muscles_secondary?.map(m=>`<span class="muscle-tag">${m}</span>`).join('') || '');
+  const musclesHtml = (primaryMuscles || secondaryMuscles)
+    ? `<div class="guide-section"><div class="guide-section-title">Muscles</div><div class="muscles-row">${primaryMuscles}${secondaryMuscles}</div></div>`
+    : '';
 
   const cuesHtml = g?.cues?.length
     ? `<div class="guide-section"><div class="guide-section-title">Coaching cues</div><ul class="cues-list">${g.cues.map(c=>`<li>${c}</li>`).join('')}</ul></div>` : '';
@@ -893,14 +992,11 @@ function checkShowExport() {
   const aReady = !!(reelData['aR1'] && reelData['aR2']);
   const bReady = !!(reelData['bR1'] && reelData['bR2'] && reelData['bR3']);
   const bothReady = aReady && bReady;
-
   const btn = document.getElementById('exportBtn');
-  const hint = document.getElementById('exportHint');
   const wasReady = btn.classList.contains('ready');
-
   if (bothReady) {
     btn.classList.add('ready');
-    hint.classList.add('hidden');
+    btn.disabled = false;
     if (!wasReady) {
       btn.classList.remove('pulse');
       void btn.offsetWidth;
@@ -908,14 +1004,7 @@ function checkShowExport() {
     }
   } else {
     btn.classList.remove('ready');
-    hint.classList.remove('hidden');
-    if (!aReady && !bReady) {
-      hint.textContent = 'Spin both blocks first';
-    } else if (!aReady) {
-      hint.textContent = 'Spin Block A first';
-    } else {
-      hint.textContent = 'Spin Block B first';
-    }
+    btn.disabled = true;
   }
 }
 
@@ -955,46 +1044,84 @@ ${bFmtDesc}
 
 ━━━━━━━━━━━━━━━━━━
 Generated by Workout Generator
-cool-frangollo-99fd56.netlify.app`;
+${window.location.hostname}`;
 
+  const btn = document.getElementById('exportBtn');
+
+  // Try native share first (iOS share sheet → Notes, Messages, etc.)
   if (navigator.share) {
-    navigator.share({ title: `Workout — ${date}`, text }).catch(() => fallbackCopy(text));
+    navigator.share({ title: `Workout — ${date}`, text })
+      .then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '✓ Shared';
+        setTimeout(() => { btn.innerHTML = orig; }, 2000);
+      })
+      .catch((err) => {
+        // User dismissed share sheet or share failed — fall back to copy
+        if (err.name !== 'AbortError') fallbackCopy(text, btn);
+      });
   } else {
-    fallbackCopy(text);
+    fallbackCopy(text, btn);
   }
 }
 
-function fallbackCopy(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.querySelector('.export-btn');
-    const orig = btn.innerHTML;
+function fallbackCopy(text, btn) {
+  if (!btn) btn = document.getElementById('exportBtn');
+  const orig = btn.innerHTML;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        btn.innerHTML = '✓ Copied to clipboard';
+        setTimeout(() => { btn.innerHTML = orig; }, 2000);
+      })
+      .catch(() => legacyCopy(text, btn, orig));
+  } else {
+    legacyCopy(text, btn, orig);
+  }
+}
+
+function legacyCopy(text, btn, orig) {
+  // Fallback for older browsers — create a textarea, select and copy
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try {
+    document.execCommand('copy');
     btn.innerHTML = '✓ Copied to clipboard';
-    btn.style.borderColor = 'var(--teal)';
     setTimeout(() => { btn.innerHTML = orig; }, 2000);
-  });
+  } catch(e) {
+    btn.innerHTML = '⚠ Copy failed — try again';
+    setTimeout(() => { btn.innerHTML = orig; }, 2500);
+  }
+  document.body.removeChild(ta);
 }
 
 function closeModal() {
   const modal = document.getElementById('modalInner');
   const wrap = document.getElementById('modalWrap');
-  modal.style.transition = 'transform 0.3s ease';
+  modal.style.transition = 'transform 0.35s cubic-bezier(0.32, 0.72, 0, 1)';
   modal.style.transform = 'translateY(100%)';
   setTimeout(() => {
     wrap.classList.remove('open');
     modal.style.transition = '';
     modal.style.transform = '';
-  }, 280);
+  }, 320);
 }
 function closeModalOutside(e) { if (e.target === document.getElementById('modalWrap')) closeModal(); }
 
 // Drag-to-dismiss — follows finger, snaps closed or back
 (function() {
-  let startY = 0, currentY = 0, dragging = false;
+  let startY = 0, currentY = 0, startTime = 0, dragging = false;
   const modal = document.getElementById('modalInner');
 
   modal.addEventListener('touchstart', (e) => {
     startY = e.touches[0].clientY;
     currentY = startY;
+    startTime = Date.now();
     dragging = modal.scrollTop <= 0;
     modal.style.transition = 'none';
   }, { passive: true });
@@ -1004,7 +1131,8 @@ function closeModalOutside(e) { if (e.target === document.getElementById('modalW
     const delta = currentY - startY;
     if (dragging && delta > 0) {
       e.preventDefault();
-      modal.style.transform = `translateY(${delta}px)`;
+      // Rubber-band resistance — feels native
+      modal.style.transform = `translateY(${delta * 0.92}px)`;
     } else if (modal.scrollTop <= 0 && delta > 0) {
       dragging = true;
       e.preventDefault();
@@ -1013,12 +1141,15 @@ function closeModalOutside(e) { if (e.target === document.getElementById('modalW
 
   modal.addEventListener('touchend', () => {
     const delta = currentY - startY;
-    if (dragging && delta > 80) {
+    const elapsed = Date.now() - startTime;
+    const velocity = delta / elapsed; // px/ms
+    // Close if dragged far enough OR flicked quickly downward
+    if (dragging && (delta > 80 || velocity > 0.5)) {
       closeModal();
     } else {
-      modal.style.transition = 'transform 0.25s ease';
+      modal.style.transition = 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
       modal.style.transform = 'translateY(0)';
-      setTimeout(() => { modal.style.transition = ''; }, 250);
+      setTimeout(() => { modal.style.transition = ''; }, 300);
     }
     dragging = false;
   }, { passive: true });
