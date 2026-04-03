@@ -1,16 +1,31 @@
 exports.handler = async (event) => {
   const raw = (event.queryStringParameters.q || '').trim();
 
-  const cleaned = raw
-    .replace(/\(.*?\)/g, '')
-    .replace(/^(KB|DB|Barbell|Dumbbell|Kettlebell)\s+/i, '')
-    .trim();
+  // Detect equipment prefix to keep it in the search
+  const equipmentPrefixes = {
+    'KB': 'kettlebell',
+    'DB': 'dumbbell',
+    'Barbell': 'barbell',
+    'Cable': 'cable'
+  };
+
+  let equipmentHint = '';
+  for (const [short, long] of Object.entries(equipmentPrefixes)) {
+    if (raw.startsWith(short + ' ') || raw.toLowerCase().includes(long)) {
+      equipmentHint = long;
+      break;
+    }
+  }
+
+  // Build queries — always include equipment hint if detected
+  const base = raw.replace(/\(.*?\)/g, '').trim();
+  const withEquip = equipmentHint ? `${base} ${equipmentHint}` : base;
 
   const attempts = [
-    { q: `${cleaned} how to form`, duration: 'short' },
-    { q: `${cleaned} tutorial`, duration: 'short' },
-    { q: `${cleaned} exercise`, duration: 'medium' },
-    { q: raw, duration: 'any' }
+    { q: `${withEquip} how to form`, duration: 'short' },
+    { q: `${withEquip} tutorial`, duration: 'short' },
+    { q: `${withEquip} exercise`, duration: 'medium' },
+    { q: withEquip, duration: 'any' }
   ];
 
   for (const attempt of attempts) {
@@ -25,7 +40,7 @@ exports.handler = async (event) => {
 
     const items = (data.items || []).filter(item => {
       const title = item.snippet.title.toLowerCase();
-      const skip = ['reaction', 'vlog', 'compilation', 'funny', 'fails', 'vs'];
+      const skip = ['reaction', 'vlog', 'compilation', 'funny', 'fails'];
       return !skip.some(t => title.includes(t));
     });
 

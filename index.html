@@ -49,17 +49,21 @@
   .reel-val.spinning { animation: tick 0.09s linear infinite; }
   @keyframes tick { 0%{opacity:1;transform:translateY(0)} 50%{opacity:0.25;transform:translateY(-3px)} 100%{opacity:1;transform:translateY(0)} }
 
-  .info-dot { position: absolute; top: 5px; right: 6px; width: 17px; height: 17px; font-size: 10px; font-weight: 500; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; color: rgba(255,255,255,0.35); display: none; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; }
+  .info-dot { position: absolute; top: 4px; right: 5px; width: 20px; height: 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; color: rgba(255,255,255,0.3); display: none; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; padding: 0; }
+  .info-dot svg { width: 11px; height: 11px; }
   .info-dot:hover { background: var(--bg3); color: var(--text2); border-color: var(--border2); }
   .reel.locked .info-dot { background: var(--teal-bg); border-color: var(--teal); color: var(--teal-text); }
 
   .lock-icon { position: absolute; top: 5px; left: 6px; font-size: 11px; display: none; line-height: 1; pointer-events: none; }
   .reel.locked .lock-icon { display: block; }
+  .reel.has-value:not(.locked):hover { border-color: var(--teal); }
+  .reel:not(.has-value) { pointer-events: none; }
   .lock-strip { padding: 0 16px 8px; text-align: center; font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 0.3px; }
 
   .b-format-row { padding: 0 16px 12px; }
-  .b-fmt-box { background: var(--fmt-bg); border: 1px solid var(--fmt-border); border-radius: var(--radius-sm); padding: 10px 14px; cursor: pointer; transition: border-color 0.15s; position: relative; }
-  .b-fmt-box:hover { border-color: rgba(255,255,255,0.28); }
+  .b-fmt-box { background: var(--fmt-bg); border: 1px solid var(--fmt-border); border-radius: var(--radius-sm); padding: 10px 14px; transition: border-color 0.15s; position: relative; }
+  .b-fmt-box.has-value { cursor: pointer; }
+  .b-fmt-box.has-value:hover { border-color: rgba(255,255,255,0.28); }
   .b-fmt-box.locked { border-color: var(--teal); background: var(--teal-bg); }
   .b-fmt-box.locked .b-fmt-lbl { color: var(--teal-text); opacity: 0.7; }
   .b-fmt-box.locked .b-fmt-name { color: var(--teal-text); }
@@ -143,27 +147,31 @@
     <div class="inputs-row">
       <div class="input-group">
         <span class="input-label">Duration</span>
-        <div class="chip-group" id="durationGroup">
+        <div class="chip-group">
           <div class="chip" data-group="duration" data-val="20">20–30</div>
           <div class="chip active" data-group="duration" data-val="30">30–45</div>
           <div class="chip" data-group="duration" data-val="45">45–60</div>
         </div>
       </div>
       <div class="input-group">
-        <span class="input-label">Intensity</span>
-        <div class="chip-group" id="intensityGroup">
-          <div class="chip" data-group="intensity" data-val="moderate">Moderate</div>
-          <div class="chip active" data-group="intensity" data-val="high">High</div>
-          <div class="chip" data-group="intensity" data-val="max">Max</div>
+        <span class="input-label">Level</span>
+        <div class="chip-group">
+          <div class="chip active" data-group="level" data-val="any">Any</div>
+          <div class="chip" data-group="level" data-val="beginner">Beginner</div>
+          <div class="chip" data-group="level" data-val="advanced">Advanced</div>
         </div>
       </div>
-      <div class="input-group">
-        <span class="input-label">Focus</span>
-        <div class="chip-group" id="focusGroup">
-          <div class="chip active" data-group="focus" data-val="strength">Strength</div>
-          <div class="chip" data-group="focus" data-val="conditioning">Conditioning</div>
-          <div class="chip" data-group="focus" data-val="mixed">Mixed</div>
-        </div>
+    </div>
+    <div style="margin-top:12px;">
+      <span class="input-label">Muscle groups</span>
+      <div class="chip-group">
+        <div class="chip active" data-group="muscle" data-val="all">All</div>
+        <div class="chip" data-group="muscle" data-val="chest">Chest</div>
+        <div class="chip" data-group="muscle" data-val="back">Back</div>
+        <div class="chip" data-group="muscle" data-val="shoulders">Shoulders</div>
+        <div class="chip" data-group="muscle" data-val="legs">Legs</div>
+        <div class="chip" data-group="muscle" data-val="core">Core</div>
+        <div class="chip" data-group="muscle" data-val="full">Full Body</div>
       </div>
     </div>
   </div>
@@ -174,13 +182,13 @@
     </div>
     <div class="reels">
       <div class="reel" id="aR1" onclick="handleReelClick('aR1')">
-        <button class="info-dot" id="aR1dot" onclick="event.stopPropagation();openInfo('aR1')">i</button>
+        <button class="info-dot" id="aR1dot" onclick="event.stopPropagation();openInfo('aR1')"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6" r="5.5" stroke="currentColor"/><path d="M6 5.5v3M6 3.5h.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
         <span class="lock-icon">🔒</span>
         <div class="reel-tag">Push</div>
         <div class="reel-val" id="aR1v">—</div>
       </div>
       <div class="reel" id="aR2" onclick="handleReelClick('aR2')">
-        <button class="info-dot" id="aR2dot" onclick="event.stopPropagation();openInfo('aR2')">i</button>
+        <button class="info-dot" id="aR2dot" onclick="event.stopPropagation();openInfo('aR2')"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6" r="5.5" stroke="currentColor"/><path d="M6 5.5v3M6 3.5h.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
         <span class="lock-icon">🔒</span>
         <div class="reel-tag">Pull</div>
         <div class="reel-val" id="aR2v">—</div>
@@ -204,19 +212,19 @@
     </div>
     <div class="reels">
       <div class="reel" id="bR1" onclick="handleReelClick('bR1')">
-        <button class="info-dot" id="bR1dot" onclick="event.stopPropagation();openInfo('bR1')">i</button>
+        <button class="info-dot" id="bR1dot" onclick="event.stopPropagation();openInfo('bR1')"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6" r="5.5" stroke="currentColor"/><path d="M6 5.5v3M6 3.5h.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
         <span class="lock-icon">🔒</span>
         <div class="reel-tag">Weighted</div>
         <div class="reel-val" id="bR1v">—</div>
       </div>
       <div class="reel" id="bR2" onclick="handleReelClick('bR2')">
-        <button class="info-dot" id="bR2dot" onclick="event.stopPropagation();openInfo('bR2')">i</button>
+        <button class="info-dot" id="bR2dot" onclick="event.stopPropagation();openInfo('bR2')"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6" r="5.5" stroke="currentColor"/><path d="M6 5.5v3M6 3.5h.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
         <span class="lock-icon">🔒</span>
         <div class="reel-tag">HR Spike</div>
         <div class="reel-val" id="bR2v">—</div>
       </div>
       <div class="reel" id="bR3" onclick="handleReelClick('bR3')">
-        <button class="info-dot" id="bR3dot" onclick="event.stopPropagation();openInfo('bR3')">i</button>
+        <button class="info-dot" id="bR3dot" onclick="event.stopPropagation();openInfo('bR3')"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6" r="5.5" stroke="currentColor"/><path d="M6 5.5v3M6 3.5h.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
         <span class="lock-icon">🔒</span>
         <div class="reel-tag">Cardio</div>
         <div class="reel-val" id="bR3v">—</div>
@@ -241,7 +249,6 @@
     <div class="modal-handle"></div>
     <div class="modal-head">
       <div>
-        <div class="modal-tag">Movement Guide</div>
         <div class="modal-title" id="mTitle">—</div>
       </div>
       <button class="close-btn" onclick="closeModal()">✕</button>
@@ -488,6 +495,115 @@ const B_WEIGHTED_ALL = ["DB Push Press","KB Swings","KB Clean to Press","KB Gori
 const B_HR_ALL = ["Box Jumps","Burpees","Tuck Jumps","Broad Jumps","Jump Squats","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds"];
 const B_CARDIO_ALL = ["Ski Erg","Rowing Machine","Assault Bike","Bike Erg","Shuttle Runs","Sled Push"];
 
+// Level: beginner excludes advanced movements, advanced excludes beginner ones
+const ADVANCED = ["Z Press","Pendlay Row","Single Arm KB Snatch","KB Windmill","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Death By Reps","The Pyramid"];
+const BEGINNER = ["Lat Pulldown","DB Row","Incline DB Press","Flat DB Press","Box Jumps","Jump Squats","Rowing Machine","Bike Erg"];
+
+// Muscle group mappings — each exercise maps to one or more high-level groups
+const MUSCLE_MAP = {
+  "Barbell Bench Press":    ["chest"],
+  "Incline Barbell Press":  ["chest","shoulders"],
+  "Incline DB Press":       ["chest","shoulders"],
+  "Flat DB Press":          ["chest"],
+  "Overhead Press":         ["shoulders"],
+  "Close Grip Bench Press": ["chest"],
+  "Dips (Weighted)":        ["chest"],
+  "Push Press":             ["shoulders","legs"],
+  "Z Press":                ["shoulders","core"],
+  "Barbell Row":            ["back"],
+  "Weighted Pull-Up":       ["back"],
+  "Weighted Chin-Up":       ["back"],
+  "Pendlay Row":            ["back"],
+  "DB Row":                 ["back"],
+  "Cable Row":              ["back"],
+  "T-Bar Row":              ["back"],
+  "Lat Pulldown":           ["back"],
+  "DB Push Press":          ["shoulders","full"],
+  "KB Swings":              ["legs","full"],
+  "KB Clean to Press":      ["shoulders","full"],
+  "KB Gorilla Row":         ["back","full"],
+  "Single Arm KB Snatch":   ["full"],
+  "KB Windmill":            ["core","shoulders"],
+  "Tall Kneeling Press":    ["shoulders","core"],
+  "Box Jumps":              ["legs"],
+  "Burpees":                ["full"],
+  "Tuck Jumps":             ["legs"],
+  "Broad Jumps":            ["legs"],
+  "Jump Squats":            ["legs"],
+  "Plyo Push-Ups":          ["chest"],
+  "Battle Rope Slams":      ["back","full"],
+  "Lateral Bounds":         ["legs"],
+  "Ski Erg":                ["back","full"],
+  "Rowing Machine":         ["back","full"],
+  "Assault Bike":           ["full"],
+  "Bike Erg":               ["legs"],
+  "Shuttle Runs":           ["legs","full"],
+  "Sled Push":              ["legs","full"]
+};
+
+function filterBySettings(arr) {
+  const level = document.querySelector('.chip.active[data-group="level"]')?.dataset.val || "any";
+  const muscles = [...document.querySelectorAll('.chip.active[data-group="muscle"]')].map(c => c.dataset.val);
+  const allMuscles = muscles.includes('all');
+
+  return arr.filter(ex => {
+    // Level filter
+    if (level === 'beginner' && ADVANCED.includes(ex)) return false;
+    if (level === 'advanced' && BEGINNER.includes(ex)) return false;
+    // Muscle filter
+    if (!allMuscles) {
+      const exMuscles = MUSCLE_MAP[ex] || [];
+      if (!muscles.some(m => exMuscles.includes(m))) return false;
+    }
+    return true;
+  });
+}
+
+function getSettings() {
+  return {
+    duration: document.querySelector('.chip.active[data-group="duration"]')?.dataset.val || "30"
+  };
+}
+
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function pickExcluding(arr, ex) { const f = arr.filter(x => !ex.includes(x)); return f.length ? pick(f) : pick(arr); }
+function getActiveAMoves() { return ['aR1','aR2'].map(id => reelData[id]).filter(Boolean); }
+
+function isBlockAllLocked(block) {
+  if (block === 'A') return locked['aR1'] && locked['aR2'] && fmtLocked['aFmt'];
+  if (block === 'B') return locked['bR1'] && locked['bR2'] && locked['bR3'] && fmtLocked['bFmt'];
+}
+
+function updateSpinBtnState(block) {
+  const btnId = block === 'A' ? 'spinA' : 'spinB';
+  const btn = document.getElementById(btnId);
+  if (isBlockAllLocked(block)) btn.classList.add('all-locked');
+  else btn.classList.remove('all-locked');
+}
+
+// Duration: single select. Level: single select. Muscle: multi-select with All toggle
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const group = chip.dataset.group;
+    if (group === 'muscle') {
+      const val = chip.dataset.val;
+      if (val === 'all') {
+        document.querySelectorAll('.chip[data-group="muscle"]').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+      } else {
+        document.querySelector('.chip[data-group="muscle"][data-val="all"]').classList.remove('active');
+        chip.classList.toggle('active');
+        // If nothing selected, fall back to All
+        const anyActive = document.querySelectorAll('.chip.active[data-group="muscle"]').length > 0;
+        if (!anyActive) document.querySelector('.chip[data-group="muscle"][data-val="all"]').classList.add('active');
+      }
+    } else {
+      document.querySelectorAll(`.chip[data-group="${group}"]`).forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    }
+  });
+});
+
 const AFORMATS_BY = {
   "20": [
     {name:"E2MOM · 4 rounds",desc:"Every 2 minutes, complete both exercises. 4 rounds — keep load moderate, reps at 8. Fast and focused."},
@@ -530,12 +646,6 @@ const B_FORMATS_BY = {
   ]
 };
 
-const INTENSITY_FILTER = {
-  moderate: { maxHR: ["Box Jumps","Jump Squats","Broad Jumps","Lateral Bounds"], removeWeighted: [] },
-  high:     { maxHR: null, removeWeighted: [] },
-  max:      { maxHR: null, removeWeighted: [] }
-};
-
 const locked = {};
 const fmtLocked = {};
 const reelData = {};
@@ -543,9 +653,7 @@ const fmtData = {};
 
 function getSettings() {
   return {
-    duration: document.querySelector('.chip.active[data-group="duration"]')?.dataset.val || "30",
-    intensity: document.querySelector('.chip.active[data-group="intensity"]')?.dataset.val || "high",
-    focus: document.querySelector('.chip.active[data-group="focus"]')?.dataset.val || "strength"
+    duration: document.querySelector('.chip.active[data-group="duration"]')?.dataset.val || "30"
   };
 }
 
@@ -565,16 +673,9 @@ function updateSpinBtnState(block) {
   else btn.classList.remove('all-locked');
 }
 
-document.querySelectorAll('.chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    const group = chip.dataset.group;
-    document.querySelectorAll(`.chip[data-group="${group}"]`).forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-  });
-});
-
 function toggleFmtLock(key) {
   const box = document.getElementById(key === 'aFmt' ? 'aFmtBox' : 'bFmtBox');
+  if (!box.classList.contains('has-value')) return;
   const lbl = box.querySelector('.b-fmt-lbl');
   if (fmtLocked[key]) {
     delete fmtLocked[key];
@@ -632,7 +733,8 @@ function spinReel(id, arr, finalVal, delayMs, cb) {
         el.textContent = finalVal;
         reelData[id] = finalVal;
         const slot = document.getElementById(id);
-        slot.classList.add('pop');
+        slot.classList.add('pop', 'has-value');
+        slot.style.pointerEvents = 'auto';
         setTimeout(() => slot.classList.remove('pop'), 300);
         const dot = document.getElementById(id + 'dot');
         if (dot) dot.style.display = 'flex';
@@ -653,10 +755,16 @@ function spinBlock(block) {
       fmt = pick(fmtPool);
       fmtData['aFmt'] = fmt;
     }
-    spinReel('aR1', A_PUSH_ALL, pick(A_PUSH_ALL), 0);
-    spinReel('aR2', A_PULL_ALL, pick(A_PULL_ALL), 100, () => {
+    const pushPool = filterBySettings(A_PUSH_ALL);
+    const pullPool = filterBySettings(A_PULL_ALL);
+    const pushFinal = pick(pushPool.length ? pushPool : A_PUSH_ALL);
+    const pullFinal = pick(pullPool.length ? pullPool : A_PULL_ALL);
+    spinReel('aR1', pushPool.length ? pushPool : A_PUSH_ALL, pushFinal, 0);
+    spinReel('aR2', pullPool.length ? pullPool : A_PULL_ALL, pullFinal, 100, () => {
       if (!fmtLocked['aFmt']) {
-        document.getElementById('aFmtBox').style.display = 'block';
+        const fmtBox = document.getElementById('aFmtBox');
+        fmtBox.style.display = 'block';
+        fmtBox.classList.add('has-value');
         spinFmt('aFmtName', 'aFmtDesc', fmt);
       }
       stopSpinBtn('spinA');
@@ -671,13 +779,15 @@ function spinBlock(block) {
       fmtData['bFmt'] = fmt;
     }
     const excluded = getActiveAMoves();
-    let hrPool = [...B_HR_ALL];
-    if (s.intensity === 'moderate') hrPool = hrPool.filter(x => INTENSITY_FILTER.moderate.maxHR.includes(x));
-    spinReel('bR1', B_WEIGHTED_ALL, pickExcluding(B_WEIGHTED_ALL, excluded), 0);
-    spinReel('bR2', hrPool, pickExcluding(hrPool, excluded), 100);
+    const weightedPool = filterBySettings(B_WEIGHTED_ALL);
+    const hrPool = filterBySettings(B_HR_ALL);
+    spinReel('bR1', weightedPool.length ? weightedPool : B_WEIGHTED_ALL, pickExcluding(weightedPool.length ? weightedPool : B_WEIGHTED_ALL, excluded), 0);
+    spinReel('bR2', hrPool.length ? hrPool : B_HR_ALL, pickExcluding(hrPool.length ? hrPool : B_HR_ALL, excluded), 100);
     spinReel('bR3', B_CARDIO_ALL, pickExcluding(B_CARDIO_ALL, excluded), 200, () => {
       if (!fmtLocked['bFmt']) {
-        document.getElementById('bFmtBox').style.display = 'block';
+        const fmtBox = document.getElementById('bFmtBox');
+        fmtBox.style.display = 'block';
+        fmtBox.classList.add('has-value');
         spinFmt('bFmtName', 'bFmtDesc', fmt);
       }
       stopSpinBtn('spinB');
@@ -722,7 +832,9 @@ async function openInfo(id) {
     (async () => {
       if (ytCache[name]) return ytCache[name];
       try {
-        const res = await fetch(`/.netlify/functions/youtube?q=${encodeURIComponent(name + ' exercise tutorial')}`);
+        // Pass the exercise name directly — the serverless function handles query building
+        // Keep KB/DB/Barbell prefixes so the right equipment shows in results
+        const res = await fetch(`/.netlify/functions/youtube?q=${encodeURIComponent(name)}`);
         if (res.ok) { const d = await res.json(); if (d?.id) { ytCache[name] = d.id; return d.id; } }
       } catch(e) {}
       return null;
