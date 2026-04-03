@@ -49,8 +49,7 @@
   .reel-val.spinning { animation: tick 0.09s linear infinite; }
   @keyframes tick { 0%{opacity:1;transform:translateY(0)} 50%{opacity:0.25;transform:translateY(-3px)} 100%{opacity:1;transform:translateY(0)} }
 
-  .info-dot { position: absolute; top: 4px; right: 5px; width: 20px; height: 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; color: rgba(255,255,255,0.3); display: none; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; padding: 0; }
-  .info-dot svg { width: 11px; height: 11px; }
+  .info-dot { position: absolute; top: 4px; right: 5px; width: 20px; height: 20px; font-size: 12px; font-weight: 700; font-style: italic; font-family: Georgia, serif; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; color: rgba(255,255,255,0.35); display: none; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; padding: 0; line-height: 1; }
   .info-dot:hover { background: var(--bg3); color: var(--text2); border-color: var(--border2); }
   .reel.locked .info-dot { background: var(--teal-bg); border-color: var(--teal); color: var(--teal-text); }
 
@@ -182,13 +181,13 @@
     </div>
     <div class="reels">
       <div class="reel" id="aR1" onclick="handleReelClick('aR1')">
-        <button class="info-dot" id="aR1dot" onclick="event.stopPropagation();openInfo('aR1')"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6" r="5.5" stroke="currentColor"/><path d="M6 5.5v3M6 3.5h.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
+        <button class="info-dot" id="aR1dot" onclick="event.stopPropagation();openInfo('aR1')">i</button>
         <span class="lock-icon">🔒</span>
         <div class="reel-tag">Push</div>
         <div class="reel-val" id="aR1v">—</div>
       </div>
       <div class="reel" id="aR2" onclick="handleReelClick('aR2')">
-        <button class="info-dot" id="aR2dot" onclick="event.stopPropagation();openInfo('aR2')"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6" r="5.5" stroke="currentColor"/><path d="M6 5.5v3M6 3.5h.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
+        <button class="info-dot" id="aR2dot" onclick="event.stopPropagation();openInfo('aR2')">i</button>
         <span class="lock-icon">🔒</span>
         <div class="reel-tag">Pull</div>
         <div class="reel-val" id="aR2v">—</div>
@@ -212,19 +211,19 @@
     </div>
     <div class="reels">
       <div class="reel" id="bR1" onclick="handleReelClick('bR1')">
-        <button class="info-dot" id="bR1dot" onclick="event.stopPropagation();openInfo('bR1')"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6" r="5.5" stroke="currentColor"/><path d="M6 5.5v3M6 3.5h.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
+        <button class="info-dot" id="bR1dot" onclick="event.stopPropagation();openInfo('bR1')">i</button>
         <span class="lock-icon">🔒</span>
         <div class="reel-tag">Weighted</div>
         <div class="reel-val" id="bR1v">—</div>
       </div>
       <div class="reel" id="bR2" onclick="handleReelClick('bR2')">
-        <button class="info-dot" id="bR2dot" onclick="event.stopPropagation();openInfo('bR2')"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6" r="5.5" stroke="currentColor"/><path d="M6 5.5v3M6 3.5h.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
+        <button class="info-dot" id="bR2dot" onclick="event.stopPropagation();openInfo('bR2')">i</button>
         <span class="lock-icon">🔒</span>
         <div class="reel-tag">HR Spike</div>
         <div class="reel-val" id="bR2v">—</div>
       </div>
       <div class="reel" id="bR3" onclick="handleReelClick('bR3')">
-        <button class="info-dot" id="bR3dot" onclick="event.stopPropagation();openInfo('bR3')"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6" r="5.5" stroke="currentColor"/><path d="M6 5.5v3M6 3.5h.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
+        <button class="info-dot" id="bR3dot" onclick="event.stopPropagation();openInfo('bR3')">i</button>
         <span class="lock-icon">🔒</span>
         <div class="reel-tag">Cardio</div>
         <div class="reel-val" id="bR3v">—</div>
@@ -245,8 +244,8 @@
 </div>
 
 <div class="modal-wrap" id="modalWrap" onclick="closeModalOutside(event)">
-  <div class="modal">
-    <div class="modal-handle"></div>
+  <div class="modal" id="modalInner">
+    <div class="modal-handle" id="modalHandle"></div>
     <div class="modal-head">
       <div>
         <div class="modal-title" id="mTitle">—</div>
@@ -872,6 +871,29 @@ async function openInfo(id) {
 
 function closeModal() { document.getElementById('modalWrap').classList.remove('open'); }
 function closeModalOutside(e) { if (e.target === document.getElementById('modalWrap')) closeModal(); }
+
+// Swipe down to close
+(function() {
+  let startY = 0, startScrollTop = 0;
+  const handle = document.getElementById('modalHandle');
+  const modal = document.getElementById('modalInner');
+
+  function onTouchStart(e) {
+    startY = e.touches[0].clientY;
+    startScrollTop = modal.scrollTop;
+  }
+  function onTouchEnd(e) {
+    const endY = e.changedTouches[0].clientY;
+    const swipedDown = endY - startY > 60;
+    // Only close if we're at the top of the scroll (not mid-content)
+    if (swipedDown && startScrollTop <= 4) closeModal();
+  }
+
+  handle.addEventListener('touchstart', onTouchStart, { passive: true });
+  handle.addEventListener('touchend', onTouchEnd, { passive: true });
+  modal.addEventListener('touchstart', onTouchStart, { passive: true });
+  modal.addEventListener('touchend', onTouchEnd, { passive: true });
+})();
 </script>
 </body>
 </html>
