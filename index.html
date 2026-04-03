@@ -89,8 +89,14 @@
   .modal-head { padding: 14px 20px 12px; border-bottom: 1px solid var(--border2); display: flex; align-items: flex-start; justify-content: space-between; }
   .modal-tag { font-size: 11px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; color: var(--teal); margin-bottom: 3px; }
   .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; color: var(--text); }
-  .close-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text2); padding: 0; line-height: 1; margin-left: 12px; flex-shrink: 0; }
+  .close-btn { background: var(--bg3); border: 1px solid var(--border2); border-radius: 50%; width: 36px; height: 36px; font-size: 18px; cursor: pointer; color: var(--text2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-left: 12px; transition: background 0.15s; }
+  .close-btn:hover { background: var(--fmt-bg); color: var(--text); }
   .modal-body { padding: 18px 20px; }
+  .video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; background: var(--bg3); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 18px; }
+  .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+  .video-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+  .video-spinner { width: 22px; height: 22px; border: 2px solid var(--border2); border-top-color: var(--teal); border-radius: 50%; animation: spin-arrow 0.7s linear infinite; }
+  .video-err { font-size: 12px; color: var(--text2); text-align: center; padding: 2rem 1rem; }
   .guide-overview { font-size: 14px; color: var(--text); line-height: 1.75; margin-bottom: 18px; padding: 12px 14px; background: var(--teal-bg); border-radius: var(--radius-sm); border-left: 3px solid var(--teal); }
   .guide-section { margin-bottom: 18px; }
   .guide-section-title { font-size: 10px; font-weight: 500; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text2); margin-bottom: 9px; }
@@ -103,6 +109,14 @@
   .muscle-tag.primary { background: var(--pink-bg); color: var(--pink-text); border-color: var(--pink); }
   .pro-tip { font-size: 13px; font-style: italic; color: var(--fmt-text); line-height: 1.65; padding: 10px 14px; background: var(--fmt-bg); border-radius: var(--radius-sm); border-left: 2px solid var(--pink); }
   .no-guide { font-size: 13px; color: var(--text2); padding: 1rem 0; }
+  .steps-ol { list-style: none; padding: 0; counter-reset: steps; }
+  .steps-ol li { font-size: 13px; color: var(--text); padding: 10px 0 10px 38px; border-bottom: 1px solid var(--border); position: relative; line-height: 1.6; counter-increment: steps; }
+  .steps-ol li:last-child { border-bottom: none; }
+  .steps-ol li::before { content: counter(steps); position: absolute; left: 0; top: 9px; width: 22px; height: 22px; border-radius: 50%; background: var(--teal); color: #000; font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
+  .diff-badge { display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .diff-beginner { background: var(--teal-bg); color: var(--teal-text); border: 1px solid var(--teal); }
+  .diff-intermediate { background: #2a1f00; color: #fde68a; border: 1px solid #F5B800; }
+  .diff-expert { background: var(--pink-bg); color: var(--pink-text); border: 1px solid var(--pink); }
 </style>
 </head>
 <body>
@@ -654,28 +668,68 @@ function handleReelClick(id) {
   updateSpinBtnState(id.startsWith('a') ? 'A' : 'B');
 }
 
-function openInfo(id) {
+const apiCache = {};
+const ytCache = {};
+
+async function openInfo(id) {
   const name = reelData[id];
   if (!name || name === '—') return;
   document.getElementById('mTitle').textContent = name;
-  const g = GUIDES[name];
-  if (!g) {
-    document.getElementById('mBody').innerHTML = '<p class="no-guide">No guide available for this movement yet.</p>';
-  } else {
-    const allMuscles = [...g.muscles_primary.map(m=>`<span class="muscle-tag primary">${m}</span>`), ...g.muscles_secondary.map(m=>`<span class="muscle-tag">${m}</span>`)].join('');
-    document.getElementById('mBody').innerHTML = `
-      <div class="guide-overview">${g.overview}</div>
-      <div class="guide-section">
-        <div class="guide-section-title">Cues</div>
-        <ul class="cues-list">${g.cues.map(c => `<li>${c}</li>`).join('')}</ul>
-      </div>
-      <div class="guide-section">
-        <div class="guide-section-title">Muscles</div>
-        <div class="muscles-row">${allMuscles}</div>
-      </div>
-      <div class="pro-tip">${g.tip}</div>`;
-  }
+  document.getElementById('mBody').innerHTML = `
+    <div style="text-align:center;padding:2rem 0">
+      <div class="video-spinner" style="margin:0 auto 10px;"></div>
+      <div style="font-size:12px;color:var(--text2)">Loading guide…</div>
+    </div>`;
   document.getElementById('modalWrap').classList.add('open');
+
+  const g = GUIDES[name];
+
+  const [apiData, ytId] = await Promise.all([
+    (async () => {
+      if (apiCache[name]) return apiCache[name];
+      try {
+        const res = await fetch(`/.netlify/functions/exercise?name=${encodeURIComponent(name.toLowerCase())}`);
+        if (res.ok) { const d = await res.json(); if (d) { apiCache[name] = d; return d; } }
+      } catch(e) {}
+      return null;
+    })(),
+    (async () => {
+      if (ytCache[name]) return ytCache[name];
+      try {
+        const res = await fetch(`/.netlify/functions/youtube?q=${encodeURIComponent(name + ' exercise tutorial')}`);
+        if (res.ok) { const d = await res.json(); if (d?.id) { ytCache[name] = d.id; return d.id; } }
+      } catch(e) {}
+      return null;
+    })()
+  ]);
+
+  const videoHtml = ytId
+    ? `<div class="video-wrap"><iframe src="https://www.youtube.com/embed/${ytId}?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe></div>`
+    : `<div class="video-wrap"><div class="video-err">No video found for this movement</div></div>`;
+
+  const overviewText = apiData?.description || g?.overview || '';
+  const diffHtml = apiData?.difficulty ? `<span class="diff-badge diff-${apiData.difficulty}">${apiData.difficulty}</span>` : '';
+
+  const instructionsHtml = apiData?.instructions?.length
+    ? `<div class="guide-section"><div class="guide-section-title">Instructions</div><ol class="steps-ol">${apiData.instructions.map(s=>`<li>${s}</li>`).join('')}</ol></div>` : '';
+
+  const musclesHtml = `<div class="guide-section"><div class="guide-section-title">Muscles</div><div class="muscles-row">
+    ${apiData?.target ? `<span class="muscle-tag primary">${apiData.target}</span>` : g?.muscles_primary?.map(m=>`<span class="muscle-tag primary">${m}</span>`).join('') || ''}
+    ${apiData?.secondaryMuscles?.map(m=>`<span class="muscle-tag">${m}</span>`).join('') || g?.muscles_secondary?.map(m=>`<span class="muscle-tag">${m}</span>`).join('') || ''}
+  </div></div>`;
+
+  const cuesHtml = g?.cues?.length
+    ? `<div class="guide-section"><div class="guide-section-title">Coaching cues</div><ul class="cues-list">${g.cues.map(c=>`<li>${c}</li>`).join('')}</ul></div>` : '';
+
+  const tipHtml = g?.tip ? `<div class="pro-tip">${g.tip}</div>` : '';
+
+  document.getElementById('mBody').innerHTML = `
+    ${videoHtml}
+    <div class="guide-overview">${diffHtml}${overviewText}</div>
+    ${instructionsHtml}
+    ${cuesHtml}
+    ${musclesHtml}
+    ${tipHtml}`;
 }
 
 function closeModal() { document.getElementById('modalWrap').classList.remove('open'); }
