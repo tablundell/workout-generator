@@ -872,27 +872,31 @@ async function openInfo(id) {
 function closeModal() { document.getElementById('modalWrap').classList.remove('open'); }
 function closeModalOutside(e) { if (e.target === document.getElementById('modalWrap')) closeModal(); }
 
-// Swipe down to close
+// Swipe down to close — prevents pull-to-refresh on mobile
 (function() {
-  let startY = 0, startScrollTop = 0;
-  const handle = document.getElementById('modalHandle');
+  let startY = 0;
   const modal = document.getElementById('modalInner');
 
-  function onTouchStart(e) {
+  modal.addEventListener('touchstart', (e) => {
     startY = e.touches[0].clientY;
-    startScrollTop = modal.scrollTop;
-  }
-  function onTouchEnd(e) {
-    const endY = e.changedTouches[0].clientY;
-    const swipedDown = endY - startY > 60;
-    // Only close if we're at the top of the scroll (not mid-content)
-    if (swipedDown && startScrollTop <= 4) closeModal();
-  }
+  }, { passive: true });
 
-  handle.addEventListener('touchstart', onTouchStart, { passive: true });
-  handle.addEventListener('touchend', onTouchEnd, { passive: true });
-  modal.addEventListener('touchstart', onTouchStart, { passive: true });
-  modal.addEventListener('touchend', onTouchEnd, { passive: true });
+  modal.addEventListener('touchmove', (e) => {
+    const scrollTop = modal.scrollTop;
+    const swipingDown = e.touches[0].clientY > startY;
+    // If at the top and swiping down, block the browser pull-to-refresh
+    if (scrollTop <= 0 && swipingDown) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  modal.addEventListener('touchend', (e) => {
+    const endY = e.changedTouches[0].clientY;
+    const swipeDistance = endY - startY;
+    if (swipeDistance > 60 && modal.scrollTop <= 0) {
+      closeModal();
+    }
+  }, { passive: true });
 })();
 </script>
 </body>
