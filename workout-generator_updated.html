@@ -142,7 +142,7 @@
   @keyframes spin-btn-pulse { 0%,100% { background: var(--teal-bg); } 50% { background: rgba(0,212,160,0.18); } }
   @keyframes spin-arrow { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
 
-  .footer { text-align: center; margin-top: 6px; font-size: 11px; color: var(--text2); }
+  #workoutName:empty::before { content: attr(data-placeholder); color: var(--text2); font-style: italic; font-size: 13px; letter-spacing: 0.2px; font-family: 'DM Sans', sans-serif; pointer-events: none; }
   .bmc-wrap { margin: 1.5rem 0 0.75rem; text-align: center; }
   .bmc-sub { font-size: 12px; color: var(--text2); line-height: 1.5; margin-bottom: 10px; }
   .bmc-btn { display: inline-flex; align-items: center; gap: 7px; background: none; border: 1px solid var(--teal); color: var(--teal-text); font-size: 12px; font-weight: 500; padding: 8px 14px; border-radius: 8px; text-decoration: none; white-space: nowrap; transition: background 0.15s, transform 0.15s; touch-action: manipulation; }
@@ -273,9 +273,16 @@
     <button class="dare-btn" onclick="dareMe()">☠️ Dare me</button>
   </div>
 
+  <div class="card" id="workoutNameCard">
+    <div class="card-head" style="flex-direction:column;align-items:flex-start;gap:4px;padding:10px 16px 12px;">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1.5px;color:var(--teal);">Workout Name</span>
+      <span id="workoutName" contenteditable="true" spellcheck="false" data-placeholder="Shuffle a workout to generate a name — or type your own" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--text);line-height:1.2;outline:none;cursor:text;min-width:60px;border-bottom:1px solid var(--border2);padding-bottom:2px;display:block;width:100%;"></span>
+    </div>
+  </div>
+
   <div class="card">
     <div class="card-head">
-      <span class="card-name" id="workoutName">Block A — Strength</span>
+      <span class="card-name">Block A — Strength</span>
     </div>
     <div class="reels">
       <div class="reel" id="aR1" onclick="openInfo('aR1')">
@@ -354,8 +361,6 @@
     <div class="spin-row"><button class="spin-btn" id="spinB" onclick="spinBlock('B')"><span class="spin-arrow">↺</span><span class="spin-label">Shuffle</span></button></div>
   </div>
 
-  <div class="one-liner" id="oneLiner" style="display:none"></div>
-
   <div class="warmup-card" id="warmupCard">
     <div class="warmup-head">
       <span class="warmup-title">Advised Warm-up</span>
@@ -365,6 +370,8 @@
       <div class="warmup-advice" id="warmupBody" style="opacity:0.4;font-style:italic;">Shuffle a workout to view warm-up.</div>
     </div>
   </div>
+
+  <div class="one-liner" id="oneLiner" style="display:none"></div>
 
   <div class="save-bar">
     <button class="export-btn" id="exportBtn" onclick="exportWorkout()" disabled>
@@ -1707,9 +1714,11 @@ function checkShowExport() {
     document.getElementById('shareBtn').classList.add('ready');
     document.getElementById('shareBtn').disabled = false;
     generateWarmup();
-    // Workout name
-    const name = generateWorkoutName(reelData['aR1'], reelData['aR2']);
-    document.getElementById('workoutName').textContent = name;
+    // Workout name — only auto-generate if user hasn't edited it
+    const nameEl = document.getElementById('workoutName');
+    if (!nameEl.dataset.userEdited) {
+      nameEl.textContent = generateWorkoutName(reelData['aR1'], reelData['aR2']);
+    }
     if (!wasReady) {
       // One-liner
       const liner = document.getElementById('oneLiner');
@@ -1724,7 +1733,9 @@ function checkShowExport() {
     btn.disabled = true;
     document.getElementById('shareBtn').classList.remove('ready');
     document.getElementById('shareBtn').disabled = true;
-    document.getElementById('workoutName').textContent = 'Block A — Strength';
+    const nameEl = document.getElementById('workoutName');
+    nameEl.textContent = '';
+    delete nameEl.dataset.userEdited;
     document.getElementById('oneLiner').style.display = 'none';
   }
 }
@@ -1882,6 +1893,11 @@ function closeModalOutside(e) { if (e.target === document.getElementById('modalW
     dragging = false;
   }, { passive: true });
 })();
+
+// Mark workout name as user-edited so reshuffling doesn't overwrite a custom name
+document.getElementById('workoutName').addEventListener('input', function() {
+  this.dataset.userEdited = 'true';
+});
 </script>
 </body>
 </html>
