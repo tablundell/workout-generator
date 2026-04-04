@@ -54,23 +54,20 @@
     }
   }
 
-  .hdr { display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 1.25rem; }
+  .hdr { display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 0.4rem; }
   .hdr-icon { width: 36px; height: 36px; flex-shrink: 0; }
   .hdr-title { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 3px; color: var(--text); line-height: 1; text-align: center; }
+  .hdr-sub { text-align: center; font-size: 12px; color: var(--text2); line-height: 1.5; margin-bottom: 1.25rem; padding: 0 8px; }
+  .streak-row { display: flex; justify-content: center; margin: 0.5rem 0; }
 
   .streak-badge { font-size: 11px; font-weight: 500; color: var(--text2); white-space: nowrap; }
-
-  .dare-row { margin-bottom: 1rem; display: flex; justify-content: center; align-items: center; gap: 16px; }
-  .dare-btn { font-size: 12px; font-weight: 500; padding: 6px 12px; border-radius: 7px; border: 1px solid rgba(255,60,60,0.3); background: rgba(255,60,60,0.08); color: rgba(255,120,120,0.9); cursor: pointer; touch-action: manipulation; transition: background 0.15s, border-color 0.15s; }
-  .dare-btn:hover { background: rgba(255,60,60,0.15); border-color: rgba(255,60,60,0.5); }
-  .dare-btn:active { transform: scale(0.96); }
 
 
   .one-liner { text-align: center; font-size: 13px; font-style: italic; color: var(--text2); padding: 10px 0 4px; animation: fadeInUp 0.4s ease; }
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
 
-  .inputs-panel { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 1rem; }
+  .inputs-panel { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 1.5rem; }
   .inputs-row { display: flex; gap: 16px; flex-wrap: wrap; }
   .input-group { flex: 1; min-width: 100px; }
   .input-label { font-size: 10px; font-weight: 500; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text2); margin-bottom: 7px; display: block; }
@@ -84,7 +81,7 @@
   .card-head { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: var(--bg3); border-bottom: 1px solid var(--border2); }
   .card-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1.5px; color: var(--teal); }
 
-  .reels { display: flex; gap: 8px; padding: 14px 16px 10px; }
+  .reels { display: flex; gap: 8px; padding: 6px 16px 10px; }
   .reel { flex: 1; min-width: 0; position: relative; background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--radius-sm); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 42px 8px 32px; min-height: 104px; cursor: default; transition: border-color 0.15s, background 0.15s; user-select: none; touch-action: manipulation; will-change: border-color, background; }
   .reel.has-value { cursor: pointer; }
   .reel.has-value:not(.locked):hover { border-color: var(--teal); }
@@ -113,7 +110,6 @@
   .reel.locked .lock-btn { color: var(--teal); background: rgba(0,212,160,0.15); border-color: var(--teal); }
   .reel.locked .locked-svg { display: block; }
   .reel.locked .unlock-svg { display: none; }
-  .lock-strip { padding: 0 16px 8px; text-align: center; font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 0.3px; }
 
   .b-format-row { padding: 0 16px 12px; }
   .b-fmt-box { background: var(--fmt-bg); border: 1px solid var(--fmt-border); border-radius: var(--radius-sm); padding: 10px 14px; transition: border-color 0.15s; position: relative; }
@@ -124,13 +120,19 @@
   .b-fmt-box.locked .b-fmt-name { color: var(--teal-text); }
   .b-fmt-box.locked .b-fmt-desc { color: var(--teal-text); opacity: 0.7; }
   .b-fmt-name.spinning { animation: tick 0.09s linear infinite; }
-  .fmt-lock-icon { position: absolute; top: 8px; right: 10px; font-size: 11px; display: none; }
-  .b-fmt-box.locked .fmt-lock-icon { display: block; }
+  .fmt-lock-icon { position: absolute; top: 8px; right: 10px; display: none; color: var(--text2); }
+  .fmt-lock-icon .lock-svg { width: 12px; height: 12px; }
+  .fmt-lock-icon .unlock-svg { display: block; }
+  .fmt-lock-icon .locked-svg { display: none; }
+  .b-fmt-box.locked .fmt-lock-icon { display: flex; color: var(--teal); }
+  .b-fmt-box.has-value .fmt-lock-icon { display: flex; }
+  .b-fmt-box.locked .fmt-lock-icon .unlock-svg { display: none; }
+  .b-fmt-box.locked .fmt-lock-icon .locked-svg { display: block; }
   .b-fmt-lbl { font-size: 10px; font-weight: 500; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text2); margin-bottom: 4px; }
   .b-fmt-name { font-family: 'Bebas Neue', sans-serif; font-size: 17px; color: var(--text); margin-bottom: 3px; letter-spacing: 0.5px; }
   .b-fmt-desc { font-size: 12px; color: var(--fmt-text); line-height: 1.6; }
 
-  .spin-row { padding: 0 16px 14px; display: flex; justify-content: center; }
+  .spin-row { padding: 10px 16px; display: flex; justify-content: center; }
   .spin-btn { display: inline-flex; align-items: center; gap: 7px; padding: 7px 36px; font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 2px; border: 1.5px solid var(--teal); border-radius: 20px; background: var(--teal-bg); color: var(--teal-text); cursor: pointer; transition: background 0.2s, transform 0.05s, opacity 0.15s; touch-action: manipulation; will-change: background; }
   .spin-btn:hover { background: rgba(0,212,160,0.15); }
   .spin-btn:active { transform: scale(0.96); }
@@ -142,6 +144,7 @@
   @keyframes spin-btn-pulse { 0%,100% { background: var(--teal-bg); } 50% { background: rgba(0,212,160,0.18); } }
   @keyframes spin-arrow { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
 
+  .footer { text-align: center; margin-top: 6px; font-size: 11px; color: var(--text2); }
   #workoutName:empty::before { content: attr(data-placeholder); color: var(--text2); font-style: italic; font-size: 13px; letter-spacing: 0.2px; font-family: 'DM Sans', sans-serif; pointer-events: none; }
   .bmc-wrap { margin: 1.5rem 0 0.75rem; text-align: center; }
   .bmc-sub { font-size: 12px; color: var(--text2); line-height: 1.5; margin-bottom: 10px; }
@@ -221,6 +224,7 @@
     </svg>
     Generator</div>
   </div>
+  <div class="hdr-sub">Shuffle to create a workout in seconds.</div>
 
   <div class="inputs-panel">
     <div class="inputs-row">
@@ -268,22 +272,12 @@
     </div>
   </div>
 
-  <div class="dare-row">
-    <span class="streak-badge" id="streakBadge" style="display:none"><span id="streakFire">🔥</span> <span id="streakCount"></span></span>
-    <button class="dare-btn" onclick="dareMe()">☠️ Dare me</button>
-  </div>
-
-  <div class="card" id="workoutNameCard">
-    <div class="card-head" style="flex-direction:column;align-items:flex-start;gap:4px;padding:10px 16px 12px;">
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1.5px;color:var(--teal);">Workout Name</span>
-      <span id="workoutName" contenteditable="true" spellcheck="false" data-placeholder="Shuffle a workout to generate a name — or type your own" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--text);line-height:1.2;outline:none;cursor:text;min-width:60px;border-bottom:1px solid var(--border2);padding-bottom:2px;display:block;width:100%;"></span>
-    </div>
-  </div>
 
   <div class="card">
     <div class="card-head">
       <span class="card-name">Block A — Strength</span>
     </div>
+    <div class="spin-row"><button class="spin-btn" id="spinA" onclick="spinBlock('A')"><span class="spin-arrow">↺</span><span class="spin-label">Shuffle</span></button></div>
     <div class="reels">
       <div class="reel" id="aR1" onclick="openInfo('aR1')">
         <button class="lock-btn" id="aR1lock" onclick="event.stopPropagation();handleReelClick('aR1')" aria-label="Lock exercise">
@@ -306,20 +300,18 @@
     </div>
     <div class="b-format-row">
       <div class="b-fmt-box" id="aFmtBox" style="display:none" onclick="toggleFmtLock('aFmt')">
-        <span class="fmt-lock-icon">🔒</span>
-        <div class="b-fmt-lbl">Format — tap to lock</div>
+        <span class="fmt-lock-icon" style="display:flex;align-items:center;"><svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M4 8V5a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><svg class="lock-svg locked-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4" fill="currentColor" fill-opacity="0.15"/><path d="M4 8V5a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
         <div class="b-fmt-name" id="aFmtName">—</div>
         <div class="b-fmt-desc" id="aFmtDesc">—</div>
       </div>
     </div>
-    <div class="lock-strip">Tap exercise to view guide · tap lock icon to fix</div>
-    <div class="spin-row"><button class="spin-btn" id="spinA" onclick="spinBlock('A')"><span class="spin-arrow">↺</span><span class="spin-label">Shuffle</span></button></div>
   </div>
 
   <div class="card">
     <div class="card-head">
       <span class="card-name">Block B — Conditioning</span>
     </div>
+    <div class="spin-row"><button class="spin-btn" id="spinB" onclick="spinBlock('B')"><span class="spin-arrow">↺</span><span class="spin-label">Shuffle</span></button></div>
     <div class="reels">
       <div class="reel" id="bR1" onclick="openInfo('bR1')">
         <button class="lock-btn" id="bR1lock" onclick="event.stopPropagation();handleReelClick('bR1')" aria-label="Lock exercise">
@@ -351,14 +343,11 @@
     </div>
     <div class="b-format-row">
       <div class="b-fmt-box" id="bFmtBox" style="display:none" onclick="toggleFmtLock('bFmt')">
-        <span class="fmt-lock-icon">🔒</span>
-        <div class="b-fmt-lbl">Format — tap to lock</div>
+        <span class="fmt-lock-icon" style="display:flex;align-items:center;"><svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M4 8V5a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><svg class="lock-svg locked-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4" fill="currentColor" fill-opacity="0.15"/><path d="M4 8V5a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
         <div class="b-fmt-name" id="bFmtName">—</div>
         <div class="b-fmt-desc" id="bFmtDesc">—</div>
       </div>
     </div>
-    <div class="lock-strip">Tap exercise to view guide · tap lock icon to fix</div>
-    <div class="spin-row"><button class="spin-btn" id="spinB" onclick="spinBlock('B')"><span class="spin-arrow">↺</span><span class="spin-label">Shuffle</span></button></div>
   </div>
 
   <div class="warmup-card" id="warmupCard">
@@ -368,6 +357,16 @@
     </div>
     <div class="warmup-body">
       <div class="warmup-advice" id="warmupBody" style="opacity:0.4;font-style:italic;">Shuffle a workout to view warm-up.</div>
+    </div>
+  </div>
+
+  <div class="card" id="workoutNameCard">
+    <div class="card-head" style="flex-direction:column;align-items:flex-start;gap:4px;padding:10px 16px 12px;">
+      <div style="display:flex;align-items:baseline;gap:10px;">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1.5px;color:var(--teal);">Workout Name</span>
+        <span style="font-size:11px;color:var(--text2);">Tap to edit</span>
+      </div>
+      <span id="workoutName" contenteditable="true" spellcheck="false" data-placeholder="Name your workout — or shuffle to generate one" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--text);line-height:1.2;outline:none;cursor:text;min-width:60px;border-bottom:1px solid var(--border2);padding-bottom:2px;display:block;width:100%;"></span>
     </div>
   </div>
 
@@ -384,6 +383,10 @@
       Share
     </button>
     </div>
+  </div>
+
+  <div class="streak-row" style="margin-top:0.5rem;">
+    <span class="streak-badge" id="streakBadge" style="display:none"><span id="streakFire">🔥</span> <span id="streakCount"></span></span>
   </div>
 
   <div class="bmc-wrap">
@@ -1244,41 +1247,9 @@ const ONE_LINERS = [
 ];
 
 // ── Workout name generator ───────────────────────────────────────────────────
-const NAME_PUSH = {
-  "Barbell Bench Press": "Bench", "Incline Barbell Press": "Incline Bench",
-  "Incline DB Press": "Incline", "Flat DB Press": "DB Press",
-  "Overhead Press": "Overhead", "Close Grip Bench Press": "Close Grip",
-  "Dips (Weighted)": "Weighted Dips", "Push Press": "Push Press",
-  "Z Press": "Z Press", "DB Shoulder Press": "Shoulder Press",
-  "Arnold Press": "Arnold", "Barbell Floor Press": "Floor Press",
-  "Pike Push-Up": "Pike Press", "Push-Ups": "Push-Up"
-};
-const NAME_PULL = {
-  "Barbell Row": "Barbell Row", "Weighted Pull-Up": "Pull-Up",
-  "Weighted Chin-Up": "Chin-Up", "Pendlay Row": "Pendlay Row",
-  "DB Row": "DB Row", "Cable Row": "Cable Row",
-  "T-Bar Row": "T-Bar Row", "Lat Pulldown": "Pulldown",
-  "Face Pull": "Face Pull", "Barbell Deadlift": "Deadlift",
-  "Chest-Supported Row": "Chest Row", "DB Romanian Deadlift": "RDL",
-  "Inverted Row": "Inverted Row", "Hanging Knee Raises": "Hanging Knees",
-  "Toes to Bar": "Toes-to-Bar"
-};
-const NAME_TEMPLATES = [
-  (p, r) => `The ${p} & ${r} Special`,
-  (p, r) => `${p} / ${r} Burner`,
-  (p, r) => `${p} & ${r} Gauntlet`,
-  (p, r) => `${p} Meets ${r}`,
-  (p, r) => `${p} + ${r} Protocol`,
-  (p, r) => `${p} & ${r} Grind`,
-  (p, r) => `${p} & ${r} Complex`,
-  (p, r) => `${p} & ${r} Builder`,
-  (p, r) => `${p} Strength & ${r} Power`,
-  (p, r) => `${p} Day — ${r} Finisher`,
-];
-function generateWorkoutName(push, pull) {
-  const p = NAME_PUSH[push] || push.split(' ').slice(0,2).join(' ');
-  const r = NAME_PULL[pull] || pull.split(' ').slice(0,2).join(' ');
-  return pick(NAME_TEMPLATES)(p, r);
+function generateWorkoutName() {
+  const date = new Date().toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' });
+  return `Workout — ${date}`;
 }
 
 
@@ -1434,15 +1405,12 @@ function updateSpinBtnState(block) {
 function toggleFmtLock(key) {
   const box = document.getElementById(key === 'aFmt' ? 'aFmtBox' : 'bFmtBox');
   if (!box.classList.contains('has-value')) return;
-  const lbl = box.querySelector('.b-fmt-lbl');
   if (fmtLocked[key]) {
     delete fmtLocked[key];
     box.classList.remove('locked');
-    lbl.textContent = 'Format — tap to lock';
   } else {
     fmtLocked[key] = true;
     box.classList.add('locked');
-    lbl.textContent = 'Format — locked';
   }
   updateSpinBtnState(key === 'aFmt' ? 'A' : 'B');
 }
@@ -1611,7 +1579,7 @@ async function renderModal(id) {
 
   const videoHtml = ytId
     ? `<div class="video-wrap"><iframe id="modalVideo" src="https://www.youtube.com/embed/${ytId}?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe></div>`
-    : ``;
+    : `<div style="font-size:12px;color:var(--text2);padding:10px 0 14px;text-align:center;">Video unavailable — check your connection or API key.</div>`;
 
   const benefitText = g?.benefit || '';
   const equipText = g?.equipment || '';
@@ -1717,7 +1685,7 @@ function checkShowExport() {
     // Workout name — only auto-generate if user hasn't edited it
     const nameEl = document.getElementById('workoutName');
     if (!nameEl.dataset.userEdited) {
-      nameEl.textContent = generateWorkoutName(reelData['aR1'], reelData['aR2']);
+      nameEl.textContent = generateWorkoutName();
     }
     if (!wasReady) {
       // One-liner
