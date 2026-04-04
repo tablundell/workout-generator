@@ -1363,10 +1363,9 @@ function dareMe() {
   Object.keys(locked).forEach(k => delete locked[k]);
   Object.keys(fmtLocked).forEach(k => delete fmtLocked[k]);
   document.querySelectorAll('.reel.locked').forEach(r => r.classList.remove('locked'));
-  // Spin both blocks
-  setTimeout(() => spinBlock('A'), 50);
-  setTimeout(() => spinBlock('B'), 200);
-  // Dare-specific one-liner
+  // Spin Block A first, then Block B once A completes — ensures getActiveAMoves() has values
+  spinBlockWithCallback('A', () => spinBlock('B'));
+  // Dare-specific one-liner — fires after both blocks have had time to complete
   const dareLines = [
     "You're going to regret this. In a good way.",
     "Abandon all hope. Begin.",
@@ -1498,8 +1497,10 @@ function spinReel(id, arr, finalVal, delayMs, cb) {
   }, 75);
 }
 
-function spinBlock(block) {
-  if (isBlockAllLocked(block)) return;
+function spinBlock(block) { spinBlockWithCallback(block, null); }
+
+function spinBlockWithCallback(block, onComplete) {
+  if (isBlockAllLocked(block)) { if (onComplete) onComplete(); return; }
   const s = getSettings();
   if (block === 'A') {
     startSpinBtn('spinA');
@@ -1524,6 +1525,7 @@ function spinBlock(block) {
       stopSpinBtn('spinA');
       updateSpinBtnState('A');
       checkShowExport();
+      if (onComplete) onComplete();
     });
   } else {
     startSpinBtn('spinB');
@@ -1548,6 +1550,7 @@ function spinBlock(block) {
       stopSpinBtn('spinB');
       updateSpinBtnState('B');
       checkShowExport();
+      if (onComplete) onComplete();
     });
   }
 }
