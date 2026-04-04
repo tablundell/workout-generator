@@ -54,9 +54,21 @@
     }
   }
 
-  .hdr { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: 1.25rem; }
+  .hdr { display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 1.25rem; }
   .hdr-icon { width: 36px; height: 36px; flex-shrink: 0; }
   .hdr-title { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 3px; color: var(--text); line-height: 1; text-align: center; }
+
+  .streak-badge { font-size: 11px; font-weight: 500; color: var(--text2); white-space: nowrap; }
+
+  .dare-row { margin-bottom: 1rem; display: flex; justify-content: center; align-items: center; gap: 16px; }
+  .dare-btn { font-size: 12px; font-weight: 500; padding: 6px 12px; border-radius: 7px; border: 1px solid rgba(255,60,60,0.3); background: rgba(255,60,60,0.08); color: rgba(255,120,120,0.9); cursor: pointer; touch-action: manipulation; transition: background 0.15s, border-color 0.15s; }
+  .dare-btn:hover { background: rgba(255,60,60,0.15); border-color: rgba(255,60,60,0.5); }
+  .dare-btn:active { transform: scale(0.96); }
+
+
+  .one-liner { text-align: center; font-size: 13px; font-style: italic; color: var(--text2); padding: 10px 0 4px; animation: fadeInUp 0.4s ease; }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
 
   .inputs-panel { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 1rem; }
   .inputs-row { display: flex; gap: 16px; flex-wrap: wrap; }
@@ -131,13 +143,35 @@
   @keyframes spin-arrow { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
 
   .footer { text-align: center; margin-top: 6px; font-size: 11px; color: var(--text2); }
-  .save-bar { margin-bottom: 1rem; }
-  .export-btn { width: 100%; padding: 13px 0; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.3px; border: 1px solid var(--border2); border-radius: var(--radius-sm); background: var(--bg2); color: var(--text2); cursor: not-allowed; display: flex; align-items: center; justify-content: center; gap: 8px; opacity: 0.65; transition: all 0.3s; }
+  .bmc-wrap { margin: 1.5rem 0 0.75rem; text-align: center; }
+  .bmc-sub { font-size: 12px; color: var(--text2); line-height: 1.5; margin-bottom: 10px; }
+  .bmc-btn { display: inline-flex; align-items: center; gap: 7px; background: none; border: 1px solid var(--teal); color: var(--teal-text); font-size: 12px; font-weight: 500; padding: 8px 14px; border-radius: 8px; text-decoration: none; white-space: nowrap; transition: background 0.15s, transform 0.15s; touch-action: manipulation; }
+  .bmc-btn:hover { background: var(--teal-bg); }
+  .bmc-btn:active { transform: scale(0.96); }
+  .warmup-card { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--radius); margin-bottom: 1rem; overflow: hidden; }
+  .warmup-head { padding: 10px 16px; background: var(--bg3); border-bottom: 1px solid var(--border2); display: flex; align-items: baseline; gap: 10px; }
+  .warmup-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1.5px; color: var(--teal); }
+  .warmup-sub { font-size: 11px; color: var(--text2); }
+  .warmup-body { padding: 14px 16px; }
+  .warmup-advice { font-size: 13px; color: var(--fmt-text); line-height: 1.7; }
+  .export-btn { width: 100%; padding: 13px 0; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.3px; border: 1px solid var(--border2); border-radius: var(--radius-sm); background: var(--bg2); color: var(--text2); cursor: not-allowed; display: flex; align-items: center; justify-content: center; gap: 8px; opacity: 0.65; transition: all 0.3s; margin-bottom: 0.5rem; }
   .export-btn.ready { border-color: var(--teal); background: var(--teal-bg); color: var(--teal-text); cursor: pointer; opacity: 1; }
   .export-btn.ready:hover { background: rgba(0,212,160,0.15); }
   .export-btn.ready:active { transform: scale(0.98); }
   .export-btn.pulse { animation: export-pulse 0.6s ease 0.1s 3; }
   @keyframes export-pulse { 0%{box-shadow:0 0 0 0 rgba(0,212,160,0.4)} 60%{box-shadow:0 0 0 8px rgba(0,212,160,0)} 100%{box-shadow:0 0 0 0 rgba(0,212,160,0)} }
+  .share-bar { margin-bottom: 1rem; display: flex; justify-content: center; }
+  .share-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; border: 1px solid var(--border2); border-radius: var(--radius-sm); background: none; color: var(--text2); cursor: not-allowed; opacity: 0.4; transition: all 0.2s; }
+  .share-btn.ready { opacity: 1; cursor: pointer; border-color: var(--teal); color: var(--teal-text); }
+  .share-btn.ready:hover { background: var(--teal-bg); }
+  .share-btn.ready:active { transform: scale(0.98); }
+
+  .modal-nav { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; border-bottom: 1px solid var(--border2); flex-shrink: 0; }
+  .modal-nav-btn { background: none; border: 1px solid var(--border2); border-radius: 7px; padding: 6px 12px; font-size: 12px; font-weight: 500; color: var(--text2); cursor: pointer; touch-action: manipulation; transition: all 0.15s; display: flex; align-items: center; gap: 5px; }
+  .modal-nav-btn:hover { border-color: var(--teal); color: var(--teal-text); background: var(--teal-bg); }
+  .modal-nav-btn:active { transform: scale(0.96); }
+  .modal-nav-btn:disabled { opacity: 0.25; cursor: default; pointer-events: none; }
+  .modal-nav-pos { font-size: 11px; color: var(--text2); }
 
   .modal-wrap { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: none; align-items: flex-end; justify-content: center; position: fixed; inset: 0; z-index: 200; }
   .modal-wrap.open { display: flex; }
@@ -147,14 +181,12 @@
   .modal-handle-wrap:active .modal-handle { background: var(--text2); }
   .modal-head { padding: 12px 20px 12px; border-bottom: 1px solid var(--border2); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: var(--bg2); z-index: 10; flex-shrink: 0; }
   .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px; color: var(--text); }
-  .close-btn { background: none; border: none; font-size: 13px; cursor: pointer; color: var(--text2); padding: 6px 10px; border-radius: 6px; transition: background 0.15s; letter-spacing: 0.3px; font-family: 'DM Sans', sans-serif; }
+  .close-btn { background: none; border: none; font-size: 13px; cursor: pointer; color: var(--text2); padding: 6px 10px; border-radius: 6px; transition: background 0.15s; letter-spacing: 0.3px; font-family: 'DM Sans', sans-serif; touch-action: manipulation; }
   .close-btn:hover { background: var(--fmt-bg); color: var(--text); }
   .modal-body { padding: 18px 20px; }
   .video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; background: var(--bg3); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 18px; }
   .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-  .video-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
   .video-spinner { width: 22px; height: 22px; border: 2px solid var(--border2); border-top-color: var(--teal); border-radius: 50%; animation: spin-arrow 0.7s linear infinite; }
-  .video-err { font-size: 12px; color: var(--text2); text-align: center; padding: 2rem 1rem; }
   .guide-benefit { font-size: 13px; font-weight: 500; color: var(--teal-text); line-height: 1.5; margin-bottom: 12px; padding: 10px 14px; background: var(--teal-bg); border-radius: var(--radius-sm); border-left: 3px solid var(--teal); }
   .guide-benefit-label { font-size: 10px; font-weight: 500; letter-spacing: 0.7px; text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 4px; }
   .guide-overview { font-size: 13px; color: var(--fmt-text); line-height: 1.7; margin-bottom: 18px; }
@@ -168,15 +200,11 @@
   .muscle-tag { font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 4px; background: var(--teal-bg); color: var(--teal-text); border: 1px solid var(--teal); }
   .muscle-tag.primary { background: var(--pink-bg); color: var(--pink-text); border-color: var(--pink); }
   .pro-tip { font-size: 13px; font-style: italic; color: var(--fmt-text); line-height: 1.65; padding: 10px 14px; background: var(--fmt-bg); border-radius: var(--radius-sm); border-left: 2px solid var(--pink); }
-  .no-guide { font-size: 13px; color: var(--text2); padding: 1rem 0; }
   .steps-ol { list-style: none; padding: 0; counter-reset: steps; }
   .steps-ol li { font-size: 13px; color: var(--text); padding: 10px 0 10px 38px; border-bottom: 1px solid var(--border); position: relative; line-height: 1.6; counter-increment: steps; }
   .steps-ol li:last-child { border-bottom: none; }
   .steps-ol li::before { content: counter(steps); position: absolute; left: 0; top: 9px; width: 22px; height: 22px; border-radius: 50%; background: var(--teal); color: #000; font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
   .equip-tag { display: block; margin-top: 6px; font-size: 11px; color: var(--teal); opacity: 0.7; font-style: normal; font-weight: 400; }
-  .diff-beginner { background: var(--teal-bg); color: var(--teal-text); border: 1px solid var(--teal); }
-  .diff-intermediate { background: #2a1f00; color: #fde68a; border: 1px solid #F5B800; }
-  .diff-expert { background: var(--pink-bg); color: var(--pink-text); border: 1px solid var(--pink); }
 </style>
 </head>
 <body>
@@ -234,14 +262,20 @@
         <div class="chip" data-group="equip" data-val="kettlebell">Kettlebell</div>
         <div class="chip" data-group="equip" data-val="cable">Cable</div>
         <div class="chip" data-group="equip" data-val="bodyweight">Bodyweight</div>
+        <div class="chip" data-group="equip" data-val="mat">Mat</div>
         <div class="chip" data-group="equip" data-val="machine">Machine</div>
       </div>
     </div>
   </div>
 
+  <div class="dare-row">
+    <span class="streak-badge" id="streakBadge" style="display:none"><span id="streakFire">🔥</span> <span id="streakCount"></span></span>
+    <button class="dare-btn" onclick="dareMe()">☠️ Dare me</button>
+  </div>
+
   <div class="card">
     <div class="card-head">
-      <span class="card-name">Block A — Strength</span>
+      <span class="card-name" id="workoutName">Block A — Strength</span>
     </div>
     <div class="reels">
       <div class="reel" id="aR1" onclick="openInfo('aR1')">
@@ -271,7 +305,7 @@
         <div class="b-fmt-desc" id="aFmtDesc">—</div>
       </div>
     </div>
-    <div class="lock-strip">Tap exercise for guide · lock icon to lock</div>
+    <div class="lock-strip">Tap exercise to view guide · tap lock icon to fix</div>
     <div class="spin-row"><button class="spin-btn" id="spinA" onclick="spinBlock('A')"><span class="spin-arrow">↺</span><span class="spin-label">Shuffle</span></button></div>
   </div>
 
@@ -316,8 +350,20 @@
         <div class="b-fmt-desc" id="bFmtDesc">—</div>
       </div>
     </div>
-    <div class="lock-strip">Tap exercise for guide · lock icon to lock</div>
+    <div class="lock-strip">Tap exercise to view guide · tap lock icon to fix</div>
     <div class="spin-row"><button class="spin-btn" id="spinB" onclick="spinBlock('B')"><span class="spin-arrow">↺</span><span class="spin-label">Shuffle</span></button></div>
+  </div>
+
+  <div class="one-liner" id="oneLiner" style="display:none"></div>
+
+  <div class="warmup-card" id="warmupCard">
+    <div class="warmup-head">
+      <span class="warmup-title">Advised Warm-up</span>
+      <span class="warmup-sub">Based on your selected workout</span>
+    </div>
+    <div class="warmup-body">
+      <div class="warmup-advice" id="warmupBody" style="opacity:0.4;font-style:italic;">Shuffle a workout to view warm-up.</div>
+    </div>
   </div>
 
   <div class="save-bar">
@@ -325,9 +371,21 @@
       <svg width="14" height="14" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 1v9M4 7l3.5 3.5L11 7M2.5 13h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Save Workout
     </button>
+    <div class="share-bar">
+    <button class="share-btn" id="shareBtn" onclick="shareWorkout()" disabled>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      Share
+    </button>
+    </div>
   </div>
 
-  <div class="footer">Imagined and built by Tom Blundell ✦</div>
+  <div class="bmc-wrap">
+    <p class="bmc-sub">Paid APIs &amp; hosting keep this free to use.</p>
+    <a class="bmc-btn" href="https://www.buymeacoffee.com/tablundell" target="_blank" rel="noopener">
+      ☕ Buy me a coffee
+    </a>
+  </div>
+  <div class="footer">Designed and built by Tom ✦</div>
 </div>
 
 <div class="modal-wrap" id="modalWrap" onclick="closeModalOutside(event)">
@@ -340,6 +398,11 @@
         <div class="modal-title" id="mTitle">—</div>
       </div>
       <button class="close-btn" onclick="closeModal()">Close</button>
+    </div>
+    <div class="modal-nav" id="modalNav" style="display:none">
+      <button class="modal-nav-btn" id="modalPrev" onclick="modalNavStep(-1)">← Prev</button>
+      <span class="modal-nav-pos" id="modalNavPos"></span>
+      <button class="modal-nav-btn" id="modalNext" onclick="modalNavStep(1)">Next →</button>
     </div>
     <div class="modal-body" id="mBody"></div>
   </div>
@@ -738,18 +801,186 @@ const GUIDES = {
     steps: [], cues: ["Upper arms rest on the floor at the bottom — pause there", "No leg drive — this is pure upper body pressing", "Grip slightly narrower than your bench press", "Press straight up, not back toward your face", "Control the descent until your triceps touch down"],
     muscles_primary: ["Pectoralis major", "Triceps brachii"], muscles_secondary: ["Anterior deltoid", "Forearms"],
     tip: "The floor press is honest about your tricep strength — if that's your weak point in the bench, the floor press will expose and fix it."
+  },
+  "Pike Push-Up": {
+    benefit: "Great for building overhead pressing strength with zero equipment.",
+    equipment: "Bodyweight, mat",
+    overview: "The pike push-up is a bodyweight shoulder press performed in an inverted V position, shifting load from the chest to the shoulders and triceps. One of the most effective bodyweight shoulder builders available.",
+    steps: [], cues: ["Hips high — the higher, the more shoulder load", "Lower the crown of your head toward the floor between your hands", "Elbows track slightly outward, not fully flared", "Full lockout at the top — squeeze the shoulders", "Keep your core tight — don't let hips drop as you fatigue"],
+    muscles_primary: ["Anterior deltoid", "Triceps brachii"], muscles_secondary: ["Medial deltoid", "Serratus anterior", "Core"],
+    tip: "The closer your feet are to your hands, the more vertical your body — and the harder the shoulder demand. Walk feet in progressively as you get stronger."
+  },
+  "Inverted Row": {
+    benefit: "Great for building horizontal pulling strength with no equipment needed.",
+    equipment: "Barbell in rack, or TRX",
+    overview: "The inverted row is a bodyweight horizontal pull performed under a fixed bar or TRX handles. One of the best exercises for developing upper back strength and a key stepping stone to pull-ups.",
+    steps: [], cues: ["Body stays in a straight line throughout — no hips sagging", "Pull your chest to the bar — not your chin", "Squeeze your shoulder blades hard at the top", "Full extension at the bottom — feel the stretch", "Feet closer to the bar = easier; feet further = harder"],
+    muscles_primary: ["Rhomboids", "Trapezius (mid)", "Latissimus dorsi"], muscles_secondary: ["Biceps", "Rear deltoid", "Core"],
+    tip: "Elevate your feet on a bench to increase the difficulty — this gets closer to a horizontal pull-up and will transfer directly to your rows and pull-up strength."
+  },
+  "Sandbag Clean & Press": {
+    benefit: "Great for full-body explosive strength through an unpredictable, shifting load.",
+    equipment: "Sandbag",
+    overview: "The sandbag clean and press combines a hip-driven clean into an overhead press. The shifting sand demands greater core stability and grip strength than a barbell, making it a uniquely challenging full-body movement.",
+    steps: [], cues: ["Hinge — don't squat — to initiate the clean", "Drive through the hips explosively to get the bag to the rack", "Front rack position: bag rests on forearms at chest", "Press overhead using leg drive for efficiency", "Control the descent — don't drop the bag"],
+    muscles_primary: ["Glutes", "Hamstrings", "Shoulders"], muscles_secondary: ["Core", "Trapezius", "Grip"],
+    tip: "The bag will want to pull you forward — keep your lats tight throughout to prevent the weight from pulling your torso down."
+  },
+  "Sandbag Shouldering": {
+    benefit: "Great for raw functional strength and grip under an unstable, awkward load.",
+    equipment: "Sandbag",
+    overview: "Sandbag shouldering involves lifting the sandbag from the ground and hoisting it to one shoulder in a single explosive motion. It develops functional strength that transfers to real-world carrying and sporting demands.",
+    steps: [], cues: ["Start with the bag on the ground between your feet", "Explosively pull the bag up and rotate it onto one shoulder", "Brace your core as it lands on the shoulder", "Lower with control — don't just drop it", "Alternate shoulders each rep"],
+    muscles_primary: ["Glutes", "Core", "Trapezius"], muscles_secondary: ["Hamstrings", "Biceps", "Obliques"],
+    tip: "This is about explosive hip drive, not arm strength. Generate the force from your legs and hips — your arms just guide the bag."
+  },
+  "Med Ball Slams": {
+    benefit: "Great for explosive power, stress release, and training max-effort output.",
+    equipment: "Medicine ball (slam ball)",
+    overview: "Med ball slams drive the ball from overhead into the ground with maximum force, training explosive full-body power from the lats, core, and hip flexors. One of the best tools for developing peak power output.",
+    steps: [], cues: ["Full overhead extension — reach as high as possible before slamming", "Drive the slam from your lats — not just your arms", "Hinge at the hips as you slam to add lower body power", "Pick it up before it bounces — don't wait", "Every rep should be maximum effort"],
+    muscles_primary: ["Latissimus dorsi", "Core", "Glutes"], muscles_secondary: ["Triceps", "Hip flexors", "Anterior deltoid"],
+    tip: "Use a dead rubber slam ball — not a standard medicine ball — or it will bounce back and hit you in the face."
+  },
+  "Mountain Climbers": {
+    benefit: "Great for dynamic core conditioning and cardiovascular output with zero equipment.",
+    equipment: "Bodyweight, mat",
+    overview: "Mountain climbers drive alternating knees toward the chest from a high plank position. They train the core dynamically, develop hip flexor endurance, and spike the heart rate quickly — all without any equipment.",
+    steps: [], cues: ["Hips stay level — don't let them rise as you fatigue", "Drive your knee fully toward your chest, not just halfway", "Keep your shoulders directly over your hands", "The faster you go, the more cardiovascular the demand", "Breathe — don't hold your breath through sets"],
+    muscles_primary: ["Core", "Hip flexors", "Anterior deltoid"], muscles_secondary: ["Quadriceps", "Glutes", "Triceps"],
+    tip: "Slow mountain climbers are a core exercise. Fast mountain climbers are conditioning. Know which one you're after and program accordingly."
+  },
+  "Inchworms": {
+    benefit: "Great for full-body activation, hamstring mobility, and shoulder stability.",
+    equipment: "Bodyweight, mat",
+    overview: "The inchworm is a walking movement where you hinge forward, walk your hands out to a plank, optionally perform a push-up, then walk your feet back to your hands. An excellent warm-up and conditioning movement that trains the full body.",
+    steps: [], cues: ["Keep legs as straight as possible when hinging forward", "Walk your hands out until your body is in a full plank", "Hold the plank for a beat before walking feet in", "Keep your core braced throughout", "Add a push-up at the bottom for extra pressing demand"],
+    muscles_primary: ["Hamstrings", "Core", "Anterior deltoid"], muscles_secondary: ["Glutes", "Triceps", "Chest"],
+    tip: "If your hamstrings are very tight, bend your knees slightly on the hinge. The goal is a flat back, not straight legs at the expense of form."
+  },
+  "Russian Twists": {
+    benefit: "Great for building rotational core strength and oblique development.",
+    equipment: "Mat",
+    overview: "Russian twists are a seated rotational core exercise performed in a V-sit position, rotating the torso side to side. They target the obliques and develop the rotational strength needed for most sports and lifting movements.",
+    steps: [], cues: ["Rotate from the ribcage — not the lower back", "Keep hips and lower back locked still", "Feet lifted off the floor increases the demand", "Add a weight plate or medicine ball to progress", "Slow and controlled beats fast and sloppy"],
+    muscles_primary: ["Obliques", "Rectus abdominis"], muscles_secondary: ["Hip flexors", "Erector spinae", "Transverse abdominis"],
+    tip: "If you feel this in your lower back instead of your obliques, your hips are rotating. Lock them down and move only from the rib cage."
+  },
+  "Dead Bug": {
+    benefit: "Great for deep core stability and teaching the spine to stay neutral under load.",
+    equipment: "Mat",
+    overview: "The dead bug trains the deep core muscles by extending opposite arms and legs while keeping the lower back pressed into the floor. One of the safest and most effective core stability exercises available — no spinal flexion required.",
+    steps: [], cues: ["Lower back stays glued to the mat throughout", "Extend opposite arm and leg simultaneously", "Exhale as you extend — helps brace the deep core", "Move slowly — speed defeats the purpose", "If your back lifts, shorten your range of motion"],
+    muscles_primary: ["Transverse abdominis", "Rectus abdominis"], muscles_secondary: ["Obliques", "Hip flexors", "Erector spinae"],
+    tip: "Press your lower back into the mat as if you're trying to leave an imprint. The moment it lifts, you've lost core engagement."
+  },
+  "Hollow Hold": {
+    benefit: "Great for total-body core tension and building the foundation for all gymnastics movements.",
+    equipment: "Mat",
+    overview: "The hollow hold is an isometric full-body tension exercise where you lie on your back and create a hollowed-out position with arms overhead and legs extended low. A gymnastic staple that builds deep core strength and body tension.",
+    steps: [], cues: ["Press your lower back into the floor — the lumbar spine should be flat", "Arms reach long overhead, legs reach long and low", "Point your toes and squeeze your thighs together", "The lower your legs, the harder the hold", "Pull your ribcage down toward your hips"],
+    muscles_primary: ["Rectus abdominis", "Transverse abdominis"], muscles_secondary: ["Hip flexors", "Obliques", "Serratus anterior"],
+    tip: "If you can't hold a hollow without your lower back arching, raise your legs higher until you can maintain contact. Gradually lower them as you get stronger."
+  },
+  "Flutter Kicks": {
+    benefit: "Great for lower ab endurance and hip flexor conditioning with no equipment.",
+    equipment: "Mat",
+    overview: "Flutter kicks are a lying core exercise where both legs alternate small kicks just above the floor. They develop lower abdominal endurance and hip flexor strength through sustained time under tension.",
+    steps: [], cues: ["Lower back presses into the mat — maintain this throughout", "Small, controlled kicks — not big swings", "The closer your legs to the floor, the harder the demand", "Arms flat by your sides or tucked under your lower back for support", "Keep your head and shoulders slightly off the mat"],
+    muscles_primary: ["Rectus abdominis (lower)", "Hip flexors"], muscles_secondary: ["Transverse abdominis", "Obliques", "Quadriceps"],
+    tip: "If your lower back comes off the mat, raise your legs a few inches. The goal is time under tension with a flat back — not low legs at the cost of form."
+  },
+  "Elbow-to-Knee": {
+    benefit: "Great for training rotation and building the oblique-to-hip connection.",
+    equipment: "Mat",
+    overview: "The elbow-to-knee, also known as the bicycle crunch, alternates bringing opposite elbow and knee together while extending the other leg. It trains rotation, anti-rotation, and hip flexion simultaneously — one of the most complete mat core exercises.",
+    steps: [], cues: ["Rotate from the shoulder — not the neck", "Fully extend the opposite leg low toward the floor", "Don't pull your head with your hands — lightly support it", "Slow reps beat fast reps — feel the oblique squeeze at the top", "Keep your lower back in contact with the mat"],
+    muscles_primary: ["Obliques", "Rectus abdominis"], muscles_secondary: ["Hip flexors", "Transverse abdominis"],
+    tip: "Going too fast turns this into a neck exercise. Pause at each rotation so you feel the oblique fully contract before switching sides."
+  },
+  "Hanging Knee Raises": {
+    benefit: "Great for developing lower ab strength and grip endurance from a hanging position.",
+    equipment: "Pull-up bar",
+    overview: "Hanging knee raises are performed hanging from a pull-up bar, bringing the knees to the chest using the abdominals. They train the lower abs and hip flexors through a full range of motion while also developing grip strength and shoulder stability.",
+    steps: [], cues: ["Engage your lats first — pull your shoulders down before raising your knees", "Drive the knees up using your abs — not hip swing", "Control the lowering phase — don't just drop", "No swinging — brace the core to stay still", "Pause at the top to maximise ab contraction"],
+    muscles_primary: ["Rectus abdominis (lower)", "Hip flexors"], muscles_secondary: ["Obliques", "Grip", "Latissimus dorsi"],
+    tip: "If you're swinging, your abs aren't doing the work — your hip flexors are. Slow down, engage your lats, and feel the lower abs initiate the movement."
+  },
+  "Toes to Bar": {
+    benefit: "Great for advanced core strength and full hip flexion under hanging load.",
+    equipment: "Pull-up bar",
+    overview: "Toes to bar involves hanging from a pull-up bar and raising straight legs until the toes touch the bar. A demanding advanced core exercise that requires significant hip flexor strength, hamstring flexibility, and core control.",
+    steps: [], cues: ["Kip only if you know how — strict reps build more strength", "Initiate from the lats to stop swinging", "Keep legs together and toes pointed throughout", "Brace hard at the top — don't let momentum carry you", "Lower with control — the negative builds strength too"],
+    muscles_primary: ["Rectus abdominis", "Hip flexors"], muscles_secondary: ["Latissimus dorsi", "Obliques", "Hamstrings (flexibility)"],
+    tip: "Strict toes to bar are far harder and more beneficial than kipping. Master hanging knee raises first, then progress to strict leg raises, then straight leg toes to bar."
+  },
+  "Wall Balls": {
+    benefit: "Great for conditioning the full body through explosive squat-to-throw repetitions.",
+    equipment: "Wall ball, wall",
+    overview: "The wall ball is a front squat combined with a push press — the athlete squats deep and uses leg drive to throw a medicine ball to a target 9–10 feet high, then catches and repeats. A CrossFit and HYROX staple for full-body conditioning.",
+    steps: [], cues: ["Full squat depth — hips below parallel before throwing", "Drive from the legs — don't muscle it with your arms", "Keep the ball close to your chest on the descent", "Catch the ball on the way down to absorb into the next squat", "Keep a consistent rhythm — don't hold the ball at the top"],
+    muscles_primary: ["Quadriceps", "Glutes", "Shoulders"], muscles_secondary: ["Core", "Hamstrings", "Triceps"],
+    tip: "Stand an arm's length from the wall. Too close and the ball bounces back into your face; too far and you're fighting to catch it."
+  },
+  "Push-Ups": {
+    benefit: "Great for building chest, shoulder and tricep strength with zero equipment.",
+    equipment: "Bodyweight, mat",
+    overview: "The push-up is the foundational upper body pushing movement. It trains the chest, anterior deltoid and triceps through a horizontal press pattern using only bodyweight — available anywhere, infinitely scalable.",
+    steps: [], cues: ["Hands slightly wider than shoulder-width", "Body stays in a straight line from head to heels", "Elbows at 45 degrees — not fully flared or fully tucked", "Lower chest to the floor — full range of motion", "Squeeze glutes and core throughout to stay rigid"],
+    muscles_primary: ["Pectoralis major", "Triceps brachii", "Anterior deltoid"], muscles_secondary: ["Core", "Serratus anterior"],
+    tip: "Research shows push-ups build comparable chest and tricep strength to the bench press. Don't underestimate them — add a weight vest or elevate your feet to progress."
+  },
+  "Sit-Ups": {
+    benefit: "Great for building anterior core strength and hip flexor endurance.",
+    equipment: "Mat",
+    overview: "The sit-up is a classic full trunk flexion movement that raises the upper body from flat to upright. It trains the rectus abdominis and hip flexors through a full range of motion and remains one of the most widely used core exercises.",
+    steps: [], cues: ["Anchor your feet or use a decline bench for stability", "Cross your arms at your chest or place hands behind your ears — don't pull your neck", "Full range — lower all the way down, rise all the way up", "Exhale on the way up", "Control the descent — don't just drop back"],
+    muscles_primary: ["Rectus abdominis", "Hip flexors"], muscles_secondary: ["Obliques", "Transverse abdominis"],
+    tip: "If your lower back aches during sit-ups, your hip flexors are likely dominant. Dead bugs and hollow holds will build the core foundation first."
+  },
+  "Crunches": {
+    benefit: "Great for isolating the rectus abdominis without loading the hip flexors.",
+    equipment: "Mat",
+    overview: "The crunch is a partial trunk flexion that lifts only the shoulder blades off the floor. Unlike sit-ups, it reduces hip flexor involvement and keeps the focus on the abdominals through a shorter but more isolated range of motion.",
+    steps: [], cues: ["Lower back stays in contact with the mat", "Lift only your shoulder blades — not your full back", "Hands behind your head — don't pull your neck forward", "Exhale as you crunch up, inhale as you lower", "Squeeze the abs at the top before lowering"],
+    muscles_primary: ["Rectus abdominis"], muscles_secondary: ["Obliques", "Transverse abdominis"],
+    tip: "Slow crunches with a two-second pause at the top are far more effective than fast reps. Feel the abs contract before you lower."
+  },
+  "Air Squats": {
+    benefit: "Great for building leg strength and squat mechanics with no equipment.",
+    equipment: "Bodyweight",
+    overview: "The air squat is the foundational lower body movement — a full depth bodyweight squat that trains quad and glute strength, hip mobility, and movement mechanics. Used in high volume for conditioning or as a skill builder for loaded squats.",
+    steps: [], cues: ["Feet shoulder-width, toes slightly out", "Hips break parallel — crease of hip below top of knee", "Knees track over toes throughout", "Chest stays up — don't cave forward", "Drive through the full foot to stand"],
+    muscles_primary: ["Quadriceps", "Glutes"], muscles_secondary: ["Hamstrings", "Core", "Calves"],
+    tip: "Heels rising means you lack ankle mobility. Elevate your heels slightly on plates until mobility improves — but work on ankle stretches simultaneously."
+  },
+  "Lunges": {
+    benefit: "Great for unilateral leg strength, balance, and hip flexor development.",
+    equipment: "Bodyweight",
+    overview: "The bodyweight lunge trains each leg independently through a split stance, developing quad and glute strength while also challenging balance and hip flexor flexibility. An essential unilateral movement pattern.",
+    steps: [], cues: ["Keep your front knee over your front foot — don't let it cave in", "Back knee descends toward the floor — don't slam it down", "Torso stays upright — don't lean forward", "Drive through your front heel to return to standing", "Step far enough forward that your front shin stays vertical"],
+    muscles_primary: ["Quadriceps", "Glutes"], muscles_secondary: ["Hamstrings", "Core", "Hip flexors"],
+    tip: "Reverse lunges are easier on the knee than forward lunges and are a good starting point if you have any knee sensitivity."
+  },
+  "Side Plank": {
+    benefit: "Great for lateral core stability and oblique strength that most exercises miss.",
+    equipment: "Mat",
+    overview: "The side plank is an isometric lateral core exercise performed on one forearm with the body in a straight line. It specifically targets the obliques and lateral stabilisers that standard planks and sit-ups don't reach.",
+    steps: [], cues: ["Stack your feet or stagger them for more base of support", "Drive your hip toward the ceiling — don't let it sag", "Keep your body in a straight line from head to heels", "Don't hold your breath — breathe steadily", "The top arm can reach toward the ceiling for added shoulder demand"],
+    muscles_primary: ["Obliques", "Transverse abdominis"], muscles_secondary: ["Glute medius", "Anterior deltoid", "Core"],
+    tip: "If your hip drops within the first few seconds, drop to your knee first. Build up to a full side plank before adding duration."
   }
 };
 
-const A_PUSH_ALL = ["Barbell Bench Press","Incline Barbell Press","Incline DB Press","Flat DB Press","Overhead Press","Close Grip Bench Press","Dips (Weighted)","Push Press","Z Press","DB Shoulder Press","Arnold Press","Barbell Floor Press"];
-const A_PULL_ALL = ["Barbell Row","Weighted Pull-Up","Weighted Chin-Up","Pendlay Row","DB Row","Cable Row","T-Bar Row","Lat Pulldown","Face Pull","Barbell Deadlift","Chest-Supported Row","DB Romanian Deadlift"];
-const B_WEIGHTED_ALL = ["DB Push Press","KB Swings","KB Clean to Press","KB Gorilla Row","Single Arm KB Snatch","KB Windmill","Tall Kneeling Press","KB Thruster","DB Thruster","KB Farmer Carry"];
-const B_HR_ALL = ["Box Jumps","Burpees","Tuck Jumps","Broad Jumps","Jump Squats","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Bear Crawl"];
+const A_PUSH_ALL = ["Barbell Bench Press","Incline Barbell Press","Incline DB Press","Flat DB Press","Overhead Press","Close Grip Bench Press","Dips (Weighted)","Push Press","Z Press","DB Shoulder Press","Arnold Press","Barbell Floor Press","Pike Push-Up","Push-Ups"];
+const A_PULL_ALL = ["Barbell Row","Weighted Pull-Up","Weighted Chin-Up","Pendlay Row","DB Row","Cable Row","T-Bar Row","Lat Pulldown","Face Pull","Barbell Deadlift","Chest-Supported Row","DB Romanian Deadlift","Inverted Row","Hanging Knee Raises","Toes to Bar"];
+const B_WEIGHTED_ALL = ["DB Push Press","KB Swings","KB Clean to Press","KB Gorilla Row","Single Arm KB Snatch","KB Windmill","Tall Kneeling Press","KB Thruster","DB Thruster","KB Farmer Carry","Sandbag Clean & Press","Sandbag Shouldering","Wall Balls","Med Ball Slams"];
+const B_HR_ALL = ["Box Jumps","Burpees","Tuck Jumps","Broad Jumps","Jump Squats","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Bear Crawl","Mountain Climbers","Inchworms","Russian Twists","Dead Bug","Hollow Hold","Flutter Kicks","Elbow-to-Knee","Sit-Ups","Crunches","Air Squats","Lunges","Side Plank"];
 const B_CARDIO_ALL = ["Ski Erg","Rowing Machine","Assault Bike","Bike Erg","Shuttle Runs","Sled Push"];
 
 // Level: beginner excludes advanced movements, advanced excludes beginner ones
-const ADVANCED = ["Z Press","Pendlay Row","Single Arm KB Snatch","KB Windmill","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Death By Reps","The Pyramid","Arnold Press","KB Thruster","Barbell Deadlift","Bear Crawl"];
-const BEGINNER = ["Lat Pulldown","DB Row","Incline DB Press","Flat DB Press","Box Jumps","Jump Squats","Rowing Machine","Bike Erg","DB Shoulder Press","DB Romanian Deadlift","DB Thruster","Chest-Supported Row","Barbell Floor Press"];
+const ADVANCED = ["Z Press","Pendlay Row","Single Arm KB Snatch","KB Windmill","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Arnold Press","KB Thruster","Barbell Deadlift","Bear Crawl","Sandbag Shouldering","Pike Push-Up","Toes to Bar","Hollow Hold"];
+const BEGINNER = ["Lat Pulldown","DB Row","Incline DB Press","Flat DB Press","Box Jumps","Jump Squats","Rowing Machine","Bike Erg","DB Shoulder Press","DB Romanian Deadlift","DB Thruster","Chest-Supported Row","Barbell Floor Press","Inverted Row","Inchworms","Mountain Climbers","Wall Balls","Dead Bug","Flutter Kicks","Russian Twists","Elbow-to-Knee","Hanging Knee Raises","Push-Ups","Sit-Ups","Crunches","Air Squats","Lunges","Side Plank"];
 
 // Muscle group mappings — each exercise maps to one or more high-level groups
 const MUSCLE_MAP = {
@@ -796,6 +1027,27 @@ const MUSCLE_MAP = {
   "KB Farmer Carry":        ["core","full"],
   "Bear Crawl":             ["core","full"],
   "Barbell Floor Press":    ["chest"],
+  "Pike Push-Up":           ["shoulders"],
+  "Inverted Row":           ["back"],
+  "Sandbag Clean & Press":  ["shoulders","legs","full"],
+  "Sandbag Shouldering":    ["core","full"],
+  "Wall Balls":             ["legs","shoulders","full"],
+  "Med Ball Slams":         ["core","full"],
+  "Mountain Climbers":      ["core","full"],
+  "Inchworms":              ["core","full"],
+  "Russian Twists":         ["core"],
+  "Dead Bug":               ["core"],
+  "Hollow Hold":            ["core"],
+  "Flutter Kicks":          ["core","legs"],
+  "Elbow-to-Knee":          ["core"],
+  "Hanging Knee Raises":    ["core"],
+  "Toes to Bar":            ["core"],
+  "Push-Ups":               ["chest","shoulders"],
+  "Sit-Ups":                ["core"],
+  "Crunches":               ["core"],
+  "Air Squats":             ["legs"],
+  "Lunges":                 ["legs"],
+  "Side Plank":             ["core"],
   "Ski Erg":                ["back","full"],
   "Rowing Machine":         ["back","full"],
   "Assault Bike":           ["full"],
@@ -854,7 +1106,28 @@ const EQUIP_MAP = {
   "Assault Bike":           ["machine"],
   "Bike Erg":               ["machine"],
   "Shuttle Runs":           ["bodyweight"],
-  "Sled Push":              ["machine"]
+  "Sled Push":              ["machine"],
+  "Pike Push-Up":           ["bodyweight"],
+  "Inverted Row":           ["barbell"],
+  "Sandbag Clean & Press":  ["specialist"],
+  "Sandbag Shouldering":    ["specialist"],
+  "Wall Balls":             ["specialist"],
+  "Med Ball Slams":         ["specialist"],
+  "Mountain Climbers":      ["bodyweight"],
+  "Inchworms":              ["bodyweight"],
+  "Russian Twists":         ["mat"],
+  "Dead Bug":               ["mat"],
+  "Hollow Hold":            ["mat"],
+  "Flutter Kicks":          ["mat"],
+  "Elbow-to-Knee":          ["mat"],
+  "Hanging Knee Raises":    ["bodyweight"],
+  "Toes to Bar":            ["bodyweight"],
+  "Push-Ups":               ["bodyweight","mat"],
+  "Sit-Ups":                ["mat"],
+  "Crunches":               ["mat"],
+  "Air Squats":             ["bodyweight"],
+  "Lunges":                 ["bodyweight"],
+  "Side Plank":             ["mat"]
 };
 
 // Duration: single. Level: single. Muscle: multi. Equipment: multi.
@@ -926,6 +1199,187 @@ const fmtLocked = {};
 const reelData = {};
 const fmtData = {};
 
+// ── One-liners ──────────────────────────────────────────────────────────────
+const ONE_LINERS = [
+  "No excuses. Just reps.", "You asked for this.", "Let's go.",
+  "Pain is temporary. Skipping is forever.", "The bar doesn't care about your mood.",
+  "Make it count.", "Earn your rest.", "You won't regret it.",
+  "Nobody's coming to save you. Pick up the weight.", "Do the work.",
+  "Show up. Every time.", "Suffer now, flex later.",
+  "Your future self is watching.", "Less thinking. More lifting.",
+  "You've done harder things.", "Time to find out what you're made of.",
+  "Good days are built in the gym.", "Outwork yesterday.",
+  "The only bad workout is the one you skipped.", "Make it hurt. Make it count.",
+  "Discipline beats motivation every time.", "Be the hardest person you know.",
+  "Your body can do it. Your mind just needs convincing.",
+  "Every rep is a decision about who you want to be.",
+  "You came this far. Don't stop now.", "Go on then.",
+  "It's supposed to be hard. That's the point.", "Rest after.",
+  "Stronger than yesterday.", "Leave nothing in the tank.",
+  "Most people are still in bed.", "Be the one who shows up.",
+  "The gym is the only place where pain means progress.",
+  "Tired is just a feeling. Weak is a choice.", "Shut up and lift.",
+  "You don't get what you wish for. You get what you work for.",
+  "The weight doesn't lie.", "Heavy is relative. Effort isn't.",
+  "One more rep. Always one more.", "Progress over perfection.",
+  "You vs you. Nobody else matters today.", "Sweat is just weakness leaving.",
+  "Champions train. Everyone else makes excuses.",
+  "Don't count the reps. Make the reps count.",
+  "It gets easier. Then you go heavier.", "Consistency is the real superpower.",
+  "The pain of discipline beats the pain of regret.", "Start. The rest follows.",
+  "The hardest step is the one to the gym. You're already here.",
+  "Show this workout who's boss.", "Today's effort. Tomorrow's strength.",
+  "Nobody remembers easy days.", "Built, not bought.",
+  "If it doesn't challenge you, it doesn't change you.",
+  "Somewhere someone is warming up with your max.", "Match them.",
+  "Train like you mean it.", "The work is its own reward.",
+  "You'll thank yourself tonight.", "Go."
+];
+
+// ── Workout name generator ───────────────────────────────────────────────────
+const NAME_PUSH = {
+  "Barbell Bench Press": "Bench", "Incline Barbell Press": "Incline Bench",
+  "Incline DB Press": "Incline", "Flat DB Press": "DB Press",
+  "Overhead Press": "Overhead", "Close Grip Bench Press": "Close Grip",
+  "Dips (Weighted)": "Weighted Dips", "Push Press": "Push Press",
+  "Z Press": "Z Press", "DB Shoulder Press": "Shoulder Press",
+  "Arnold Press": "Arnold", "Barbell Floor Press": "Floor Press",
+  "Pike Push-Up": "Pike Press", "Push-Ups": "Push-Up"
+};
+const NAME_PULL = {
+  "Barbell Row": "Barbell Row", "Weighted Pull-Up": "Pull-Up",
+  "Weighted Chin-Up": "Chin-Up", "Pendlay Row": "Pendlay Row",
+  "DB Row": "DB Row", "Cable Row": "Cable Row",
+  "T-Bar Row": "T-Bar Row", "Lat Pulldown": "Pulldown",
+  "Face Pull": "Face Pull", "Barbell Deadlift": "Deadlift",
+  "Chest-Supported Row": "Chest Row", "DB Romanian Deadlift": "RDL",
+  "Inverted Row": "Inverted Row", "Hanging Knee Raises": "Hanging Knees",
+  "Toes to Bar": "Toes-to-Bar"
+};
+const NAME_TEMPLATES = [
+  (p, r) => `The ${p} & ${r} Special`,
+  (p, r) => `${p} / ${r} Burner`,
+  (p, r) => `${p} & ${r} Gauntlet`,
+  (p, r) => `${p} Meets ${r}`,
+  (p, r) => `${p} + ${r} Protocol`,
+  (p, r) => `${p} & ${r} Grind`,
+  (p, r) => `${p} & ${r} Complex`,
+  (p, r) => `${p} & ${r} Builder`,
+  (p, r) => `${p} Strength & ${r} Power`,
+  (p, r) => `${p} Day — ${r} Finisher`,
+];
+function generateWorkoutName(push, pull) {
+  const p = NAME_PUSH[push] || push.split(' ').slice(0,2).join(' ');
+  const r = NAME_PULL[pull] || pull.split(' ').slice(0,2).join(' ');
+  return pick(NAME_TEMPLATES)(p, r);
+}
+
+
+
+// ── Streak tracker ───────────────────────────────────────────────────────────
+function updateStreak() {
+  try {
+    const today = new Date().toDateString();
+    const data = JSON.parse(localStorage.getItem('wod_streak') || '{}');
+    if (data.lastDate !== today) {
+      const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+      data.count = (data.lastDate === yesterday.toDateString()) ? (data.count || 0) + 1 : 1;
+      data.lastDate = today;
+      localStorage.setItem('wod_streak', JSON.stringify(data));
+    }
+    const badge = document.getElementById('streakBadge');
+    const count = data.count || 1;
+    document.getElementById('streakCount').textContent = `${count} WOD${count !== 1 ? 's' : ''} created this week`;
+    badge.style.display = 'flex';
+  } catch(e) {}
+}
+
+// ── Modal navigation ──────────────────────────────────────────────────────────
+let modalExerciseList = [];
+let modalCurrentIdx = 0;
+
+function openInfo(id) {
+  // Build ordered list of all shuffled exercises
+  const allIds = ['aR1','aR2','bR1','bR2','bR3'];
+  modalExerciseList = allIds.filter(i => reelData[i]);
+  modalCurrentIdx = modalExerciseList.indexOf(id);
+  if (modalCurrentIdx === -1) { modalExerciseList = [id]; modalCurrentIdx = 0; }
+  renderModal(id);
+}
+
+function modalNavStep(dir) {
+  modalCurrentIdx = Math.max(0, Math.min(modalExerciseList.length - 1, modalCurrentIdx + dir));
+  renderModal(modalExerciseList[modalCurrentIdx]);
+}
+
+function updateModalNav() {
+  const nav = document.getElementById('modalNav');
+  if (modalExerciseList.length <= 1) { nav.style.display = 'none'; return; }
+  nav.style.display = 'flex';
+  document.getElementById('modalPrev').disabled = modalCurrentIdx === 0;
+  document.getElementById('modalNext').disabled = modalCurrentIdx === modalExerciseList.length - 1;
+  document.getElementById('modalNavPos').textContent = `${modalCurrentIdx + 1} / ${modalExerciseList.length}`;
+}
+
+// ── Share workout ─────────────────────────────────────────────────────────────
+function shareWorkout() {
+  if (!document.getElementById('shareBtn').classList.contains('ready')) return;
+  const push = reelData['aR1'] || '';
+  const pull = reelData['aR2'] || '';
+  const weighted = reelData['bR1'] || '';
+  const hr = reelData['bR2'] || '';
+  const cardio = reelData['bR3'] || '';
+  const aFmt = document.getElementById('aFmtName').textContent || '';
+  const bFmt = document.getElementById('bFmtName').textContent || '';
+  const name = document.getElementById('workoutName').textContent || 'Workout';
+  const text = `💪 ${name}\n\nStrength: ${push} + ${pull} (${aFmt})\nConditioning: ${weighted} · ${hr} · ${cardio} (${bFmt})\n\nGenerated at ${window.location.hostname}`;
+  const btn = document.getElementById('shareBtn');
+  const orig = btn.innerHTML;
+  if (navigator.share) {
+    navigator.share({ title: name, text }).then(() => {
+      btn.innerHTML = '✓ Shared';
+      setTimeout(() => { btn.innerHTML = orig; }, 2000);
+    }).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.innerHTML = '✓ Copied';
+      setTimeout(() => { btn.innerHTML = orig; }, 2000);
+    });
+  }
+}
+
+// ── Dare Me ───────────────────────────────────────────────────────────────────
+function dareMe() {
+  // Force advanced + longest duration, reset all locks
+  document.querySelectorAll('.chip[data-group="duration"]').forEach(c => c.classList.remove('active'));
+  document.querySelector('.chip[data-group="duration"][data-val="45"]').classList.add('active');
+  document.querySelectorAll('.chip[data-group="level"]').forEach(c => c.classList.remove('active'));
+  document.querySelector('.chip[data-group="level"][data-val="advanced"]').classList.add('active');
+  document.querySelectorAll('.chip[data-group="muscle"]').forEach(c => c.classList.remove('active'));
+  document.querySelector('.chip[data-group="muscle"][data-val="all"]').classList.add('active');
+  document.querySelectorAll('.chip[data-group="equip"]').forEach(c => c.classList.remove('active'));
+  document.querySelector('.chip[data-group="equip"][data-val="all"]').classList.add('active');
+  // Clear all locks
+  Object.keys(locked).forEach(k => delete locked[k]);
+  Object.keys(fmtLocked).forEach(k => delete fmtLocked[k]);
+  document.querySelectorAll('.reel.locked').forEach(r => r.classList.remove('locked'));
+  // Spin both blocks
+  setTimeout(() => spinBlock('A'), 50);
+  setTimeout(() => spinBlock('B'), 200);
+  // Dare-specific one-liner
+  const dareLines = [
+    "You're going to regret this. In a good way.",
+    "Abandon all hope. Begin.",
+    "You literally asked for this.",
+    "There is no scaling. Only pain."
+  ];
+  setTimeout(() => {
+    const el = document.getElementById('oneLiner');
+    el.textContent = pick(dareLines);
+    el.style.display = 'block';
+  }, 2500);
+}
+
 function getSettings() {
   return {
     duration: document.querySelector('.chip.active[data-group="duration"]')?.dataset.val || "30"
@@ -951,9 +1405,10 @@ function filterBySettings(arr) {
     }
     if (!allEquip) {
       const exEquip = EQUIP_MAP[ex] || [];
+      // Specialist equipment (sandbag, wall ball etc) only appears when All is selected
+      if (exEquip.includes('specialist')) return false;
       if (!equips.some(e => exEquip.includes(e))) return false;
-    }
-    return true;
+    }    return true;
   });
 }
 
@@ -1108,10 +1563,11 @@ function handleReelClick(id) {
 const apiCache = {};
 const ytCache = {};
 
-async function openInfo(id) {
+async function renderModal(id) {
   const name = reelData[id];
   if (!name || name === '—') return;
   document.getElementById('mTitle').textContent = name;
+  updateModalNav();
   document.getElementById('mBody').innerHTML = `
     <div style="text-align:center;padding:2rem 0">
       <div class="video-spinner" style="margin:0 auto 10px;"></div>
@@ -1184,6 +1640,58 @@ async function openInfo(id) {
     ${tipHtml}`;
 }
 
+function generateWarmup() {
+  const push = reelData['aR1'] || '';
+  const pull = reelData['aR2'] || '';
+  const weighted = reelData['bR1'] || '';
+  const hr = reelData['bR2'] || '';
+
+  const isShoulderPush = ['Overhead Press','Push Press','Z Press','DB Shoulder Press','Arnold Press'].includes(push);
+  const isDeadHinge = ['Barbell Deadlift','DB Romanian Deadlift'].includes(pull);
+  const isVerticalPull = ['Weighted Pull-Up','Weighted Chin-Up','Lat Pulldown'].includes(pull);
+  const isSandbag = ['Sandbag Clean & Press','Sandbag Shouldering'].includes(weighted);
+  const isWallBall = weighted === 'Wall Balls';
+  const isMedBall = weighted === 'Med Ball Slams';
+  const isKB = ['KB Swings','KB Clean to Press','KB Gorilla Row','Single Arm KB Snatch','KB Windmill','KB Thruster','KB Farmer Carry'].includes(weighted);
+  const isJump = ['Box Jumps','Tuck Jumps','Broad Jumps','Jump Squats','Lateral Bounds'].includes(hr);
+
+  // Sentence 1 — always a short cardio opener
+  const s1 = '5 mins easy cardio to raise your heart rate.';
+
+  // Sentence 2 — pick the most specific and relevant mobility cue
+  // Priority: most technically demanding movement wins
+  let s2 = '';
+  if (isShoulderPush && isDeadHinge) {
+    s2 = 'Hip hinge practice and shoulder circles to prep both the deadlift and the overhead press.';
+  } else if (isShoulderPush) {
+    s2 = 'Prioritise shoulder mobility — arm circles and band dislocates before loading overhead.';
+  } else if (isDeadHinge) {
+    s2 = 'Hip mobility first — leg swings and a few bodyweight hinges before touching the bar.';
+  } else if (isVerticalPull && isKB) {
+    s2 = 'Dead hangs to activate your lats, plus wrist circles before the kettlebell work.';
+  } else if (isVerticalPull) {
+    s2 = 'A few dead hangs will activate your lats and set your shoulders.';
+  } else if (isSandbag) {
+    s2 = 'Hip hinge practice and wrist circles to prep your grip and posterior chain for the sandbag work.';
+  } else if (isWallBall) {
+    s2 = 'A few air squats and shoulder circles will prepare both the squat and the press for wall balls.';
+  } else if (isMedBall) {
+    s2 = 'Shoulder and lat warm-up — arm circles and a few light overhead reaches before slamming.';
+  } else if (isKB) {
+    s2 = 'Wrist circles and a light KB deadlift will prep your grip and hips.';
+  } else if (isJump) {
+    s2 = 'Ankle circles and bodyweight squats to prime your joints for the jumps.';
+  } else {
+    s2 = 'Band pull-aparts and a light warm-up set on both movements before working weight.';
+  }
+
+  const parts = [s1, s2].filter(Boolean);
+  const el = document.getElementById('warmupBody');
+  el.style.opacity = '';
+  el.style.fontStyle = '';
+  el.textContent = parts.join(' ');
+}
+
 function checkShowExport() {
   const aReady = !!(reelData['aR1'] && reelData['aR2']);
   const bReady = !!(reelData['bR1'] && reelData['bR2'] && reelData['bR3']);
@@ -1193,7 +1701,17 @@ function checkShowExport() {
   if (bothReady) {
     btn.classList.add('ready');
     btn.disabled = false;
+    document.getElementById('shareBtn').classList.add('ready');
+    document.getElementById('shareBtn').disabled = false;
+    generateWarmup();
+    // Workout name
+    const name = generateWorkoutName(reelData['aR1'], reelData['aR2']);
+    document.getElementById('workoutName').textContent = name;
     if (!wasReady) {
+      // One-liner
+      const liner = document.getElementById('oneLiner');
+      liner.textContent = pick(ONE_LINERS);
+      liner.style.display = 'block';
       btn.classList.remove('pulse');
       void btn.offsetWidth;
       btn.classList.add('pulse');
@@ -1201,6 +1719,10 @@ function checkShowExport() {
   } else {
     btn.classList.remove('ready');
     btn.disabled = true;
+    document.getElementById('shareBtn').classList.remove('ready');
+    document.getElementById('shareBtn').disabled = true;
+    document.getElementById('workoutName').textContent = 'Block A — Strength';
+    document.getElementById('oneLiner').style.display = 'none';
   }
 }
 
@@ -1223,11 +1745,18 @@ function exportWorkout() {
   // Short WOD title: emoji + WOD + push/pull summary + date
   const wodTitle = `🏋️ WOD — ${push} & ${pull} · ${shortDate}`;
 
+  const warmupText = document.getElementById('warmupBody')?.textContent || '';
+
   const text = `🏋️ WORKOUT OF THE DAY
 ${date.toUpperCase()}
 
 ${push} · ${pull}
 ${weighted} · ${hr} · ${cardio}
+
+━━━━━━━━━━━━━━━━━━
+ADVISED WARM-UP
+━━━━━━━━━━━━━━━━━━
+${warmupText}
 
 ━━━━━━━━━━━━━━━━━━
 BLOCK A — STRENGTH
@@ -1258,10 +1787,8 @@ ${window.location.hostname}`;
       .then(() => {
         const orig = btn.innerHTML;
         btn.innerHTML = '✓ Saved';
-        // On iOS, prompt to open Notes after sharing
-        setTimeout(() => {
-          btn.innerHTML = orig;
-        }, 2000);
+        updateStreak();
+        setTimeout(() => { btn.innerHTML = orig; }, 2000);
       })
       .catch((err) => {
         if (err.name !== 'AbortError') fallbackCopy(text, btn);
@@ -1290,7 +1817,7 @@ function fallbackCopy(text, btn) {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-
+  updateStreak();
   btn.innerHTML = '✓ Downloaded';
   setTimeout(() => { btn.innerHTML = orig; }, 2000);
 }
