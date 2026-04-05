@@ -264,10 +264,9 @@
         <div class="chip" data-group="equip" data-val="barbell">Barbell</div>
         <div class="chip" data-group="equip" data-val="dumbbell">Dumbbell</div>
         <div class="chip" data-group="equip" data-val="kettlebell">Kettlebell</div>
-        <div class="chip" data-group="equip" data-val="cable">Cable</div>
         <div class="chip" data-group="equip" data-val="bodyweight">Bodyweight</div>
-        <div class="chip" data-group="equip" data-val="mat">Mat</div>
         <div class="chip" data-group="equip" data-val="machine">Machine</div>
+        <div class="chip" data-group="equip" data-val="bags">Bags &amp; Balls</div>
       </div>
     </div>
   </div>
@@ -980,13 +979,86 @@ const GUIDES = {
     muscles_primary: ["Obliques", "Transverse abdominis"], muscles_secondary: ["Glute medius", "Anterior deltoid", "Core"],
     tip: "If your hip drops within the first few seconds, drop to your knee first. Build up to a full side plank before adding duration."
   }
+,
+  "KB Floor Press": {
+    benefit: "Great for chest and tricep pressing with a KB — no bench required.",
+    equipment: "Kettlebell",
+    overview: "The KB floor press is a pressing movement performed lying on the floor with a kettlebell in each hand. The neutral grip and floor contact remove shoulder strain while building solid pressing strength.",
+    steps: [], cues: ["Press through the heel of your palm, not your fingers", "Keep your wrists stacked over your elbows", "Upper arms rest on the floor at the bottom — pause there", "Drive through the floor to press", "Keep your core tight throughout"],
+    muscles_primary: ["Pectoralis major", "Triceps brachii"], muscles_secondary: ["Anterior deltoid", "Core"],
+    tip: "The offset weight of a KB makes this harder than a DB floor press — start lighter than you think."
+  },
+  "KB Single Arm Row": {
+    benefit: "Great for unilateral back strength and core anti-rotation with a KB.",
+    equipment: "Kettlebell",
+    overview: "The KB single arm row trains the upper back, lats and biceps unilaterally using a kettlebell. The offset centre of mass challenges grip and stability more than a dumbbell row.",
+    steps: [], cues: ["Hinge at the hips — don't round your lower back", "Drive the elbow back toward your hip", "Pause at the top — squeeze the lat", "Control the descent fully", "Keep your hips square throughout"],
+    muscles_primary: ["Latissimus dorsi", "Rhomboids"], muscles_secondary: ["Biceps", "Core", "Rear deltoid"],
+    tip: "Use the KB handle — not the bell — for a stronger grip position and better lat engagement."
+  },
+  "KB Deadlift": {
+    benefit: "Great for building the hip hinge pattern and posterior chain with a KB.",
+    equipment: "Kettlebell",
+    overview: "The KB deadlift trains the fundamental hip hinge using a kettlebell between the feet. A lower-demand alternative to the barbell deadlift that's excellent for technique development and lower body posterior chain work.",
+    steps: [], cues: ["KB starts between feet, slightly in front of your mid-foot", "Hinge at the hips — push them back before bending knees", "Lat tension before you pull — protect your armpits", "Drive through the floor to stand", "Squeeze glutes hard at lockout"],
+    muscles_primary: ["Glutes", "Hamstrings"], muscles_secondary: ["Erector spinae", "Core", "Grip"],
+    tip: "Think of it as pushing the floor away rather than pulling the KB up — it keeps the movement hip-dominant."
+  },
+  "Cable Chest Press": {
+    benefit: "Great for chest pressing with constant cable tension through the full range.",
+    equipment: "Cable machine",
+    overview: "The cable chest press provides constant tension throughout the movement unlike a barbell or dumbbell press. Set the cables at chest height and press forward in a standing or seated position for a unique pressing stimulus.",
+    steps: [], cues: ["Set cables at chest height", "Stagger your stance for stability", "Protract your shoulder blades at the top — get the full squeeze", "Control the return — don't let the cables pull you back", "Keep your core braced throughout"],
+    muscles_primary: ["Pectoralis major", "Anterior deltoid"], muscles_secondary: ["Triceps brachii", "Core"],
+    tip: "The constant tension through the full range of motion makes cable pressing feel very different to free weights — go lighter until you find your footing."
+  },
+  "Cable Overhead Press": {
+    benefit: "Great for shoulder pressing with cable resistance that challenges stability throughout.",
+    equipment: "Cable machine",
+    overview: "The cable overhead press uses a low cable attachment to press overhead, providing resistance through a different arc than a barbell and challenging shoulder stability throughout the movement.",
+    steps: [], cues: ["Set cables low — press from shoulder height to overhead", "Keep your ribcage down — don't hyperextend your lower back", "Full lockout overhead", "Control the descent slowly", "Stagger your stance to prevent swaying"],
+    muscles_primary: ["Anterior deltoid", "Medial deltoid"], muscles_secondary: ["Triceps brachii", "Core", "Trapezius"],
+    tip: "Unilateral cable pressing exposes any shoulder imbalance quickly — if one side pulls differently, address it."
+  },
+  "Cable Woodchop": {
+    benefit: "Great for rotational power and core strength through a functional diagonal pattern.",
+    equipment: "Cable machine",
+    overview: "The cable woodchop trains rotation and anti-rotation through a diagonal chopping pattern from high to low or low to high. One of the most effective cable conditioning movements for developing real-world rotational strength.",
+    steps: [], cues: ["Stand sideways to the cable — arms length away", "Rotate from your hips and core — not just your arms", "Keep arms extended but not locked", "Control the return against the cable pull", "Both directions in your session for balance"],
+    muscles_primary: ["Obliques", "Core"], muscles_secondary: ["Glutes", "Anterior deltoid", "Transverse abdominis"],
+    tip: "Start with high-to-low (chop down). Once comfortable, add low-to-high (lift up) — they train opposing muscle chains."
+  },
+  "DB Snatch": {
+    benefit: "Great for explosive power, shoulder stability and a serious HR spike.",
+    equipment: "Dumbbell",
+    overview: "The DB snatch is a single-arm explosive movement driving a dumbbell from between the feet to overhead in one fluid motion. High rep DB snatches are a brutal conditioning tool that spikes the heart rate fast.",
+    steps: [], cues: ["Drive from the hips — this is a lower body movement", "Pull the DB close to your body as it rises", "Punch under the DB at the top — don't muscle it overhead", "Lock out overhead before lowering", "Alternate arms each rep or each set"],
+    muscles_primary: ["Glutes", "Hamstrings", "Anterior deltoid"], muscles_secondary: ["Core", "Trapezius", "Grip"],
+    tip: "Think of it as a swing that goes overhead. If you're muscling it up with your arm, reset and drive harder from the hips."
+  },
+  "DB Clean": {
+    benefit: "Great for explosive power and conditioning using dumbbells.",
+    equipment: "Dumbbell",
+    overview: "The DB clean drives a pair of dumbbells from a hang or floor position to the front rack in one explosive movement. A lower-skill alternative to the barbell clean that works well at high reps for conditioning.",
+    steps: [], cues: ["Start with a hip hinge — not a squat", "Explosive hip extension drives the movement", "Catch in a partial squat with DBs in front rack", "Elbows high in the catch", "Stand tall before the next rep"],
+    muscles_primary: ["Glutes", "Hamstrings", "Trapezius"], muscles_secondary: ["Core", "Biceps", "Anterior deltoid"],
+    tip: "Use lighter weight than you think — this is about speed and repetition for conditioning, not max load."
+  },
+  "KB Complex": {
+    benefit: "Great for cardiovascular conditioning using only a kettlebell — no cardio machine needed.",
+    equipment: "Kettlebell",
+    overview: "A KB complex links multiple kettlebell movements together — swings, cleans, presses and squats — performed continuously without putting the bell down. High rep, low rest, and genuinely exhausting. The KB equivalent of a cardio machine session.",
+    steps: [], cues: ["Use a lighter KB than your strength work", "Keep transitions between movements smooth", "Breathe on every rep — don't hold your breath", "Aim for 10+ reps of each movement before switching", "Put the bell down only when form breaks"],
+    muscles_primary: ["Full body", "Cardiovascular system"], muscles_secondary: ["Grip", "Core", "Shoulders"],
+    tip: "A simple sequence: 10 swings → 5 cleans per side → 5 presses per side → 10 squats. Repeat for time. That's your cardio."
+  }
 };
 
-const A_PUSH_ALL = ["Barbell Bench Press","Incline Barbell Press","Incline DB Press","Flat DB Press","Overhead Press","Close Grip Bench Press","Dips (Weighted)","Push Press","Z Press","DB Shoulder Press","Arnold Press","Barbell Floor Press","Pike Push-Up","Push-Ups"];
-const A_PULL_ALL = ["Barbell Row","Weighted Pull-Up","Weighted Chin-Up","Pendlay Row","DB Row","Cable Row","T-Bar Row","Lat Pulldown","Face Pull","Barbell Deadlift","Chest-Supported Row","DB Romanian Deadlift","Inverted Row","Hanging Knee Raises","Toes to Bar"];
-const B_WEIGHTED_ALL = ["DB Push Press","KB Swings","KB Clean to Press","KB Gorilla Row","Single Arm KB Snatch","KB Windmill","Tall Kneeling Press","KB Thruster","DB Thruster","KB Farmer Carry","Sandbag Clean & Press","Sandbag Shouldering","Wall Balls","Med Ball Slams"];
+const A_PUSH_ALL = ["KB Floor Press","Barbell Bench Press","Incline Barbell Press","Incline DB Press","Flat DB Press","Overhead Press","Close Grip Bench Press","Dips (Weighted)","Push Press","Z Press","DB Shoulder Press","Arnold Press","Barbell Floor Press","Pike Push-Up","Push-Ups"];
+const A_PULL_ALL = ["KB Single Arm Row","KB Deadlift","Barbell Row","Weighted Pull-Up","Weighted Chin-Up","Pendlay Row","DB Row","Cable Row","T-Bar Row","Lat Pulldown","Face Pull","Barbell Deadlift","Chest-Supported Row","DB Romanian Deadlift","Inverted Row","Hanging Knee Raises","Toes to Bar"];
+const B_WEIGHTED_ALL = ["Cable Woodchop","DB Snatch","DB Clean","DB Push Press","KB Swings","KB Clean to Press","KB Gorilla Row","Single Arm KB Snatch","KB Windmill","Tall Kneeling Press","KB Thruster","DB Thruster","KB Farmer Carry","Sandbag Clean & Press","Sandbag Shouldering","Wall Balls","Med Ball Slams"];
 const B_HR_ALL = ["Box Jumps","Burpees","Tuck Jumps","Broad Jumps","Jump Squats","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Bear Crawl","Mountain Climbers","Inchworms","Russian Twists","Dead Bug","Hollow Hold","Flutter Kicks","Elbow-to-Knee","Sit-Ups","Crunches","Air Squats","Lunges","Side Plank"];
-const B_CARDIO_ALL = ["Ski Erg","Rowing Machine","Assault Bike","Bike Erg","Shuttle Runs","Sled Push"];
+const B_CARDIO_ALL = ["KB Complex","Ski Erg","Rowing Machine","Assault Bike","Bike Erg","Shuttle Runs","Sled Push"];
 
 // Level: beginner excludes advanced movements, advanced excludes beginner ones
 const ADVANCED = ["Z Press","Pendlay Row","Single Arm KB Snatch","KB Windmill","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Arnold Press","KB Thruster","Barbell Deadlift","Bear Crawl","Sandbag Shouldering","Pike Push-Up","Toes to Bar","Hollow Hold"];
@@ -1045,6 +1117,13 @@ const MUSCLE_MAP = {
   "Med Ball Slams":         ["core","full"],
   "Mountain Climbers":      ["core","full"],
   "Inchworms":              ["core","full"],
+  "KB Floor Press":         ["chest"],
+  "KB Single Arm Row":      ["back"],
+  "KB Deadlift":            ["legs","back"],
+  "Cable Woodchop":         ["core","full"],
+  "DB Snatch":              ["full","shoulders"],
+  "DB Clean":               ["full","legs"],
+  "KB Complex":             ["full"],
   "Russian Twists":         ["core"],
   "Dead Bug":               ["core"],
   "Hollow Hold":            ["core"],
@@ -1085,10 +1164,10 @@ const EQUIP_MAP = {
   "Weighted Chin-Up":       ["bodyweight"],
   "Pendlay Row":            ["barbell"],
   "DB Row":                 ["dumbbell"],
-  "Cable Row":              ["cable"],
+  "Cable Row":              ["machine"],
   "T-Bar Row":              ["barbell"],
-  "Lat Pulldown":           ["cable"],
-  "Face Pull":              ["cable"],
+  "Lat Pulldown":           ["machine"],
+  "Face Pull":              ["machine"],
   "Barbell Deadlift":       ["barbell"],
   "Chest-Supported Row":    ["dumbbell"],
   "DB Romanian Deadlift":   ["dumbbell"],
@@ -1119,25 +1198,32 @@ const EQUIP_MAP = {
   "Sled Push":              ["machine"],
   "Pike Push-Up":           ["bodyweight"],
   "Inverted Row":           ["barbell"],
-  "Sandbag Clean & Press":  ["specialist"],
-  "Sandbag Shouldering":    ["specialist"],
-  "Wall Balls":             ["specialist"],
-  "Med Ball Slams":         ["specialist"],
+  "Sandbag Clean & Press":  ["bags"],
+  "Sandbag Shouldering":    ["bags"],
+  "Wall Balls":             ["bags"],
+  "Med Ball Slams":         ["bags"],
   "Mountain Climbers":      ["bodyweight"],
   "Inchworms":              ["bodyweight"],
-  "Russian Twists":         ["mat"],
-  "Dead Bug":               ["mat"],
-  "Hollow Hold":            ["mat"],
-  "Flutter Kicks":          ["mat"],
-  "Elbow-to-Knee":          ["mat"],
+  "KB Floor Press":         ["kettlebell"],
+  "KB Single Arm Row":      ["kettlebell"],
+  "KB Deadlift":            ["kettlebell"],
+  "Cable Woodchop":         ["machine"],
+  "DB Snatch":              ["dumbbell"],
+  "DB Clean":               ["dumbbell"],
+  "KB Complex":             ["kettlebell"],
+  "Russian Twists":         ["bodyweight"],
+  "Dead Bug":               ["bodyweight"],
+  "Hollow Hold":            ["bodyweight"],
+  "Flutter Kicks":          ["bodyweight"],
+  "Elbow-to-Knee":          ["bodyweight"],
   "Hanging Knee Raises":    ["bodyweight"],
   "Toes to Bar":            ["bodyweight"],
-  "Push-Ups":               ["bodyweight","mat"],
-  "Sit-Ups":                ["mat"],
-  "Crunches":               ["mat"],
+  "Push-Ups":               ["bodyweight"],
+  "Sit-Ups":                ["bodyweight"],
+  "Crunches":               ["bodyweight"],
   "Air Squats":             ["bodyweight"],
   "Lunges":                 ["bodyweight"],
-  "Side Plank":             ["mat"]
+  "Side Plank":             ["bodyweight"]
 };
 
 // Duration: single. Level: single. Muscle: multi. Equipment: multi.
@@ -1382,8 +1468,6 @@ function filterBySettings(arr) {
     }
     if (!allEquip) {
       const exEquip = EQUIP_MAP[ex] || [];
-      // Specialist equipment (sandbag, wall ball etc) only appears when All is selected
-      if (exEquip.includes('specialist')) return false;
       if (!equips.some(e => exEquip.includes(e))) return false;
     }    return true;
   });
@@ -1513,9 +1597,22 @@ function spinBlockWithCallback(block, onComplete) {
     const excluded = getActiveAMoves();
     const weightedPool = filterBySettings(B_WEIGHTED_ALL);
     const hrPool = filterBySettings(B_HR_ALL);
-    spinReel('bR1', weightedPool.length ? weightedPool : B_WEIGHTED_ALL, pickExcluding(weightedPool.length ? weightedPool : B_WEIGHTED_ALL, excluded), 0);
-    spinReel('bR2', hrPool.length ? hrPool : B_HR_ALL, pickExcluding(hrPool.length ? hrPool : B_HR_ALL, excluded), 100);
-    spinReel('bR3', B_CARDIO_ALL, pickExcluding(B_CARDIO_ALL, excluded), 200, () => {
+    const cardioPool = filterBySettings(B_CARDIO_ALL);
+    const wPool = weightedPool.length ? weightedPool : B_WEIGHTED_ALL;
+    const hPool = hrPool.length ? hrPool : B_HR_ALL;
+    const cPool = cardioPool.length ? cardioPool : B_CARDIO_ALL;
+
+    // KB duplicate prevention — if weighted slot has a KB movement, exclude KB Complex from cardio
+    const KB_EXERCISES = ['KB Swings','KB Clean to Press','KB Gorilla Row','Single Arm KB Snatch','KB Windmill','KB Thruster','KB Farmer Carry','KB Floor Press','KB Single Arm Row','KB Deadlift'];
+    const wFinal = pickExcluding(wPool, excluded);
+    const hFinal = pickExcluding(hPool, [...excluded, wFinal]);
+    const cExcluded = [...excluded, wFinal, hFinal];
+    if (KB_EXERCISES.includes(wFinal)) cExcluded.push('KB Complex');
+    const cFinal = pickExcluding(cPool, cExcluded);
+
+    spinReel('bR1', wPool, wFinal, 0);
+    spinReel('bR2', hPool, hFinal, 100);
+    spinReel('bR3', cPool, cFinal, 200, () => {
       if (!fmtLocked['bFmt']) {
         const fmtBox = document.getElementById('bFmtBox');
         fmtBox.style.display = 'block';
@@ -1869,4 +1966,3 @@ document.getElementById('workoutName').addEventListener('input', function() {
 </script>
 </body>
 </html>
- 
