@@ -116,19 +116,22 @@
   .b-fmt-box.has-value { cursor: pointer; }
   .b-fmt-box.has-value:hover { border-color: rgba(255,255,255,0.28); }
   .b-fmt-box.locked { border-color: var(--teal); background: var(--teal-bg); }
-  .b-fmt-box.locked
   .b-fmt-box.locked .b-fmt-name { color: var(--teal-text); }
   .b-fmt-box.locked .b-fmt-desc { color: var(--teal-text); opacity: 0.7; }
   .b-fmt-name.spinning { animation: tick 0.09s linear infinite; }
-  .fmt-lock-icon { position: absolute; top: 8px; right: 10px; display: none; color: var(--text2); }
-  .fmt-lock-icon .lock-svg { width: 12px; height: 12px; }
+  .fmt-header { display: none; margin-bottom: 4px; }
+
+  .b-fmt-box.has-value .fmt-lock-icon { display: flex; }
+  .b-fmt-box.has-value .fmt-header { display: block; }
+  .b-fmt-box.has-value { padding-left: 46px; }
+  .fmt-lock-icon { position: absolute; top: 5px; left: 5px; width: 32px; height: 32px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 7px; display: none; align-items: center; justify-content: center; color: rgba(255,255,255,0.45); flex-shrink: 0; }
+  .fmt-lock-icon .lock-svg { width: 15px; height: 15px; }
   .fmt-lock-icon .unlock-svg { display: block; }
   .fmt-lock-icon .locked-svg { display: none; }
-  .b-fmt-box.locked .fmt-lock-icon { display: flex; color: var(--teal); }
-  .b-fmt-box.has-value .fmt-lock-icon { display: flex; }
+  .b-fmt-box.locked .fmt-lock-icon { color: var(--teal); background: rgba(0,212,160,0.15); border-color: var(--teal); }
   .b-fmt-box.locked .fmt-lock-icon .unlock-svg { display: none; }
   .b-fmt-box.locked .fmt-lock-icon .locked-svg { display: block; }
-  .b-fmt-name { font-family: 'Bebas Neue', sans-serif; font-size: 17px; color: var(--text); margin-bottom: 3px; letter-spacing: 0.5px; }
+  .b-fmt-name { font-family: 'Bebas Neue', sans-serif; font-size: 17px; color: var(--text); line-height: 1.2; will-change: transform, opacity; }
   .b-fmt-desc { font-size: 12px; color: var(--fmt-text); line-height: 1.6; }
 
   .spin-row { padding: 10px 16px; display: flex; justify-content: center; }
@@ -155,7 +158,7 @@
   .bmc-btn:hover { background: var(--teal-bg); }
   .bmc-btn:active { transform: scale(0.96); }
   .warmup-card { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--radius); margin-bottom: 1rem; overflow: hidden; }
-  .warmup-head { padding: 10px 16px; background: var(--bg3); border-bottom: 1px solid var(--border2); display: flex; align-items: baseline; gap: 10px; }
+  .warmup-head { padding: 10px 16px; background: var(--bg3); border-bottom: 1px solid var(--border2); display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
   .warmup-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1.5px; color: var(--teal); }
   .warmup-sub { font-size: 11px; color: var(--text2); }
   .warmup-body { padding: 14px 16px; }
@@ -173,9 +176,9 @@
   .share-btn.ready:active { transform: scale(0.98); }
 
   .modal-nav { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; flex-shrink: 0; }
-  .modal-nav-btn { background: none; border: 1px solid var(--border2); border-radius: 7px; padding: 6px 12px; font-size: 12px; font-weight: 500; color: var(--text2); cursor: pointer; touch-action: manipulation; transition: all 0.15s; display: flex; align-items: center; gap: 5px; }
-  .modal-nav-btn:hover { border-color: var(--teal); color: var(--teal-text); background: var(--teal-bg); }
-  .modal-nav-btn:active { transform: scale(0.96); }
+  .modal-nav-btn { background: none; border: none; padding: 6px 12px; font-size: 12px; font-weight: 500; color: var(--text2); cursor: pointer; touch-action: manipulation; transition: color 0.15s; display: flex; align-items: center; gap: 5px; }
+  .modal-nav-btn:hover { color: var(--teal-text); }
+  .modal-nav-btn:active { color: var(--teal); }
   .swipe-arrow { position: absolute; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0; transition: opacity 0.15s; font-size: 28px; color: var(--teal); font-weight: bold; z-index: 10; text-shadow: 0 0 20px rgba(0,212,160,0.4); }
   .swipe-arrow.left { left: 16px; }
   .swipe-arrow.right { right: 16px; }
@@ -292,7 +295,7 @@
     <div class="reels">
       <div class="reel" id="aR1" onclick="openInfo('aR1')">
         <button class="lock-btn" id="aR1lock" onclick="event.stopPropagation();handleReelClick('aR1')" aria-label="Lock exercise">
-          <svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M4 8V5a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M10 8V3a3 3 0 0 0-6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           <svg class="lock-svg locked-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4" fill="currentColor" fill-opacity="0.15"/><path d="M4 8V5a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
         </button>
         <div class="reel-tag">Push</div>
@@ -301,7 +304,7 @@
       </div>
       <div class="reel" id="aR2" onclick="openInfo('aR2')">
         <button class="lock-btn" id="aR2lock" onclick="event.stopPropagation();handleReelClick('aR2')" aria-label="Lock exercise">
-          <svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M4 8V5a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M10 8V3a3 3 0 0 0-6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           <svg class="lock-svg locked-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4" fill="currentColor" fill-opacity="0.15"/><path d="M4 8V5a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
         </button>
         <div class="reel-tag">Pull</div>
@@ -311,8 +314,8 @@
     </div>
     <div class="b-format-row">
       <div class="b-fmt-box" id="aFmtBox" style="display:none" onclick="toggleFmtLock('aFmt')">
-        <span class="fmt-lock-icon" style="display:flex;align-items:center;"><svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M4 8V5a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><svg class="lock-svg locked-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4" fill="currentColor" fill-opacity="0.15"/><path d="M4 8V5a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
-        <div class="b-fmt-name" id="aFmtName">—</div>
+        <span class="fmt-lock-icon"><svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M10 8V3a3 3 0 0 0-6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><svg class="lock-svg locked-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4" fill="currentColor" fill-opacity="0.15"/><path d="M4 8V5a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+        <div class="fmt-header"><div class="b-fmt-name" id="aFmtName">—</div></div>
         <div class="b-fmt-desc" id="aFmtDesc">—</div>
       </div>
     </div>
@@ -327,7 +330,7 @@
     <div class="reels">
       <div class="reel" id="bR1" onclick="openInfo('bR1')">
         <button class="lock-btn" id="bR1lock" onclick="event.stopPropagation();handleReelClick('bR1')" aria-label="Lock exercise">
-          <svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M4 8V5a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M10 8V3a3 3 0 0 0-6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           <svg class="lock-svg locked-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4" fill="currentColor" fill-opacity="0.15"/><path d="M4 8V5a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
         </button>
         <div class="reel-tag">Weighted</div>
@@ -336,7 +339,7 @@
       </div>
       <div class="reel" id="bR2" onclick="openInfo('bR2')">
         <button class="lock-btn" id="bR2lock" onclick="event.stopPropagation();handleReelClick('bR2')" aria-label="Lock exercise">
-          <svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M4 8V5a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M10 8V3a3 3 0 0 0-6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           <svg class="lock-svg locked-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4" fill="currentColor" fill-opacity="0.15"/><path d="M4 8V5a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
         </button>
         <div class="reel-tag">HR Spike</div>
@@ -345,7 +348,7 @@
       </div>
       <div class="reel" id="bR3" onclick="openInfo('bR3')">
         <button class="lock-btn" id="bR3lock" onclick="event.stopPropagation();handleReelClick('bR3')" aria-label="Lock exercise">
-          <svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M4 8V5a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M10 8V3a3 3 0 0 0-6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           <svg class="lock-svg locked-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4" fill="currentColor" fill-opacity="0.15"/><path d="M4 8V5a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
         </button>
         <div class="reel-tag">Cardio</div>
@@ -355,15 +358,15 @@
     </div>
     <div class="b-format-row">
       <div class="b-fmt-box" id="bFmtBox" style="display:none" onclick="toggleFmtLock('bFmt')">
-        <span class="fmt-lock-icon" style="display:flex;align-items:center;"><svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M4 8V5a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><svg class="lock-svg locked-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4" fill="currentColor" fill-opacity="0.15"/><path d="M4 8V5a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
-        <div class="b-fmt-name" id="bFmtName">—</div>
+        <span class="fmt-lock-icon"><svg class="lock-svg unlock-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M10 8V3a3 3 0 0 0-6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><svg class="lock-svg locked-svg" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="8" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.4" fill="currentColor" fill-opacity="0.15"/><path d="M4 8V5a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+        <div class="fmt-header"><div class="b-fmt-name" id="bFmtName">—</div></div>
         <div class="b-fmt-desc" id="bFmtDesc">—</div>
       </div>
     </div>
   </div>
 
   <div class="warmup-card" id="warmupCard">
-    <div class="warmup-head">
+    <div class="warmup-head" style="flex-direction:column;align-items:flex-start;gap:2px;">
       <span class="warmup-title">Advised Warm-up</span>
       <span class="warmup-sub">Based on your selected workout</span>
     </div>
@@ -438,7 +441,7 @@ const GUIDES = {
     equipment: "Barbell, bench",
     overview: "The barbell bench press is the foundational upper body push movement. It loads the chest, front delts, and triceps through a horizontal pressing pattern under heavy load, making it the most effective compound exercise for building raw chest strength.",
     steps: [], cues: ["Shoulder blades pinched and packed down", "Bar over lower chest, not upper", "Elbows at 45–75 degrees on descent", "Drive your traps into the bench as you press", "Breathe in on the way down, exhale hard on the press"],
-    muscles_primary: ["Pectoralis major", "Anterior deltoid"], muscles_secondary: ["Triceps brachii", "Serratus anterior"],
+    muscles_primary: ["Chest", "Front delts"], muscles_secondary: ["Triceps", "Serratus"],
     tip: "If your wrists hurt, the bar is too high in your hand — lower it into your palm and keep your wrists neutral, not bent back."
   },
   "Incline Barbell Press": {
@@ -446,7 +449,7 @@ const GUIDES = {
     equipment: "Barbell, incline bench",
     overview: "The incline barbell press shifts emphasis to the upper chest and front delts by changing the angle of push to roughly 30–45 degrees. It builds the upper chest shelf that flat pressing alone won't fully develop.",
     steps: [], cues: ["Set the bench to 30–45 degrees, no higher", "Bar touches upper chest not mid-chest", "Keep shoulder blades retracted throughout", "Control the descent — don't let it drop", "Think 'push the ceiling away at an angle'"],
-    muscles_primary: ["Upper pectoralis major", "Anterior deltoid"], muscles_secondary: ["Triceps brachii", "Clavicular head of pec"],
+    muscles_primary: ["Upper chest", "Front delts"], muscles_secondary: ["Triceps", "Upper chest"],
     tip: "Most people go too steep — 30 degrees hits upper chest better than 45, which recruits too much front delt."
   },
   "Incline DB Press": {
@@ -454,7 +457,7 @@ const GUIDES = {
     equipment: "Dumbbells, incline bench",
     overview: "The incline dumbbell press provides the same upper chest angle as the barbell version but with a greater range of motion and trains each side independently. Excellent for fixing imbalances and developing a fuller upper chest.",
     steps: [], cues: ["Keep elbows at 60 degrees, not flared", "Feel the stretch at the bottom, don't rush it", "Slight inward arc increases chest squeeze at top", "Keep wrists stacked over elbows throughout", "Controlled descent — aim for 2–3 seconds down"],
-    muscles_primary: ["Upper pectoralis major", "Anterior deltoid"], muscles_secondary: ["Triceps brachii", "Rotator cuff"],
+    muscles_primary: ["Upper chest", "Front delts"], muscles_secondary: ["Triceps", "Rotator cuff"],
     tip: "Go lighter than you think — the extra range of motion and lack of a bar to stabilise means dumbbells expose weak points quickly."
   },
   "Flat DB Press": {
@@ -462,7 +465,7 @@ const GUIDES = {
     equipment: "Dumbbells, flat bench",
     overview: "The flat dumbbell press allows each arm to work independently through a slightly more natural arc. Highly effective for chest development and building the mind-muscle connection.",
     steps: [], cues: ["Elbows at 45–60 degrees, not 90", "Squeeze your chest — don't just push", "Wrists stay neutral, not bent back", "Shoulder blades stay packed down throughout", "Full range of motion beats heavy weight with half reps"],
-    muscles_primary: ["Pectoralis major", "Anterior deltoid"], muscles_secondary: ["Triceps brachii", "Serratus anterior"],
+    muscles_primary: ["Chest", "Front delts"], muscles_secondary: ["Triceps", "Serratus"],
     tip: "The dumbbell press reveals any strength imbalance between sides — if one arm is leading, consciously slow the stronger side down."
   },
   "Overhead Press": {
@@ -470,7 +473,7 @@ const GUIDES = {
     equipment: "Barbell",
     overview: "The overhead press is the definitive upper body vertical push. It builds shoulder strength, stability, and size from shoulder height to fully locked out overhead. Heavy OHP strength carries over to almost every upper body movement.",
     steps: [], cues: ["Core and glutes braced hard throughout", "Bar over mid-foot when standing", "Head moves back then through as bar passes", "Fully lock out and shrug at the top", "Keep the bar as vertical as possible — no forward drift"],
-    muscles_primary: ["Anterior deltoid", "Medial deltoid", "Triceps brachii"], muscles_secondary: ["Upper trapezius", "Serratus anterior", "Core"],
+    muscles_primary: ["Front delts", "Side delts", "Triceps"], muscles_secondary: ["Upper traps", "Serratus", "Core"],
     tip: "Most missed reps happen from losing the brace — breathe in at the top or bottom between reps, never mid-press."
   },
   "Close Grip Bench Press": {
@@ -478,7 +481,7 @@ const GUIDES = {
     equipment: "Barbell, bench",
     overview: "The close grip bench press shifts primary emphasis from the chest to the triceps by narrowing the grip. One of the best mass builders for the triceps and directly improves lockout strength on the standard bench press.",
     steps: [], cues: ["Elbows stay close to your sides throughout", "Don't go narrower than shoulder-width — it strains wrists", "Bar touches lower chest, not mid-chest", "Squeeze the triceps hard at the top", "Controlled descent — triceps do the braking"],
-    muscles_primary: ["Triceps brachii"], muscles_secondary: ["Pectoralis major", "Anterior deltoid"],
+    muscles_primary: ["Triceps"], muscles_secondary: ["Chest", "Front delts"],
     tip: "A grip slightly inside shoulder-width is optimal. Going too close puts unnecessary stress on the wrists and reduces force output."
   },
   "Dips (Weighted)": {
@@ -486,7 +489,7 @@ const GUIDES = {
     equipment: "Dip station, weight belt",
     overview: "Weighted dips are one of the most effective compound pushing movements available, training the chest, triceps, and front delts through a deep pressing pattern with added load via a belt or dumbbell.",
     steps: [], cues: ["Slight forward lean for more chest involvement", "Elbows flare slightly — not fully tucked", "Go to parallel or just below, not half reps", "Keep shoulders depressed — don't shrug up", "Full lockout at the top to finish the rep"],
-    muscles_primary: ["Pectoralis major (lower)", "Triceps brachii"], muscles_secondary: ["Anterior deltoid", "Rhomboids"],
+    muscles_primary: ["Chest (lower)", "Triceps"], muscles_secondary: ["Front delts", "Rhomboids"],
     tip: "Control the descent — a slow, 3-second lowering phase will build more strength than rushing."
   },
   "Push Press": {
@@ -494,7 +497,7 @@ const GUIDES = {
     equipment: "Barbell",
     overview: "The push press uses leg drive to move significantly more weight overhead than a strict press allows, building explosive power and loading the shoulders and triceps through full lockout.",
     steps: [], cues: ["Keep your torso upright during the dip — no forward lean", "Dip is shallow and fast — not a squat", "Drive through your whole foot, not just toes", "Get under the bar at lockout", "Control the descent back to the rack position"],
-    muscles_primary: ["Anterior deltoid", "Triceps brachii", "Quadriceps"], muscles_secondary: ["Medial deltoid", "Upper trapezius", "Glutes"],
+    muscles_primary: ["Front delts", "Triceps", "Quads"], muscles_secondary: ["Side delts", "Upper traps", "Glutes"],
     tip: "The dip speed determines the power transfer — a slow dip kills the momentum. Dip fast, drive fast."
   },
   "Z Press": {
@@ -502,7 +505,7 @@ const GUIDES = {
     equipment: "Barbell",
     overview: "The Z Press is an overhead press seated on the floor with legs straight out. It eliminates any leg drive, demands thoracic mobility, and forces core and upper back to work hard — building honest pressing strength.",
     steps: [], cues: ["If you're leaning back, it's too heavy", "Core braced as hard as possible throughout", "Legs stay flat and relaxed on the floor", "Bar travels directly overhead — no forward drift", "Maintain upright torso — that's the whole point"],
-    muscles_primary: ["Anterior deltoid", "Triceps brachii", "Core"], muscles_secondary: ["Medial deltoid", "Upper trapezius", "Serratus anterior"],
+    muscles_primary: ["Front delts", "Triceps", "Core"], muscles_secondary: ["Side delts", "Upper traps", "Serratus"],
     tip: "Start light. Most people need to drop 20–30% from their standing press. Fix the technique first, load it after."
   },
   "Barbell Row": {
@@ -510,7 +513,7 @@ const GUIDES = {
     equipment: "Barbell",
     overview: "The barbell row is a foundational compound pulling movement. Performed bent over with a loaded bar, it trains the lats, traps, rhomboids, and demands core and lower back stability throughout.",
     steps: [], cues: ["Hinge hard — torso close to parallel", "Lead with elbows, not hands", "Pull to your belly, not your chest", "Shoulder blades squeeze hard at the top", "Don't let your torso rise to help the pull"],
-    muscles_primary: ["Latissimus dorsi", "Rhomboids", "Middle trapezius"], muscles_secondary: ["Biceps brachii", "Rear deltoid", "Erector spinae"],
+    muscles_primary: ["Lats", "Rhomboids", "Mid traps"], muscles_secondary: ["Biceps", "Rear delts", "Lower back"],
     tip: "If your lower back is rounding, you're either too heavy or your hinge isn't deep enough. Fix the position before adding weight."
   },
   "Weighted Pull-Up": {
@@ -518,7 +521,7 @@ const GUIDES = {
     equipment: "Pull-up bar, weight belt",
     overview: "The weighted pull-up is arguably the best compound pulling exercise available. Adding load to an already-demanding bodyweight movement produces significant lat, bicep, and upper back strength gains.",
     steps: [], cues: ["Shoulders packed down before you pull", "Drive elbows toward your hip pockets", "Don't swing or kip — strict form only", "Slow descent — this is where strength is built", "Full hang at the bottom every rep"],
-    muscles_primary: ["Latissimus dorsi", "Biceps brachii"], muscles_secondary: ["Rhomboids", "Teres major", "Rear deltoid"],
+    muscles_primary: ["Lats", "Biceps"], muscles_secondary: ["Rhomboids", "Teres major", "Rear delts"],
     tip: "Make sure you can do 10 clean bodyweight pull-ups before loading."
   },
   "Weighted Chin-Up": {
@@ -526,7 +529,7 @@ const GUIDES = {
     equipment: "Pull-up bar, weight belt",
     overview: "The chin-up uses an underhand grip which puts the biceps in a mechanically advantageous position. Excellent for building both lat thickness and bicep mass simultaneously.",
     steps: [], cues: ["Underhand grip puts biceps in the game", "Elbows travel forward and down, not out wide", "Full hang at the bottom — don't shortcut it", "Keep core tight to avoid swinging", "Squeeze hard at the top before lowering"],
-    muscles_primary: ["Latissimus dorsi", "Biceps brachii"], muscles_secondary: ["Rhomboids", "Brachialis", "Teres major"],
+    muscles_primary: ["Lats", "Biceps"], muscles_secondary: ["Rhomboids", "Biceps", "Teres major"],
     tip: "The chin-up tends to feel easier than the pull-up for most people — use it to get comfortable with loaded pulling before progressing."
   },
   "Pendlay Row": {
@@ -534,7 +537,7 @@ const GUIDES = {
     equipment: "Barbell",
     overview: "The Pendlay Row starts dead on the floor each rep, eliminating momentum. A brutally honest test of back strength and one of the best tools for building explosive pulling power.",
     steps: [], cues: ["Torso near horizontal — stricter than a standard row", "Bar starts dead on the floor each rep", "Explosive pull — not a slow grind", "Keep torso from rising — it defeats the purpose", "Lead with elbows, not hands"],
-    muscles_primary: ["Latissimus dorsi", "Rhomboids", "Middle and lower trapezius"], muscles_secondary: ["Rear deltoid", "Biceps brachii", "Erector spinae"],
+    muscles_primary: ["Lats", "Rhomboids", "Mid/lower traps"], muscles_secondary: ["Rear delts", "Biceps", "Lower back"],
     tip: "Expect to use 20–25% less than your barbell row — the horizontal torso and dead stop remove all the momentum."
   },
   "DB Row": {
@@ -542,7 +545,7 @@ const GUIDES = {
     equipment: "Dumbbell, bench",
     overview: "The single-arm dumbbell row trains each side independently, addresses asymmetries, and often loads the lats more heavily than bilateral movements. The supported setup also takes pressure off the lower back.",
     steps: [], cues: ["Elbow drives up and back — not out wide", "Retract the shoulder blade before you pull", "Let the lat stretch at the bottom", "Don't rotate your torso to get the weight up", "Keep your hips square to the floor"],
-    muscles_primary: ["Latissimus dorsi", "Rhomboids"], muscles_secondary: ["Biceps brachii", "Rear deltoid", "Teres major"],
+    muscles_primary: ["Lats", "Rhomboids"], muscles_secondary: ["Biceps", "Rear delts", "Teres major"],
     tip: "A full stretch at the bottom and strong squeeze at the top beats half-reps with a heavier dumbbell every time."
   },
   "Cable Row": {
@@ -550,7 +553,7 @@ const GUIDES = {
     equipment: "Cable machine",
     overview: "The seated cable row provides constant tension throughout the entire range of motion. Excellent for building back thickness with less spinal loading than heavy free-weight rows.",
     steps: [], cues: ["Keep your torso upright — don't rock for momentum", "Drive elbows back, not hands", "Shoulder blades come together hard at the top", "Full stretch at the front — feel it in your lats", "Don't use your lower back to assist"],
-    muscles_primary: ["Latissimus dorsi", "Rhomboids", "Middle trapezius"], muscles_secondary: ["Biceps brachii", "Rear deltoid"],
+    muscles_primary: ["Lats", "Rhomboids", "Mid traps"], muscles_secondary: ["Biceps", "Rear delts"],
     tip: "Rocking the torso back removes lat involvement. Stay upright and drop the weight if needed."
   },
   "T-Bar Row": {
@@ -558,7 +561,7 @@ const GUIDES = {
     equipment: "T-bar or landmine, plates",
     overview: "The T-Bar Row allows heavy loading through a neutral or overhand grip and a partially supported torso. It bridges the gap between free-weight barbell row and a machine row.",
     steps: [], cues: ["Don't let your hips rise as the weight gets heavy", "Lead with elbows, not hands", "Chest stays up — don't round forward", "Squeeze shoulder blades hard at the top", "Control the eccentric — don't let it crash down"],
-    muscles_primary: ["Latissimus dorsi", "Rhomboids", "Middle trapezius"], muscles_secondary: ["Biceps brachii", "Rear deltoid", "Erector spinae"],
+    muscles_primary: ["Lats", "Rhomboids", "Mid traps"], muscles_secondary: ["Biceps", "Rear delts", "Lower back"],
     tip: "If you're jerking the weight up using your hips, the load is too heavy. Drop it and keep the torso angle consistent."
   },
   "Lat Pulldown": {
@@ -566,7 +569,7 @@ const GUIDES = {
     equipment: "Cable machine, lat bar",
     overview: "The lat pulldown trains the lats through a vertical pulling pattern. Useful when building toward weighted pull-ups, for high rep lat work, or when you need to isolate the lats with precise control.",
     steps: [], cues: ["Shoulders packed down before pulling", "Pull to upper chest, not your chin", "Elbows drive down toward hips", "Don't let your upper traps do the work", "Full stretch at the top — let the lats lengthen"],
-    muscles_primary: ["Latissimus dorsi"], muscles_secondary: ["Biceps brachii", "Teres major", "Rhomboids"],
+    muscles_primary: ["Lats"], muscles_secondary: ["Biceps", "Teres major", "Rhomboids"],
     tip: "Front pulldowns to the upper chest are more effective and far safer than behind-the-neck variations."
   },
   "DB Push Press": {
@@ -574,7 +577,7 @@ const GUIDES = {
     equipment: "Dumbbells",
     overview: "The dumbbell push press combines a leg drive assist with a shoulder press to move more weight overhead than a strict press allows, with added independent arm control.",
     steps: [], cues: ["Dip is fast and shallow — not a squat", "Torso stays vertical during the dip", "Drive from the legs — arms finish the job", "Lock out fully at the top", "Absorb the return by bending knees slightly"],
-    muscles_primary: ["Anterior deltoid", "Triceps brachii", "Quadriceps"], muscles_secondary: ["Medial deltoid", "Upper trapezius", "Core"],
+    muscles_primary: ["Front delts", "Triceps", "Quads"], muscles_secondary: ["Side delts", "Upper traps", "Core"],
     tip: "The speed of the dip determines how much power transfers. Make it snappy."
   },
   "KB Swings": {
@@ -582,7 +585,7 @@ const GUIDES = {
     equipment: "Kettlebell",
     overview: "The kettlebell swing is a ballistic hip hinge that builds explosive posterior chain power — glutes, hamstrings, and lower back — while demanding core stability. One of the most efficient conditioning tools in the gym.",
     steps: [], cues: ["Power from the hips — not a front raise", "Hike the bell high into your groin on the backswing", "Snap your hips to vertical at the top", "Squeeze glutes hard at the top", "Maintain a flat back throughout — no rounding"],
-    muscles_primary: ["Glutes", "Hamstrings"], muscles_secondary: ["Erector spinae", "Core", "Anterior deltoid"],
+    muscles_primary: ["Glutes", "Hamstrings"], muscles_secondary: ["Lower back", "Core", "Front delts"],
     tip: "If the bell goes above your head, you're muscling it up with your arms. A properly loaded swing floats to chest-eye height naturally."
   },
   "KB Clean to Press": {
@@ -590,7 +593,7 @@ const GUIDES = {
     equipment: "Kettlebell",
     overview: "The kettlebell clean to press combines a ballistic clean to the rack position followed by a press overhead. It builds full-body coordination, shoulder strength, and conditioning simultaneously.",
     steps: [], cues: ["Clean with your hips — not your arms", "Punch through to the rack — don't let it flip onto your wrist", "Rack position: bell on forearm, elbow down", "Press from a solid, packed shoulder", "Control the descent back through the rack"],
-    muscles_primary: ["Glutes", "Hamstrings", "Anterior deltoid", "Triceps"], muscles_secondary: ["Core", "Upper trapezius", "Forearm grip"],
+    muscles_primary: ["Glutes", "Hamstrings", "Front delts", "Triceps"], muscles_secondary: ["Core", "Upper traps", "Forearm grip"],
     tip: "A painful clean means the bell is crashing onto your wrist — punch your hand forward earlier so the bell wraps into the rack smoothly."
   },
   "KB Gorilla Row": {
@@ -598,7 +601,7 @@ const GUIDES = {
     equipment: "Two kettlebells",
     overview: "The kettlebell gorilla row alternates pulling each bell while the other rests on the floor. It loads the lats and upper back while demanding significant anti-rotation core stability.",
     steps: [], cues: ["Torso stays still — anti-rotation is the challenge", "Drive elbow up toward the ceiling", "Don't let your hips rise on each rep", "Keep the non-working bell on the floor between reps", "Maintain the hip hinge — don't stand up"],
-    muscles_primary: ["Latissimus dorsi", "Rhomboids"], muscles_secondary: ["Core (anti-rotation)", "Biceps brachii", "Rear deltoid"],
+    muscles_primary: ["Lats", "Rhomboids"], muscles_secondary: ["Core (anti-rotation)", "Biceps", "Rear delts"],
     tip: "Use a weight that lets you keep your torso completely still while rowing — the anti-rotation demand is significant."
   },
   "Single Arm KB Snatch": {
@@ -606,7 +609,7 @@ const GUIDES = {
     equipment: "Kettlebell",
     overview: "The single-arm kettlebell snatch takes the bell from between the legs to fully locked out overhead in one fluid motion. It builds explosive hip power, shoulder stability, and conditioning.",
     steps: [], cues: ["All power from the hips — not the arm", "Pull the elbow high before punching through", "Punch through early to avoid the bell flipping on your wrist", "Lock out fully — arm straight, shoulder packed", "Keep the bell close to your body on the way up"],
-    muscles_primary: ["Glutes", "Hamstrings", "Anterior deltoid"], muscles_secondary: ["Core", "Upper trapezius", "Rotator cuff"],
+    muscles_primary: ["Glutes", "Hamstrings", "Front delts"], muscles_secondary: ["Core", "Upper traps", "Rotator cuff"],
     tip: "The bell should feel weightless at the top of the drive — if it feels heavy, you're muscling it up with your arm."
   },
   "KB Windmill": {
@@ -622,7 +625,7 @@ const GUIDES = {
     equipment: "Kettlebell or dumbbell",
     overview: "The tall kneeling press eliminates leg drive by pressing from both knees, forcing the core, glutes, and hips to stabilise. A great way to identify and fix pressing imbalances.",
     steps: [], cues: ["Glutes squeezed hard — this is the whole challenge", "Ribcage stays down — don't arch at the top", "No leg drive at all — pure shoulder press", "Core braced throughout", "Stay tall — don't sink into your hips"],
-    muscles_primary: ["Anterior deltoid", "Triceps brachii", "Core"], muscles_secondary: ["Glutes", "Hip flexors", "Medial deltoid"],
+    muscles_primary: ["Front delts", "Triceps", "Core"], muscles_secondary: ["Glutes", "Hip flexors", "Side delts"],
     tip: "If you're arching your lower back to get the weight overhead, your pressing strength has outpaced your core stability. Drop the weight."
   },
   "Box Jumps": {
@@ -630,7 +633,7 @@ const GUIDES = {
     equipment: "Plyo box",
     overview: "The box jump develops explosive lower body power through a fast, powerful jump onto an elevated surface, training fast-twitch muscle fibres and improving landing mechanics.",
     steps: [], cues: ["Fast, sharp load — not a slow squat", "Drive the arms hard to generate height", "Land soft — hips back, knees bent", "Land where you took off, not behind the box", "Always step down, never jump down"],
-    muscles_primary: ["Glutes", "Quadriceps", "Calves"], muscles_secondary: ["Hamstrings", "Core", "Hip flexors"],
+    muscles_primary: ["Glutes", "Quads", "Calves"], muscles_secondary: ["Hamstrings", "Core", "Hip flexors"],
     tip: "If your hips are below your knees when you land, the box is too high. Focus on explosiveness over height."
   },
   "Burpees": {
@@ -646,7 +649,7 @@ const GUIDES = {
     equipment: "Bodyweight",
     overview: "The tuck jump demands explosive lower body power and requires driving your knees to your chest at the apex. A high-intensity plyometric that spikes heart rate quickly.",
     steps: [], cues: ["Maximum height — don't hold back on the drive", "Pull the knees up hard at the top", "Land softly — don't stomp", "Stay on the balls of your feet between reps", "Continuous rhythm — don't pause between reps"],
-    muscles_primary: ["Quadriceps", "Glutes", "Hip flexors"], muscles_secondary: ["Calves", "Core", "Hamstrings"],
+    muscles_primary: ["Quads", "Glutes", "Hip flexors"], muscles_secondary: ["Calves", "Core", "Hamstrings"],
     tip: "Tuck jumps should feel hard. If they feel easy, you're not driving high enough or pulling the knees up far enough."
   },
   "Broad Jumps": {
@@ -654,7 +657,7 @@ const GUIDES = {
     equipment: "Bodyweight",
     overview: "The broad jump develops explosive forward power from the lower body. Unlike box jumps, broad jumps train force application at an angle — useful for speed and athleticism.",
     steps: [], cues: ["Angle your jump — forward and up, not straight up", "Drive your arms hard on take-off", "Land with hips back to absorb the impact", "Keep your chest up on landing", "Max effort every jump"],
-    muscles_primary: ["Glutes", "Quadriceps", "Calves"], muscles_secondary: ["Hamstrings", "Core", "Hip flexors"],
+    muscles_primary: ["Glutes", "Quads", "Calves"], muscles_secondary: ["Hamstrings", "Core", "Hip flexors"],
     tip: "Mark where you land to track progress. Broad jump distance is a great measure of lower body explosive power."
   },
   "Jump Squats": {
@@ -662,7 +665,7 @@ const GUIDES = {
     equipment: "Bodyweight",
     overview: "The jump squat adds a plyometric element to the squat pattern, developing explosive power through the full lower body while also being highly effective for conditioning.",
     steps: [], cues: ["Full squat depth before the jump", "Explode from the bottom — don't half-squat", "Land soft and load straight into the next rep", "Keep chest up throughout", "Arms can drive upward to assist height"],
-    muscles_primary: ["Quadriceps", "Glutes"], muscles_secondary: ["Hamstrings", "Calves", "Core"],
+    muscles_primary: ["Quads", "Glutes"], muscles_secondary: ["Hamstrings", "Calves", "Core"],
     tip: "Make sure your landing mechanics are solid before adding weight to jump squats."
   },
   "Plyo Push-Ups": {
@@ -670,7 +673,7 @@ const GUIDES = {
     equipment: "Bodyweight",
     overview: "Plyometric push-ups add an explosive element to the standard push-up by pushing hard enough that your hands leave the floor. They develop upper body power and fast-twitch muscle recruitment.",
     steps: [], cues: ["Fast descent to load the stretch reflex", "Explosive push — hands should clear the floor", "Body stays in a straight line throughout", "Land with bent elbows to absorb", "For added difficulty, clap at the top"],
-    muscles_primary: ["Pectoralis major", "Triceps brachii"], muscles_secondary: ["Anterior deltoid", "Core", "Serratus anterior"],
+    muscles_primary: ["Chest", "Triceps"], muscles_secondary: ["Front delts", "Core", "Serratus"],
     tip: "If you can't get your hands off the floor, do standard fast push-ups first and build the strength base."
   },
   "Battle Rope Slams": {
@@ -678,7 +681,7 @@ const GUIDES = {
     equipment: "Battle ropes",
     overview: "Battle rope slams drive both ropes downward with maximum force, training the shoulders, lats, and core while spiking the heart rate significantly. An all-out power endurance exercise.",
     steps: [], cues: ["Full overhead extension on the raise", "Slam as hard as possible — max effort every rep", "Use your whole body — not just your arms", "Drive your hips as the ropes come down", "Maintain your base — feet stay planted"],
-    muscles_primary: ["Latissimus dorsi", "Anterior deltoid", "Core"], muscles_secondary: ["Triceps", "Glutes", "Rhomboids"],
+    muscles_primary: ["Lats", "Front delts", "Core"], muscles_secondary: ["Triceps", "Glutes", "Rhomboids"],
     tip: "If the ropes are barely hitting the floor, you're holding back. Drive them down with full body force."
   },
   "Lateral Bounds": {
@@ -686,7 +689,7 @@ const GUIDES = {
     equipment: "Bodyweight",
     overview: "Lateral bounds develop explosive lateral power, single-leg landing mechanics, and hip abductor strength through side-to-side jumps. Excellent for sporting conditioning.",
     steps: [], cues: ["Push off hard from one foot", "Land soft on one foot — control it", "Hips back on landing to absorb", "Drive your arms to add distance", "Pause on each landing before bounding back"],
-    muscles_primary: ["Glutes (abductors)", "Quadriceps"], muscles_secondary: ["Calves", "Core", "Hamstrings"],
+    muscles_primary: ["Glutes (abductors)", "Quads"], muscles_secondary: ["Calves", "Core", "Hamstrings"],
     tip: "Own the landing first, then go for distance. Most people touch the foot down and immediately bound off without absorbing."
   },
   "Ski Erg": {
@@ -694,7 +697,7 @@ const GUIDES = {
     equipment: "Ski erg machine",
     overview: "The ski erg mimics the double-pole motion of cross-country skiing. A low-impact but high-intensity tool that trains the lats, core, and cardiovascular system with very little joint stress.",
     steps: [], cues: ["Full overhead reach before every pull", "Use your lats and core — not just your arms", "Drive through the hips to add power", "Keep a consistent rhythm rather than sprinting and stopping", "Breathe on every pull — exhale on the drive down"],
-    muscles_primary: ["Latissimus dorsi", "Core", "Triceps"], muscles_secondary: ["Anterior deltoid", "Glutes", "Hamstrings"],
+    muscles_primary: ["Lats", "Core", "Triceps"], muscles_secondary: ["Front delts", "Glutes", "Hamstrings"],
     tip: "A consistent pace at 85% effort will beat 5-second sprints with stops every time."
   },
   "Rowing Machine": {
@@ -702,7 +705,7 @@ const GUIDES = {
     equipment: "Rowing machine",
     overview: "The rowing machine is a full-body low-impact cardio tool. A proper stroke engages the legs (60%), back (30%), and arms (10%) in sequence — one of the most efficient conditioning tools available.",
     steps: [], cues: ["Legs, back, arms — in that order on the drive", "Arms, back, legs — in that order on the recovery", "Push, don't pull — legs do the work", "Keep your back angle consistent during the leg drive", "1:2 drive to recovery ratio keeps it sustainable"],
-    muscles_primary: ["Quadriceps", "Glutes", "Latissimus dorsi"], muscles_secondary: ["Core", "Hamstrings", "Biceps brachii"],
+    muscles_primary: ["Quads", "Glutes", "Lats"], muscles_secondary: ["Core", "Hamstrings", "Biceps"],
     tip: "If your arms are tiring before your legs, your sequencing is off. The legs should generate most of the power."
   },
   "Assault Bike": {
@@ -710,7 +713,7 @@ const GUIDES = {
     equipment: "Assault bike",
     overview: "The Assault bike is notorious for its intensity. The arms engage on push-pull handles making it a true full-body cardio machine — resistance comes from the fan, so you work as hard as you push.",
     steps: [], cues: ["Push AND pull the handles — not just push", "Maintain cadence — don't let it drop", "Lean slightly forward for more power output", "Use your legs more than your arms for sustainable output", "Breathe in through your nose, out through your mouth"],
-    muscles_primary: ["Quadriceps", "Glutes", "Anterior deltoid"], muscles_secondary: ["Hamstrings", "Triceps and biceps", "Core"],
+    muscles_primary: ["Quads", "Glutes", "Front delts"], muscles_secondary: ["Hamstrings", "Triceps and biceps", "Core"],
     tip: "Start at 70% effort and build — most people who go all-out immediately slow down dramatically within 20 seconds."
   },
   "Bike Erg": {
@@ -718,7 +721,7 @@ const GUIDES = {
     equipment: "Bike erg machine",
     overview: "The Concept2 Bike Erg is a stationary cycle with air resistance. It focuses primarily on lower body conditioning and is excellent for sustained effort and lactate threshold work.",
     steps: [], cues: ["Apply force across the full 360 degrees of the pedal stroke", "Stay seated for sustained work", "Core engaged to transfer power from legs to pedals", "Consistent cadence beats variable spiking", "Breathe steadily — find your rhythm"],
-    muscles_primary: ["Quadriceps", "Glutes", "Hamstrings"], muscles_secondary: ["Calves", "Core"],
+    muscles_primary: ["Quads", "Glutes", "Hamstrings"], muscles_secondary: ["Calves", "Core"],
     tip: "85–100 RPM with moderate resistance tends to be more efficient than grinding at low RPM with high resistance."
   },
   "Shuttle Runs": {
@@ -726,7 +729,7 @@ const GUIDES = {
     equipment: "Bodyweight, markers",
     overview: "Shuttle runs are a repeated sprint and deceleration drill between two points. Excellent for cardiovascular conditioning, change-of-direction speed, and training the deceleration pattern.",
     steps: [], cues: ["Sprint — don't jog", "Change direction low and sharp", "Touch the line — don't short-change it", "Drive your arms hard on each sprint", "Recover fully between rounds if doing multiple sets"],
-    muscles_primary: ["Quadriceps", "Glutes", "Hamstrings"], muscles_secondary: ["Calves", "Core", "Hip flexors"],
+    muscles_primary: ["Quads", "Glutes", "Hamstrings"], muscles_secondary: ["Calves", "Core", "Hip flexors"],
     tip: "The change of direction is what makes shuttles unique — decelerate into a low athletic stance before pushing off."
   },
   "Sled Push": {
@@ -734,7 +737,7 @@ const GUIDES = {
     equipment: "Sled, weight plates",
     overview: "The sled push drives a weighted sled forward from a low, powerful body angle. One of the safest high-intensity tools available — no eccentric phase means you can push volume without excessive soreness.",
     steps: [], cues: ["Lean forward — more lean means more power", "Drive through the full foot on every step", "Arms stay rigid to transfer force", "Short, powerful steps rather than long strides", "Keep your hips low — don't stand upright"],
-    muscles_primary: ["Quadriceps", "Glutes", "Hamstrings"], muscles_secondary: ["Calves", "Core", "Anterior deltoid"],
+    muscles_primary: ["Quads", "Glutes", "Hamstrings"], muscles_secondary: ["Calves", "Core", "Front delts"],
     tip: "No eccentric load means this is excellent for volume work — your legs won't be as sore the next day as with squats."
   },
   "Barbell Deadlift": {
@@ -742,7 +745,7 @@ const GUIDES = {
     equipment: "Barbell, plates",
     overview: "The deadlift is the most complete strength exercise available. It trains the entire posterior chain, grip, and core under maximal load through a fundamental movement pattern — picking a heavy object off the floor.",
     steps: [], cues: ["Bar over mid-foot before you touch it", "Hinge to the bar — don't squat down to it", "Chest up, lats tight before you pull", "Push the floor away — don't think 'pull'", "Lock hips and knees out at the same time"],
-    muscles_primary: ["Glutes", "Hamstrings", "Erector spinae"], muscles_secondary: ["Quadriceps", "Latissimus dorsi", "Trapezius", "Core"],
+    muscles_primary: ["Glutes", "Hamstrings", "Lower back"], muscles_secondary: ["Quads", "Lats", "Traps", "Core"],
     tip: "If the bar drifts away from your legs during the pull, your lats aren't engaged. Think 'protect your armpits' to keep it close."
   },
   "DB Romanian Deadlift": {
@@ -750,7 +753,7 @@ const GUIDES = {
     equipment: "Dumbbells",
     overview: "The dumbbell Romanian deadlift trains the posterior chain through a hip hinge with dumbbells, allowing a more natural range of motion and helping identify strength imbalances. A foundational hamstring and glute builder.",
     steps: [], cues: ["Push your hips back — don't bend your knees first", "Feel the stretch in your hamstrings before reversing", "Keep the dumbbells close to your legs throughout", "Neutral spine — no rounding at the bottom", "Drive hips forward to stand, squeeze glutes at the top"],
-    muscles_primary: ["Hamstrings", "Glutes"], muscles_secondary: ["Erector spinae", "Core", "Forearms"],
+    muscles_primary: ["Hamstrings", "Glutes"], muscles_secondary: ["Lower back", "Core", "Forearms"],
     tip: "Use a mirror to check that your back stays flat. Most people round early — if you feel it in your lower back, you've gone too far."
   },
   "Face Pull": {
@@ -758,7 +761,7 @@ const GUIDES = {
     equipment: "Cable machine, rope attachment",
     overview: "The face pull trains the rear delts and external rotators of the shoulder — muscles that are chronically underdeveloped in most lifters. Essential for shoulder health, posture, and balancing the press-heavy nature of most training.",
     steps: [], cues: ["Pull to your face — not your neck or chest", "Elbows high and wide at the end position", "Think 'external rotation' at the end — hands finish above elbows", "Light weight, full range of motion beats heavy weight with partial reps", "Two second squeeze at end position every rep"],
-    muscles_primary: ["Posterior deltoid", "External rotators"], muscles_secondary: ["Trapezius (mid)", "Rhomboids", "Biceps"],
+    muscles_primary: ["Rear delts", "External rotators"], muscles_secondary: ["Trapezius (mid)", "Rhomboids", "Biceps"],
     tip: "Most shoulder problems in lifters come from the rear delt and rotator cuff being outpaced by the pushing muscles. Face pulls are the fix."
   },
   "DB Shoulder Press": {
@@ -766,7 +769,7 @@ const GUIDES = {
     equipment: "Dumbbells",
     overview: "The dumbbell shoulder press trains each shoulder independently through an overhead pressing pattern. Slightly more range of motion than a barbell and highly effective for building balanced shoulder development.",
     steps: [], cues: ["Dumbbells at ear height to start — not lower", "Press in a slight arc inward as you drive up", "Keep core braced — don't lean back", "Full extension at the top without locking out aggressively", "Controlled descent — 2 seconds down"],
-    muscles_primary: ["Anterior deltoid", "Medial deltoid"], muscles_secondary: ["Triceps brachii", "Upper trapezius", "Serratus anterior"],
+    muscles_primary: ["Front delts", "Side delts"], muscles_secondary: ["Triceps", "Upper traps", "Serratus"],
     tip: "If you can't press overhead without arching your lower back significantly, your thoracic mobility needs work — start with lighter weight and build the range."
   },
   "Chest-Supported Row": {
@@ -774,7 +777,7 @@ const GUIDES = {
     equipment: "Incline bench, dumbbells",
     overview: "The chest-supported row uses a bench to brace your chest, eliminating momentum and isolating the upper back. Excellent for targeting the mid-back with strict form that most free-standing rows can't achieve.",
     steps: [], cues: ["Chest stays in contact with the bench throughout", "Lead with your elbows, not your hands", "Squeeze your shoulder blades together at the top", "Full extension at the bottom — feel the stretch", "No rocking or using the hips"],
-    muscles_primary: ["Rhomboids", "Trapezius (mid)", "Rear deltoid"], muscles_secondary: ["Latissimus dorsi", "Biceps", "Teres major"],
+    muscles_primary: ["Rhomboids", "Trapezius (mid)", "Rear delts"], muscles_secondary: ["Lats", "Biceps", "Teres major"],
     tip: "The chest-supported row is honest — you can't use momentum. If you have to, the weight is too heavy."
   },
   "Arnold Press": {
@@ -782,7 +785,7 @@ const GUIDES = {
     equipment: "Dumbbells",
     overview: "The Arnold press combines a rotation with an overhead press, training the anterior, medial, and posterior deltoid across the full range of motion. One of the most complete shoulder exercises available.",
     steps: [], cues: ["Start with palms facing you at chin height", "Rotate palms outward as you press", "Full rotation before you reach full extension", "Control the rotation on the way down too", "Slow and deliberate beats fast and sloppy"],
-    muscles_primary: ["Anterior deltoid", "Medial deltoid"], muscles_secondary: ["Posterior deltoid", "Triceps brachii", "Upper trapezius"],
+    muscles_primary: ["Front delts", "Side delts"], muscles_secondary: ["Rear delts", "Triceps", "Upper traps"],
     tip: "Invented by Arnold Schwarzenegger to hit all three heads of the deltoid in one movement. Keep it lighter than your standard press — the rotation adds significant demand."
   },
   "KB Thruster": {
@@ -790,7 +793,7 @@ const GUIDES = {
     equipment: "Kettlebells",
     overview: "The kettlebell thruster combines a front squat and an overhead press into one fluid explosive movement. One of the most metabolically demanding exercises available — it trains the legs, shoulders, and core simultaneously.",
     steps: [], cues: ["Clean the bells to the rack position before starting", "Full squat depth — thighs parallel or below", "Drive from the bottom of the squat straight into the press", "The leg drive powers the press — use it", "Bells stay in front rack throughout the squat"],
-    muscles_primary: ["Quadriceps", "Glutes", "Anterior deltoid"], muscles_secondary: ["Core", "Triceps", "Hamstrings"],
+    muscles_primary: ["Quads", "Glutes", "Front delts"], muscles_secondary: ["Core", "Triceps", "Hamstrings"],
     tip: "The transition from squat to press should be seamless — the squat generates the momentum that drives the press. If you're stopping at the top of the squat before pressing, you're working harder than you need to."
   },
   "DB Thruster": {
@@ -798,7 +801,7 @@ const GUIDES = {
     equipment: "Dumbbells",
     overview: "The dumbbell thruster is a squat-to-press combination that trains the full body with high intensity. Slightly more accessible than the barbell version and excellent for conditioning blocks.",
     steps: [], cues: ["Dumbbells at shoulder height, elbows forward", "Full depth squat before the press", "Drive through the heels and use leg momentum into the press", "Lock out overhead at the top", "Control the descent — don't crash into the bottom"],
-    muscles_primary: ["Quadriceps", "Glutes", "Shoulders"], muscles_secondary: ["Core", "Triceps", "Hamstrings"],
+    muscles_primary: ["Quads", "Glutes", "Shoulders"], muscles_secondary: ["Core", "Triceps", "Hamstrings"],
     tip: "If your thrusters look like a quarter-squat to press, you're missing most of the benefit. Depth is non-negotiable."
   },
   "KB Farmer Carry": {
@@ -806,7 +809,7 @@ const GUIDES = {
     equipment: "Kettlebells",
     overview: "The farmer carry is brutally simple and brutally effective. Walking with heavy loads builds grip strength, core stability, and postural endurance — qualities that transfer to every other lift.",
     steps: [], cues: ["Stand tall — don't lean to one side", "Shoulders packed down and back", "Short, controlled steps — don't rush", "Core braced the entire way", "Let the weight hang — don't bend your elbows"],
-    muscles_primary: ["Core", "Trapezius", "Grip"], muscles_secondary: ["Glutes", "Quadriceps", "Erector spinae"],
+    muscles_primary: ["Core", "Traps", "Grip"], muscles_secondary: ["Glutes", "Quads", "Lower back"],
     tip: "Go heavier than you think. Most people underload farmer carries. If you're not being challenged at 10 metres, add weight."
   },
   "Bear Crawl": {
@@ -814,7 +817,7 @@ const GUIDES = {
     equipment: "Bodyweight",
     overview: "The bear crawl is a ground-based full body conditioning exercise that trains contralateral coordination, core stability, and shoulder endurance. Deceptively hard when done correctly at speed.",
     steps: [], cues: ["Knees hover one inch off the floor throughout", "Opposite hand and foot move together", "Keep your back flat — don't let your hips rise", "Slow is controlled; fast is conditioning", "Eyes down to keep a neutral neck"],
-    muscles_primary: ["Core", "Anterior deltoid", "Quadriceps"], muscles_secondary: ["Triceps", "Glutes", "Hip flexors"],
+    muscles_primary: ["Core", "Front delts", "Quads"], muscles_secondary: ["Triceps", "Glutes", "Hip flexors"],
     tip: "The hover is what makes it hard. Most people let their knees rest on the floor and lose the core demand entirely."
   },
   "Barbell Floor Press": {
@@ -822,7 +825,7 @@ const GUIDES = {
     equipment: "Barbell",
     overview: "The barbell floor press is a press variation where the upper arms contact the floor at the bottom, eliminating leg drive and limiting range of motion. Excellent for building lockout strength and working around shoulder discomfort.",
     steps: [], cues: ["Upper arms rest on the floor at the bottom — pause there", "No leg drive — this is pure upper body pressing", "Grip slightly narrower than your bench press", "Press straight up, not back toward your face", "Control the descent until your triceps touch down"],
-    muscles_primary: ["Pectoralis major", "Triceps brachii"], muscles_secondary: ["Anterior deltoid", "Forearms"],
+    muscles_primary: ["Chest", "Triceps"], muscles_secondary: ["Front delts", "Forearms"],
     tip: "The floor press is honest about your tricep strength — if that's your weak point in the bench, the floor press will expose and fix it."
   },
   "Pike Push-Up": {
@@ -830,7 +833,7 @@ const GUIDES = {
     equipment: "Bodyweight, mat",
     overview: "The pike push-up is a bodyweight shoulder press performed in an inverted V position, shifting load from the chest to the shoulders and triceps. One of the most effective bodyweight shoulder builders available.",
     steps: [], cues: ["Hips high — the higher, the more shoulder load", "Lower the crown of your head toward the floor between your hands", "Elbows track slightly outward, not fully flared", "Full lockout at the top — squeeze the shoulders", "Keep your core tight — don't let hips drop as you fatigue"],
-    muscles_primary: ["Anterior deltoid", "Triceps brachii"], muscles_secondary: ["Medial deltoid", "Serratus anterior", "Core"],
+    muscles_primary: ["Front delts", "Triceps"], muscles_secondary: ["Side delts", "Serratus", "Core"],
     tip: "The closer your feet are to your hands, the more vertical your body — and the harder the shoulder demand. Walk feet in progressively as you get stronger."
   },
   "Inverted Row": {
@@ -838,7 +841,7 @@ const GUIDES = {
     equipment: "Barbell in rack, or TRX",
     overview: "The inverted row is a bodyweight horizontal pull performed under a fixed bar or TRX handles. One of the best exercises for developing upper back strength and a key stepping stone to pull-ups.",
     steps: [], cues: ["Body stays in a straight line throughout — no hips sagging", "Pull your chest to the bar — not your chin", "Squeeze your shoulder blades hard at the top", "Full extension at the bottom — feel the stretch", "Feet closer to the bar = easier; feet further = harder"],
-    muscles_primary: ["Rhomboids", "Trapezius (mid)", "Latissimus dorsi"], muscles_secondary: ["Biceps", "Rear deltoid", "Core"],
+    muscles_primary: ["Rhomboids", "Trapezius (mid)", "Lats"], muscles_secondary: ["Biceps", "Rear delts", "Core"],
     tip: "Elevate your feet on a bench to increase the difficulty — this gets closer to a horizontal pull-up and will transfer directly to your rows and pull-up strength."
   },
   "Sandbag Clean & Press": {
@@ -846,7 +849,7 @@ const GUIDES = {
     equipment: "Sandbag",
     overview: "The sandbag clean and press combines a hip-driven clean into an overhead press. The shifting sand demands greater core stability and grip strength than a barbell, making it a uniquely challenging full-body movement.",
     steps: [], cues: ["Hinge — don't squat — to initiate the clean", "Drive through the hips explosively to get the bag to the rack", "Front rack position: bag rests on forearms at chest", "Press overhead using leg drive for efficiency", "Control the descent — don't drop the bag"],
-    muscles_primary: ["Glutes", "Hamstrings", "Shoulders"], muscles_secondary: ["Core", "Trapezius", "Grip"],
+    muscles_primary: ["Glutes", "Hamstrings", "Shoulders"], muscles_secondary: ["Core", "Traps", "Grip"],
     tip: "The bag will want to pull you forward — keep your lats tight throughout to prevent the weight from pulling your torso down."
   },
   "Sandbag Shouldering": {
@@ -854,7 +857,7 @@ const GUIDES = {
     equipment: "Sandbag",
     overview: "Sandbag shouldering involves lifting the sandbag from the ground and hoisting it to one shoulder in a single explosive motion. It develops functional strength that transfers to real-world carrying and sporting demands.",
     steps: [], cues: ["Start with the bag on the ground between your feet", "Explosively pull the bag up and rotate it onto one shoulder", "Brace your core as it lands on the shoulder", "Lower with control — don't just drop it", "Alternate shoulders each rep"],
-    muscles_primary: ["Glutes", "Core", "Trapezius"], muscles_secondary: ["Hamstrings", "Biceps", "Obliques"],
+    muscles_primary: ["Glutes", "Core", "Traps"], muscles_secondary: ["Hamstrings", "Biceps", "Obliques"],
     tip: "This is about explosive hip drive, not arm strength. Generate the force from your legs and hips — your arms just guide the bag."
   },
   "Med Ball Slams": {
@@ -862,7 +865,7 @@ const GUIDES = {
     equipment: "Medicine ball (slam ball)",
     overview: "Med ball slams drive the ball from overhead into the ground with maximum force, training explosive full-body power from the lats, core, and hip flexors. One of the best tools for developing peak power output.",
     steps: [], cues: ["Full overhead extension — reach as high as possible before slamming", "Drive the slam from your lats — not just your arms", "Hinge at the hips as you slam to add lower body power", "Pick it up before it bounces — don't wait", "Every rep should be maximum effort"],
-    muscles_primary: ["Latissimus dorsi", "Core", "Glutes"], muscles_secondary: ["Triceps", "Hip flexors", "Anterior deltoid"],
+    muscles_primary: ["Lats", "Core", "Glutes"], muscles_secondary: ["Triceps", "Hip flexors", "Front delts"],
     tip: "Use a dead rubber slam ball — not a standard medicine ball — or it will bounce back and hit you in the face."
   },
   "Mountain Climbers": {
@@ -870,7 +873,7 @@ const GUIDES = {
     equipment: "Bodyweight, mat",
     overview: "Mountain climbers drive alternating knees toward the chest from a high plank position. They train the core dynamically, develop hip flexor endurance, and spike the heart rate quickly — all without any equipment.",
     steps: [], cues: ["Hips stay level — don't let them rise as you fatigue", "Drive your knee fully toward your chest, not just halfway", "Keep your shoulders directly over your hands", "The faster you go, the more cardiovascular the demand", "Breathe — don't hold your breath through sets"],
-    muscles_primary: ["Core", "Hip flexors", "Anterior deltoid"], muscles_secondary: ["Quadriceps", "Glutes", "Triceps"],
+    muscles_primary: ["Core", "Hip flexors", "Front delts"], muscles_secondary: ["Quads", "Glutes", "Triceps"],
     tip: "Slow mountain climbers are a core exercise. Fast mountain climbers are conditioning. Know which one you're after and program accordingly."
   },
   "Inchworms": {
@@ -878,7 +881,7 @@ const GUIDES = {
     equipment: "Bodyweight, mat",
     overview: "The inchworm is a walking movement where you hinge forward, walk your hands out to a plank, optionally perform a push-up, then walk your feet back to your hands. An excellent warm-up and conditioning movement that trains the full body.",
     steps: [], cues: ["Keep legs as straight as possible when hinging forward", "Walk your hands out until your body is in a full plank", "Hold the plank for a beat before walking feet in", "Keep your core braced throughout", "Add a push-up at the bottom for extra pressing demand"],
-    muscles_primary: ["Hamstrings", "Core", "Anterior deltoid"], muscles_secondary: ["Glutes", "Triceps", "Chest"],
+    muscles_primary: ["Hamstrings", "Core", "Front delts"], muscles_secondary: ["Glutes", "Triceps", "Chest"],
     tip: "If your hamstrings are very tight, bend your knees slightly on the hinge. The goal is a flat back, not straight legs at the expense of form."
   },
   "Russian Twists": {
@@ -886,7 +889,7 @@ const GUIDES = {
     equipment: "Mat",
     overview: "Russian twists are a seated rotational core exercise performed in a V-sit position, rotating the torso side to side. They target the obliques and develop the rotational strength needed for most sports and lifting movements.",
     steps: [], cues: ["Rotate from the ribcage — not the lower back", "Keep hips and lower back locked still", "Feet lifted off the floor increases the demand", "Add a weight plate or medicine ball to progress", "Slow and controlled beats fast and sloppy"],
-    muscles_primary: ["Obliques", "Rectus abdominis"], muscles_secondary: ["Hip flexors", "Erector spinae", "Transverse abdominis"],
+    muscles_primary: ["Obliques", "Abs"], muscles_secondary: ["Hip flexors", "Lower back", "Deep core"],
     tip: "If you feel this in your lower back instead of your obliques, your hips are rotating. Lock them down and move only from the rib cage."
   },
   "Dead Bug": {
@@ -894,7 +897,7 @@ const GUIDES = {
     equipment: "Mat",
     overview: "The dead bug trains the deep core muscles by extending opposite arms and legs while keeping the lower back pressed into the floor. One of the safest and most effective core stability exercises available — no spinal flexion required.",
     steps: [], cues: ["Lower back stays glued to the mat throughout", "Extend opposite arm and leg simultaneously", "Exhale as you extend — helps brace the deep core", "Move slowly — speed defeats the purpose", "If your back lifts, shorten your range of motion"],
-    muscles_primary: ["Transverse abdominis", "Rectus abdominis"], muscles_secondary: ["Obliques", "Hip flexors", "Erector spinae"],
+    muscles_primary: ["Deep core", "Abs"], muscles_secondary: ["Obliques", "Hip flexors", "Lower back"],
     tip: "Press your lower back into the mat as if you're trying to leave an imprint. The moment it lifts, you've lost core engagement."
   },
   "Hollow Hold": {
@@ -902,7 +905,7 @@ const GUIDES = {
     equipment: "Mat",
     overview: "The hollow hold is an isometric full-body tension exercise where you lie on your back and create a hollowed-out position with arms overhead and legs extended low. A gymnastic staple that builds deep core strength and body tension.",
     steps: [], cues: ["Press your lower back into the floor — the lumbar spine should be flat", "Arms reach long overhead, legs reach long and low", "Point your toes and squeeze your thighs together", "The lower your legs, the harder the hold", "Pull your ribcage down toward your hips"],
-    muscles_primary: ["Rectus abdominis", "Transverse abdominis"], muscles_secondary: ["Hip flexors", "Obliques", "Serratus anterior"],
+    muscles_primary: ["Abs", "Deep core"], muscles_secondary: ["Hip flexors", "Obliques", "Serratus"],
     tip: "If you can't hold a hollow without your lower back arching, raise your legs higher until you can maintain contact. Gradually lower them as you get stronger."
   },
   "Flutter Kicks": {
@@ -910,7 +913,7 @@ const GUIDES = {
     equipment: "Mat",
     overview: "Flutter kicks are a lying core exercise where both legs alternate small kicks just above the floor. They develop lower abdominal endurance and hip flexor strength through sustained time under tension.",
     steps: [], cues: ["Lower back presses into the mat — maintain this throughout", "Small, controlled kicks — not big swings", "The closer your legs to the floor, the harder the demand", "Arms flat by your sides or tucked under your lower back for support", "Keep your head and shoulders slightly off the mat"],
-    muscles_primary: ["Rectus abdominis (lower)", "Hip flexors"], muscles_secondary: ["Transverse abdominis", "Obliques", "Quadriceps"],
+    muscles_primary: ["Lower abs", "Hip flexors"], muscles_secondary: ["Deep core", "Obliques", "Quads"],
     tip: "If your lower back comes off the mat, raise your legs a few inches. The goal is time under tension with a flat back — not low legs at the cost of form."
   },
   "Elbow-to-Knee": {
@@ -918,7 +921,7 @@ const GUIDES = {
     equipment: "Mat",
     overview: "The elbow-to-knee, also known as the bicycle crunch, alternates bringing opposite elbow and knee together while extending the other leg. It trains rotation, anti-rotation, and hip flexion simultaneously — one of the most complete mat core exercises.",
     steps: [], cues: ["Rotate from the shoulder — not the neck", "Fully extend the opposite leg low toward the floor", "Don't pull your head with your hands — lightly support it", "Slow reps beat fast reps — feel the oblique squeeze at the top", "Keep your lower back in contact with the mat"],
-    muscles_primary: ["Obliques", "Rectus abdominis"], muscles_secondary: ["Hip flexors", "Transverse abdominis"],
+    muscles_primary: ["Obliques", "Abs"], muscles_secondary: ["Hip flexors", "Deep core"],
     tip: "Going too fast turns this into a neck exercise. Pause at each rotation so you feel the oblique fully contract before switching sides."
   },
   "Hanging Knee Raises": {
@@ -926,7 +929,7 @@ const GUIDES = {
     equipment: "Pull-up bar",
     overview: "Hanging knee raises are performed hanging from a pull-up bar, bringing the knees to the chest using the abdominals. They train the lower abs and hip flexors through a full range of motion while also developing grip strength and shoulder stability.",
     steps: [], cues: ["Engage your lats first — pull your shoulders down before raising your knees", "Drive the knees up using your abs — not hip swing", "Control the lowering phase — don't just drop", "No swinging — brace the core to stay still", "Pause at the top to maximise ab contraction"],
-    muscles_primary: ["Rectus abdominis (lower)", "Hip flexors"], muscles_secondary: ["Obliques", "Grip", "Latissimus dorsi"],
+    muscles_primary: ["Lower abs", "Hip flexors"], muscles_secondary: ["Obliques", "Grip", "Lats"],
     tip: "If you're swinging, your abs aren't doing the work — your hip flexors are. Slow down, engage your lats, and feel the lower abs initiate the movement."
   },
   "Toes to Bar": {
@@ -934,7 +937,7 @@ const GUIDES = {
     equipment: "Pull-up bar",
     overview: "Toes to bar involves hanging from a pull-up bar and raising straight legs until the toes touch the bar. A demanding advanced core exercise that requires significant hip flexor strength, hamstring flexibility, and core control.",
     steps: [], cues: ["Kip only if you know how — strict reps build more strength", "Initiate from the lats to stop swinging", "Keep legs together and toes pointed throughout", "Brace hard at the top — don't let momentum carry you", "Lower with control — the negative builds strength too"],
-    muscles_primary: ["Rectus abdominis", "Hip flexors"], muscles_secondary: ["Latissimus dorsi", "Obliques", "Hamstrings (flexibility)"],
+    muscles_primary: ["Abs", "Hip flexors"], muscles_secondary: ["Lats", "Obliques", "Hamstrings"],
     tip: "Strict toes to bar are far harder and more beneficial than kipping. Master hanging knee raises first, then progress to strict leg raises, then straight leg toes to bar."
   },
   "Wall Balls": {
@@ -942,7 +945,7 @@ const GUIDES = {
     equipment: "Wall ball, wall",
     overview: "The wall ball is a front squat combined with a push press — the athlete squats deep and uses leg drive to throw a medicine ball to a target 9–10 feet high, then catches and repeats. A CrossFit and HYROX staple for full-body conditioning.",
     steps: [], cues: ["Full squat depth — hips below parallel before throwing", "Drive from the legs — don't muscle it with your arms", "Keep the ball close to your chest on the descent", "Catch the ball on the way down to absorb into the next squat", "Keep a consistent rhythm — don't hold the ball at the top"],
-    muscles_primary: ["Quadriceps", "Glutes", "Shoulders"], muscles_secondary: ["Core", "Hamstrings", "Triceps"],
+    muscles_primary: ["Quads", "Glutes", "Shoulders"], muscles_secondary: ["Core", "Hamstrings", "Triceps"],
     tip: "Stand an arm's length from the wall. Too close and the ball bounces back into your face; too far and you're fighting to catch it."
   },
   "Push-Ups": {
@@ -950,7 +953,7 @@ const GUIDES = {
     equipment: "Bodyweight, mat",
     overview: "The push-up is the foundational upper body pushing movement. It trains the chest, anterior deltoid and triceps through a horizontal press pattern using only bodyweight — available anywhere, infinitely scalable.",
     steps: [], cues: ["Hands slightly wider than shoulder-width", "Body stays in a straight line from head to heels", "Elbows at 45 degrees — not fully flared or fully tucked", "Lower chest to the floor — full range of motion", "Squeeze glutes and core throughout to stay rigid"],
-    muscles_primary: ["Pectoralis major", "Triceps brachii", "Anterior deltoid"], muscles_secondary: ["Core", "Serratus anterior"],
+    muscles_primary: ["Chest", "Triceps", "Front delts"], muscles_secondary: ["Core", "Serratus"],
     tip: "Research shows push-ups build comparable chest and tricep strength to the bench press. Don't underestimate them — add a weight vest or elevate your feet to progress."
   },
   "Sit-Ups": {
@@ -958,7 +961,7 @@ const GUIDES = {
     equipment: "Mat",
     overview: "The sit-up is a classic full trunk flexion movement that raises the upper body from flat to upright. It trains the rectus abdominis and hip flexors through a full range of motion and remains one of the most widely used core exercises.",
     steps: [], cues: ["Anchor your feet or use a decline bench for stability", "Cross your arms at your chest or place hands behind your ears — don't pull your neck", "Full range — lower all the way down, rise all the way up", "Exhale on the way up", "Control the descent — don't just drop back"],
-    muscles_primary: ["Rectus abdominis", "Hip flexors"], muscles_secondary: ["Obliques", "Transverse abdominis"],
+    muscles_primary: ["Abs", "Hip flexors"], muscles_secondary: ["Obliques", "Deep core"],
     tip: "If your lower back aches during sit-ups, your hip flexors are likely dominant. Dead bugs and hollow holds will build the core foundation first."
   },
   "Crunches": {
@@ -966,7 +969,7 @@ const GUIDES = {
     equipment: "Mat",
     overview: "The crunch is a partial trunk flexion that lifts only the shoulder blades off the floor. Unlike sit-ups, it reduces hip flexor involvement and keeps the focus on the abdominals through a shorter but more isolated range of motion.",
     steps: [], cues: ["Lower back stays in contact with the mat", "Lift only your shoulder blades — not your full back", "Hands behind your head — don't pull your neck forward", "Exhale as you crunch up, inhale as you lower", "Squeeze the abs at the top before lowering"],
-    muscles_primary: ["Rectus abdominis"], muscles_secondary: ["Obliques", "Transverse abdominis"],
+    muscles_primary: ["Abs"], muscles_secondary: ["Obliques", "Deep core"],
     tip: "Slow crunches with a two-second pause at the top are far more effective than fast reps. Feel the abs contract before you lower."
   },
   "Air Squats": {
@@ -974,7 +977,7 @@ const GUIDES = {
     equipment: "Bodyweight",
     overview: "The air squat is the foundational lower body movement — a full depth bodyweight squat that trains quad and glute strength, hip mobility, and movement mechanics. Used in high volume for conditioning or as a skill builder for loaded squats.",
     steps: [], cues: ["Feet shoulder-width, toes slightly out", "Hips break parallel — crease of hip below top of knee", "Knees track over toes throughout", "Chest stays up — don't cave forward", "Drive through the full foot to stand"],
-    muscles_primary: ["Quadriceps", "Glutes"], muscles_secondary: ["Hamstrings", "Core", "Calves"],
+    muscles_primary: ["Quads", "Glutes"], muscles_secondary: ["Hamstrings", "Core", "Calves"],
     tip: "Heels rising means you lack ankle mobility. Elevate your heels slightly on plates until mobility improves — but work on ankle stretches simultaneously."
   },
   "Lunges": {
@@ -982,7 +985,7 @@ const GUIDES = {
     equipment: "Bodyweight",
     overview: "The bodyweight lunge trains each leg independently through a split stance, developing quad and glute strength while also challenging balance and hip flexor flexibility. An essential unilateral movement pattern.",
     steps: [], cues: ["Keep your front knee over your front foot — don't let it cave in", "Back knee descends toward the floor — don't slam it down", "Torso stays upright — don't lean forward", "Drive through your front heel to return to standing", "Step far enough forward that your front shin stays vertical"],
-    muscles_primary: ["Quadriceps", "Glutes"], muscles_secondary: ["Hamstrings", "Core", "Hip flexors"],
+    muscles_primary: ["Quads", "Glutes"], muscles_secondary: ["Hamstrings", "Core", "Hip flexors"],
     tip: "Reverse lunges are easier on the knee than forward lunges and are a good starting point if you have any knee sensitivity."
   },
   "Side Plank": {
@@ -990,7 +993,7 @@ const GUIDES = {
     equipment: "Mat",
     overview: "The side plank is an isometric lateral core exercise performed on one forearm with the body in a straight line. It specifically targets the obliques and lateral stabilisers that standard planks and sit-ups don't reach.",
     steps: [], cues: ["Stack your feet or stagger them for more base of support", "Drive your hip toward the ceiling — don't let it sag", "Keep your body in a straight line from head to heels", "Don't hold your breath — breathe steadily", "The top arm can reach toward the ceiling for added shoulder demand"],
-    muscles_primary: ["Obliques", "Transverse abdominis"], muscles_secondary: ["Glute medius", "Anterior deltoid", "Core"],
+    muscles_primary: ["Obliques", "Deep core"], muscles_secondary: ["Glute medius", "Front delts", "Core"],
     tip: "If your hip drops within the first few seconds, drop to your knee first. Build up to a full side plank before adding duration."
   }
 ,
@@ -999,7 +1002,7 @@ const GUIDES = {
     equipment: "Kettlebell",
     overview: "The KB floor press is a pressing movement performed lying on the floor with a kettlebell in each hand. The neutral grip and floor contact remove shoulder strain while building solid pressing strength.",
     steps: [], cues: ["Press through the heel of your palm, not your fingers", "Keep your wrists stacked over your elbows", "Upper arms rest on the floor at the bottom — pause there", "Drive through the floor to press", "Keep your core tight throughout"],
-    muscles_primary: ["Pectoralis major", "Triceps brachii"], muscles_secondary: ["Anterior deltoid", "Core"],
+    muscles_primary: ["Chest", "Triceps"], muscles_secondary: ["Front delts", "Core"],
     tip: "The offset weight of a KB makes this harder than a DB floor press — start lighter than you think."
   },
   "KB Single Arm Row": {
@@ -1007,7 +1010,7 @@ const GUIDES = {
     equipment: "Kettlebell",
     overview: "The KB single arm row trains the upper back, lats and biceps unilaterally using a kettlebell. The offset centre of mass challenges grip and stability more than a dumbbell row.",
     steps: [], cues: ["Hinge at the hips — don't round your lower back", "Drive the elbow back toward your hip", "Pause at the top — squeeze the lat", "Control the descent fully", "Keep your hips square throughout"],
-    muscles_primary: ["Latissimus dorsi", "Rhomboids"], muscles_secondary: ["Biceps", "Core", "Rear deltoid"],
+    muscles_primary: ["Lats", "Rhomboids"], muscles_secondary: ["Biceps", "Core", "Rear delts"],
     tip: "Use the KB handle — not the bell — for a stronger grip position and better lat engagement."
   },
   "KB Deadlift": {
@@ -1015,7 +1018,7 @@ const GUIDES = {
     equipment: "Kettlebell",
     overview: "The KB deadlift trains the fundamental hip hinge using a kettlebell between the feet. A lower-demand alternative to the barbell deadlift that's excellent for technique development and lower body posterior chain work.",
     steps: [], cues: ["KB starts between feet, slightly in front of your mid-foot", "Hinge at the hips — push them back before bending knees", "Lat tension before you pull — protect your armpits", "Drive through the floor to stand", "Squeeze glutes hard at lockout"],
-    muscles_primary: ["Glutes", "Hamstrings"], muscles_secondary: ["Erector spinae", "Core", "Grip"],
+    muscles_primary: ["Glutes", "Hamstrings"], muscles_secondary: ["Lower back", "Core", "Grip"],
     tip: "Think of it as pushing the floor away rather than pulling the KB up — it keeps the movement hip-dominant."
   },
   "Cable Chest Press": {
@@ -1023,7 +1026,7 @@ const GUIDES = {
     equipment: "Cable machine",
     overview: "The cable chest press provides constant tension throughout the movement unlike a barbell or dumbbell press. Set the cables at chest height and press forward in a standing or seated position for a unique pressing stimulus.",
     steps: [], cues: ["Set cables at chest height", "Stagger your stance for stability", "Protract your shoulder blades at the top — get the full squeeze", "Control the return — don't let the cables pull you back", "Keep your core braced throughout"],
-    muscles_primary: ["Pectoralis major", "Anterior deltoid"], muscles_secondary: ["Triceps brachii", "Core"],
+    muscles_primary: ["Chest", "Front delts"], muscles_secondary: ["Triceps", "Core"],
     tip: "The constant tension through the full range of motion makes cable pressing feel very different to free weights — go lighter until you find your footing."
   },
   "Cable Overhead Press": {
@@ -1031,7 +1034,7 @@ const GUIDES = {
     equipment: "Cable machine",
     overview: "The cable overhead press uses a low cable attachment to press overhead, providing resistance through a different arc than a barbell and challenging shoulder stability throughout the movement.",
     steps: [], cues: ["Set cables low — press from shoulder height to overhead", "Keep your ribcage down — don't hyperextend your lower back", "Full lockout overhead", "Control the descent slowly", "Stagger your stance to prevent swaying"],
-    muscles_primary: ["Anterior deltoid", "Medial deltoid"], muscles_secondary: ["Triceps brachii", "Core", "Trapezius"],
+    muscles_primary: ["Front delts", "Side delts"], muscles_secondary: ["Triceps", "Core", "Traps"],
     tip: "Unilateral cable pressing exposes any shoulder imbalance quickly — if one side pulls differently, address it."
   },
   "Cable Woodchop": {
@@ -1039,7 +1042,7 @@ const GUIDES = {
     equipment: "Cable machine",
     overview: "The cable woodchop trains rotation and anti-rotation through a diagonal chopping pattern from high to low or low to high. One of the most effective cable conditioning movements for developing real-world rotational strength.",
     steps: [], cues: ["Stand sideways to the cable — arms length away", "Rotate from your hips and core — not just your arms", "Keep arms extended but not locked", "Control the return against the cable pull", "Both directions in your session for balance"],
-    muscles_primary: ["Obliques", "Core"], muscles_secondary: ["Glutes", "Anterior deltoid", "Transverse abdominis"],
+    muscles_primary: ["Obliques", "Core"], muscles_secondary: ["Glutes", "Front delts", "Deep core"],
     tip: "Start with high-to-low (chop down). Once comfortable, add low-to-high (lift up) — they train opposing muscle chains."
   },
   "DB Snatch": {
@@ -1047,7 +1050,7 @@ const GUIDES = {
     equipment: "Dumbbell",
     overview: "The DB snatch is a single-arm explosive movement driving a dumbbell from between the feet to overhead in one fluid motion. High rep DB snatches are a brutal conditioning tool that spikes the heart rate fast.",
     steps: [], cues: ["Drive from the hips — this is a lower body movement", "Pull the DB close to your body as it rises", "Punch under the DB at the top — don't muscle it overhead", "Lock out overhead before lowering", "Alternate arms each rep or each set"],
-    muscles_primary: ["Glutes", "Hamstrings", "Anterior deltoid"], muscles_secondary: ["Core", "Trapezius", "Grip"],
+    muscles_primary: ["Glutes", "Hamstrings", "Front delts"], muscles_secondary: ["Core", "Traps", "Grip"],
     tip: "Think of it as a swing that goes overhead. If you're muscling it up with your arm, reset and drive harder from the hips."
   },
   "DB Clean": {
@@ -1055,7 +1058,7 @@ const GUIDES = {
     equipment: "Dumbbell",
     overview: "The DB clean drives a pair of dumbbells from a hang or floor position to the front rack in one explosive movement. A lower-skill alternative to the barbell clean that works well at high reps for conditioning.",
     steps: [], cues: ["Start with a hip hinge — not a squat", "Explosive hip extension drives the movement", "Catch in a partial squat with DBs in front rack", "Elbows high in the catch", "Stand tall before the next rep"],
-    muscles_primary: ["Glutes", "Hamstrings", "Trapezius"], muscles_secondary: ["Core", "Biceps", "Anterior deltoid"],
+    muscles_primary: ["Glutes", "Hamstrings", "Traps"], muscles_secondary: ["Core", "Biceps", "Front delts"],
     tip: "Use lighter weight than you think — this is about speed and repetition for conditioning, not max load."
   },
   "KB Complex": {
@@ -1063,7 +1066,7 @@ const GUIDES = {
     equipment: "Kettlebell",
     overview: "A KB complex links multiple kettlebell movements together — swings, cleans, presses and squats — performed continuously without putting the bell down. High rep, low rest, and genuinely exhausting. The KB equivalent of a cardio machine session.",
     steps: [], cues: ["Use a lighter KB than your strength work", "Keep transitions between movements smooth", "Breathe on every rep — don't hold your breath", "Aim for 10+ reps of each movement before switching", "Put the bell down only when form breaks"],
-    muscles_primary: ["Full body", "Cardiovascular system"], muscles_secondary: ["Grip", "Core", "Shoulders"],
+    muscles_primary: ["Full body", "Cardio system"], muscles_secondary: ["Grip", "Core", "Shoulders"],
     tip: "A simple sequence: 10 swings → 5 cleans per side → 5 presses per side → 10 squats. Repeat for time. That's your cardio."
   }
 ,
@@ -1072,7 +1075,7 @@ const GUIDES = {
     equipment: "Bodyweight",
     overview: "The air squat is a full bodyweight squat performed through the full range of motion. High rep air squats in a conditioning context are deceptively demanding and build real lower body endurance.",
     cues: ["Feet shoulder-width, toes slightly out", "Send hips back and down — not just down", "Knees track over toes throughout", "Hit depth — crease of hip below top of knee", "Drive through the whole foot to stand"],
-    muscles_primary: ["Quadriceps", "Glutes"], muscles_secondary: ["Hamstrings", "Core"],
+    muscles_primary: ["Quads", "Glutes"], muscles_secondary: ["Hamstrings", "Core"],
     tip: "Speed up the descent slightly and pause at the bottom to keep tension on the muscles — don't bounce out of the hole."
   },
   "Lunge": {
@@ -1080,7 +1083,7 @@ const GUIDES = {
     equipment: "Bodyweight",
     overview: "The bodyweight lunge trains each leg independently through a step and lower pattern. Forward, reverse or walking lunges all work — choose based on space available.",
     cues: ["Step far enough that your front shin stays vertical", "Lower until back knee is just above the floor", "Keep your torso upright throughout", "Drive through your front heel to return", "Keep hips level — don't let them rotate"],
-    muscles_primary: ["Quadriceps", "Glutes"], muscles_secondary: ["Hamstrings", "Core", "Hip flexors"],
+    muscles_primary: ["Quads", "Glutes"], muscles_secondary: ["Hamstrings", "Core", "Hip flexors"],
     tip: "Reverse lunges are easier on the knees than forward lunges and allow better control — start there if knees are a concern."
   },
   "Bulgarian Split Squat": {
@@ -1088,7 +1091,7 @@ const GUIDES = {
     equipment: "Bodyweight",
     overview: "The Bulgarian split squat elevates the rear foot on a bench or box and loads the front leg through a deep single-leg squat. Bodyweight alone is sufficient to make this genuinely hard.",
     cues: ["Rear foot elevated hip height on a bench or box", "Front foot far enough forward that your shin stays vertical", "Lower until front thigh is parallel", "Drive through the front heel — not the toes", "Keep your torso upright or slightly forward"],
-    muscles_primary: ["Quadriceps", "Glutes"], muscles_secondary: ["Hamstrings", "Hip flexors", "Core"],
+    muscles_primary: ["Quads", "Glutes"], muscles_secondary: ["Hamstrings", "Hip flexors", "Core"],
     tip: "This is harder than it looks. If balance is an issue, hold a wall lightly with one hand until you find your position."
   },
   "Glute Bridge": {
@@ -1105,7 +1108,7 @@ const GUIDES = {
     equipment: "Barbell",
     overview: "The barbell thruster links a front squat directly into an overhead press using the momentum from the squat to drive the bar overhead. A staple conditioning movement that taxes the whole body.",
     cues: ["Bar in front rack — elbows high", "Squat to full depth", "Drive hard out of the hole — use the momentum", "Press the bar overhead as you stand", "Full lockout overhead before the next rep"],
-    muscles_primary: ["Quadriceps", "Anterior deltoid", "Triceps"], muscles_secondary: ["Glutes", "Core", "Trapezius"],
+    muscles_primary: ["Quads", "Front delts", "Triceps"], muscles_secondary: ["Glutes", "Core", "Traps"],
     tip: "The transition from squat to press should be seamless — the moment your hips extend, the bar should already be moving up."
   },
   "Barbell Complex": {
@@ -1113,7 +1116,7 @@ const GUIDES = {
     equipment: "Barbell",
     overview: "A barbell complex links multiple movements — typically deadlift, hang clean, front squat, press — performed back to back without releasing the bar. Done for rounds or time, it is one of the most demanding conditioning formats available.",
     cues: ["Use a weight you can press overhead — that's your limiting factor", "Smooth transitions between movements", "Breathe on every rep", "Don't drop the bar between movements", "Go lighter than you think — you will gas out fast"],
-    muscles_primary: ["Full body"], muscles_secondary: ["Cardiovascular system", "Grip", "Core"],
+    muscles_primary: ["Full body"], muscles_secondary: ["Cardio system", "Grip", "Core"],
     tip: "A simple sequence: 6 deadlifts → 6 hang cleans → 6 front squats → 6 overhead press. One round non-stop. Rest 90 seconds. Repeat."
   },
   "Barbell Burpee Over Bar": {
@@ -1121,7 +1124,7 @@ const GUIDES = {
     equipment: "Barbell",
     overview: "The barbell burpee over bar is a burpee performed next to a loaded or unloaded barbell, finishing with a two-foot lateral jump over the bar. High reps spike the heart rate fast and add a plyometric element to a standard burpee.",
     cues: ["Burpee to one side of the bar", "Both feet jump over the bar — don't step", "Land softly — bend your knees on landing", "Immediate transition into the next burpee on the other side", "Keep moving — the rest is built into the format"],
-    muscles_primary: ["Full body"], muscles_secondary: ["Cardiovascular system", "Core"],
+    muscles_primary: ["Full body"], muscles_secondary: ["Cardio system", "Core"],
     tip: "You can scale this by stepping over the bar instead of jumping — still effective, much lower impact."
   },
   "Barbell Clean": {
@@ -1129,7 +1132,7 @@ const GUIDES = {
     equipment: "Barbell",
     overview: "The barbell clean drives a barbell from the floor or hang to the front rack position in one explosive movement. At conditioning weights and high reps, cleans are a serious cardiovascular and full-body conditioning tool.",
     cues: ["Start with the bar over mid-foot", "Explosive hip extension drives the movement — not your arms", "Pull the bar close to your body throughout", "Catch in a partial squat with elbows high", "Stand tall before the next rep"],
-    muscles_primary: ["Glutes", "Hamstrings", "Trapezius"], muscles_secondary: ["Core", "Quadriceps", "Forearms"],
+    muscles_primary: ["Glutes", "Hamstrings", "Traps"], muscles_secondary: ["Core", "Quads", "Forearms"],
     tip: "Use 50-60% of your max clean for conditioning work. The point is speed and volume, not load."
   }
 };
@@ -1730,7 +1733,7 @@ async function renderModal(id) {
   const benefitText = g?.benefit || '';
   const equipText = g?.equipment || '';
   const benefitHtml = benefitText
-    ? `<div class="guide-benefit"><span class="guide-benefit-label">Why this movement</span>${benefitText}${equipText ? `<span class="equip-tag">📦 ${equipText}</span>` : ''}</div>` : '';
+    ? `<div class="guide-benefit"><span class="guide-benefit-label">Why this movement</span>${benefitText}${equipText ? `<span class="equip-tag">🏋️ ${equipText}</span>` : ''}</div>` : '';
 
   const overviewText = g?.overview || 'No guide available for this exercise.';
   const cuesHtml = g?.cues?.length
