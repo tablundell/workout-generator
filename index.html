@@ -1916,7 +1916,8 @@ function exportWorkout() {
   const cardio = reelData['bR3'] || '';
   const date = new Date().toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' });
   const shortDate = new Date().toLocaleDateString(undefined, { day:'numeric', month:'numeric', year:'2-digit' });
-  const wodTitle = `🏋️ WOD — ${push} & ${pull} · ${shortDate}`;
+  const workoutName = document.getElementById('workoutName').textContent.trim() || `Workout — ${date}`;
+  const wodTitle = `🏋️ ${workoutName}`;
   const warmupText = document.getElementById('warmupBody')?.textContent || '';
 
   // Determine tracking fields based on equipment
@@ -1944,8 +1945,7 @@ function exportWorkout() {
   // Format description line for Block B
   const bFmtLine = aFmtDesc ? `${bFmt}  (${bFmtDesc.split('.')[0]})` : bFmt;
 
-  const text = `🏋️ WORKOUT OF THE DAY
-${date.toUpperCase()}
+  const text = `🏋️ ${workoutName}
 
 ━━━━━━━━━━━━━━━━━━
 ADVISED WARM-UP
@@ -2007,10 +2007,9 @@ function fallbackCopy(text, btn) {
   const orig = btn.innerHTML;
 
   // Desktop — download as a .txt file
-  const push = reelData['aR1'] || 'workout';
-  const pull = reelData['aR2'] || '';
+  const workoutName = document.getElementById('workoutName').textContent.trim() || 'Workout';
   const shortDate = new Date().toLocaleDateString(undefined, { day:'numeric', month:'numeric', year:'2-digit' }).replace(/\//g, '-');
-  const filename = `WOD ${push} & ${pull} ${shortDate}.txt`;
+  const filename = `${workoutName} ${shortDate}.txt`;
 
   const blob = new Blob([text], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
