@@ -278,7 +278,7 @@
         <div class="chip" data-group="equip" data-val="barbell">Barbell</div>
         <div class="chip" data-group="equip" data-val="dumbbell">Dumbbell</div>
         <div class="chip" data-group="equip" data-val="kettlebell">Kettlebell</div>
-        <div class="chip" data-group="equip" data-val="bodyweight">Bodyweight</div>
+        <div class="chip" data-group="equip" data-val="bodyweight">No Equipment</div>
         <div class="chip" data-group="equip" data-val="machine">Machine</div>
         <div class="chip" data-group="equip" data-val="bags">Bags &amp; Balls</div>
       </div>
@@ -484,13 +484,13 @@ const GUIDES = {
     muscles_primary: ["Triceps"], muscles_secondary: ["Chest", "Front delts"],
     tip: "A grip slightly inside shoulder-width is optimal. Going too close puts unnecessary stress on the wrists and reduces force output."
   },
-  "Dips (Weighted)": {
-    benefit: "Great for loading the chest and triceps through a deep, natural pressing arc.",
-    equipment: "Dip station, weight belt",
-    overview: "Weighted dips are one of the most effective compound pushing movements available, training the chest, triceps, and front delts through a deep pressing pattern with added load via a belt or dumbbell.",
-    steps: [], cues: ["Slight forward lean for more chest involvement", "Elbows flare slightly — not fully tucked", "Go to parallel or just below, not half reps", "Keep shoulders depressed — don't shrug up", "Full lockout at the top to finish the rep"],
+  "Dips": {
+    benefit: "One of the best pressing movements available — loads the chest and triceps through a deep, natural arc.",
+    equipment: "Dip station or parallel bars",
+    overview: "Dips are a compound pushing movement that trains the chest, triceps, and front delts through a deep pressing pattern. Bodyweight alone is challenging — once you can comfortably hit 15+ clean reps, adding load via a belt or dumbbell between the knees is a natural progression.",
+    steps: [], cues: ["Slight forward lean for more chest involvement", "Elbows flare slightly — not fully tucked", "Go to parallel or just below — no half reps", "Keep shoulders depressed throughout", "Full lockout at the top to finish the rep"],
     muscles_primary: ["Chest (lower)", "Triceps"], muscles_secondary: ["Front delts", "Rhomboids"],
-    tip: "Control the descent — a slow, 3-second lowering phase will build more strength than rushing."
+    tip: "Control the descent — a slow 3-second lowering phase builds more strength than rushing. Master bodyweight first before adding load."
   },
   "Push Press": {
     benefit: "Great for developing explosive overhead power using full-body drive.",
@@ -516,21 +516,21 @@ const GUIDES = {
     muscles_primary: ["Lats", "Rhomboids", "Mid traps"], muscles_secondary: ["Biceps", "Rear delts", "Lower back"],
     tip: "If your lower back is rounding, you're either too heavy or your hinge isn't deep enough. Fix the position before adding weight."
   },
-  "Weighted Pull-Up": {
-    benefit: "Great for building lat width and raw pulling strength under load.",
-    equipment: "Pull-up bar, weight belt",
-    overview: "The weighted pull-up is arguably the best compound pulling exercise available. Adding load to an already-demanding bodyweight movement produces significant lat, bicep, and upper back strength gains.",
-    steps: [], cues: ["Shoulders packed down before you pull", "Drive elbows toward your hip pockets", "Don't swing or kip — strict form only", "Slow descent — this is where strength is built", "Full hang at the bottom every rep"],
+  "Pull-Up": {
+    benefit: "One of the best pulling movements available — builds lat width and upper back strength.",
+    equipment: "Pull-up bar",
+    overview: "The pull-up is a compound pulling exercise that trains the lats, biceps, and upper back. Bodyweight is the starting point — once you can hit 10 clean reps consistently, adding load via a belt or dumbbell is a natural progression for continued strength development.",
+    steps: [], cues: ["Shoulders packed down before you pull", "Drive elbows toward your hip pockets", "No swinging or kipping — strict form only", "Slow descent — this is where strength is built", "Full hang at the bottom every rep"],
     muscles_primary: ["Lats", "Biceps"], muscles_secondary: ["Rhomboids", "Teres major", "Rear delts"],
-    tip: "Make sure you can do 10 clean bodyweight pull-ups before loading."
+    tip: "If you can't do a full pull-up yet, dead hangs and band-assisted pull-ups are the right progression. Add load only once bodyweight is comfortable."
   },
-  "Weighted Chin-Up": {
-    benefit: "Great for building the lats and biceps together under heavy load.",
-    equipment: "Pull-up bar, weight belt",
-    overview: "The chin-up uses an underhand grip which puts the biceps in a mechanically advantageous position. Excellent for building both lat thickness and bicep mass simultaneously.",
+  "Chin-Up": {
+    benefit: "Builds the lats and biceps together — one of the most effective pulling movements.",
+    equipment: "Pull-up bar",
+    overview: "The chin-up uses an underhand grip that puts the biceps in a mechanically strong position, making it slightly more accessible than a pull-up for most people. Bodyweight is the foundation — adding load via a belt or dumbbell is a great progression once you can comfortably hit 10 clean reps.",
     steps: [], cues: ["Underhand grip puts biceps in the game", "Elbows travel forward and down, not out wide", "Full hang at the bottom — don't shortcut it", "Keep core tight to avoid swinging", "Squeeze hard at the top before lowering"],
-    muscles_primary: ["Lats", "Biceps"], muscles_secondary: ["Rhomboids", "Biceps", "Teres major"],
-    tip: "The chin-up tends to feel easier than the pull-up for most people — use it to get comfortable with loaded pulling before progressing."
+    muscles_primary: ["Lats", "Biceps"], muscles_secondary: ["Rhomboids", "Teres major"],
+    tip: "The chin-up tends to feel easier than the pull-up for most — use it to build confidence with pulling movements before progressing to pull-ups or adding load."
   },
   "Pendlay Row": {
     benefit: "Great for developing explosive pulling power and upper back thickness.",
@@ -980,14 +980,6 @@ const GUIDES = {
     muscles_primary: ["Quads", "Glutes"], muscles_secondary: ["Hamstrings", "Core", "Calves"],
     tip: "Heels rising means you lack ankle mobility. Elevate your heels slightly on plates until mobility improves — but work on ankle stretches simultaneously."
   },
-  "Lunges": {
-    benefit: "Great for unilateral leg strength, balance, and hip flexor development.",
-    equipment: "Bodyweight",
-    overview: "The bodyweight lunge trains each leg independently through a split stance, developing quad and glute strength while also challenging balance and hip flexor flexibility. An essential unilateral movement pattern.",
-    steps: [], cues: ["Keep your front knee over your front foot — don't let it cave in", "Back knee descends toward the floor — don't slam it down", "Torso stays upright — don't lean forward", "Drive through your front heel to return to standing", "Step far enough forward that your front shin stays vertical"],
-    muscles_primary: ["Quads", "Glutes"], muscles_secondary: ["Hamstrings", "Core", "Hip flexors"],
-    tip: "Reverse lunges are easier on the knee than forward lunges and are a good starting point if you have any knee sensitivity."
-  },
   "Side Plank": {
     benefit: "Great for lateral core stability and oblique strength that most exercises miss.",
     equipment: "Mat",
@@ -1137,15 +1129,15 @@ const GUIDES = {
   }
 };
 
-const A_PUSH_ALL = ["KB Floor Press","Barbell Bench Press","Incline Barbell Press","Incline DB Press","Flat DB Press","Overhead Press","Close Grip Bench Press","Dips (Weighted)","Push Press","Z Press","DB Shoulder Press","Arnold Press","Barbell Floor Press","Pike Push-Up","Push-Ups"];
-const A_PULL_ALL = ["KB Single Arm Row","KB Deadlift","Barbell Row","Weighted Pull-Up","Weighted Chin-Up","Pendlay Row","DB Row","Cable Row","T-Bar Row","Lat Pulldown","Face Pull","Barbell Deadlift","Chest-Supported Row","DB Romanian Deadlift","Inverted Row","Hanging Knee Raises","Toes to Bar"];
+const A_PUSH_ALL = ["KB Floor Press","Barbell Bench Press","Incline Barbell Press","Incline DB Press","Flat DB Press","Overhead Press","Close Grip Bench Press","Dips","Push Press","Z Press","DB Shoulder Press","Arnold Press","Barbell Floor Press","Pike Push-Up","Push-Ups"];
+const A_PULL_ALL = ["KB Single Arm Row","KB Deadlift","Barbell Row","Pull-Up","Chin-Up","Pendlay Row","DB Row","Cable Row","T-Bar Row","Lat Pulldown","Face Pull","Barbell Deadlift","Chest-Supported Row","DB Romanian Deadlift","Inverted Row","Hanging Knee Raises","Toes to Bar"];
 const B_WEIGHTED_ALL = ["Barbell Thruster","Barbell Complex","Air Squats","Lunge","Bulgarian Split Squat","Glute Bridge","Cable Woodchop","DB Snatch","DB Clean","DB Push Press","KB Swings","KB Clean to Press","KB Gorilla Row","Single Arm KB Snatch","KB Windmill","Tall Kneeling Press","KB Thruster","DB Thruster","KB Farmer Carry","Sandbag Clean & Press","Sandbag Shouldering","Wall Balls","Med Ball Slams"];
-const B_HR_ALL = ["Barbell Burpee Over Bar","Barbell Clean","DB Snatch","DB Clean","KB Swings","KB Thruster","Box Jumps","Burpees","Tuck Jumps","Broad Jumps","Jump Squats","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Bear Crawl","Mountain Climbers","Inchworms","Russian Twists","Dead Bug","Hollow Hold","Flutter Kicks","Elbow-to-Knee","Sit-Ups","Crunches","Air Squats","Lunges","Side Plank"];
+const B_HR_ALL = ["Barbell Burpee Over Bar","Barbell Clean","DB Snatch","DB Clean","KB Swings","KB Thruster","Box Jumps","Burpees","Tuck Jumps","Broad Jumps","Jump Squats","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Bear Crawl","Mountain Climbers","Inchworms","Russian Twists","Dead Bug","Hollow Hold","Flutter Kicks","Elbow-to-Knee","Sit-Ups","Crunches","Air Squats","Side Plank"];
 const B_CARDIO_ALL = ["KB Complex","Ski Erg","Rowing Machine","Assault Bike","Bike Erg","Shuttle Runs","Sled Push"];
 
 // Level: beginner excludes advanced movements, advanced excludes beginner ones
-const ADVANCED = ["Arnold Press","Barbell Burpee Over Bar","Barbell Clean","Barbell Complex","Barbell Deadlift","Barbell Thruster","Battle Rope Slams","Bear Crawl","Broad Jumps","Bulgarian Split Squat","Cable Woodchop","DB Clean","DB Snatch","Dips (Weighted)","Hollow Hold","KB Clean to Press","KB Complex","KB Thruster","KB Windmill","Lateral Bounds","Pendlay Row","Pike Push-Up","Plyo Push-Ups","Push Press","Sandbag Shouldering","Single Arm KB Snatch","Toes to Bar","Tuck Jumps","Weighted Chin-Up","Weighted Pull-Up","Z Press"];
-const BEGINNER = ["Air Squats","Assault Bike","Barbell Bench Press","Barbell Floor Press","Barbell Row","Bike Erg","Box Jumps","Burpees","Cable Row","Chest-Supported Row","Close Grip Bench Press","Crunches","DB Push Press","DB Romanian Deadlift","DB Row","DB Shoulder Press","DB Thruster","Dead Bug","Elbow-to-Knee","Face Pull","Flat DB Press","Flutter Kicks","Glute Bridge","Hanging Knee Raises","Inchworms","Incline Barbell Press","Incline DB Press","Inverted Row","Jump Squats","KB Deadlift","KB Farmer Carry","KB Floor Press","KB Gorilla Row","KB Single Arm Row","KB Swings","Lat Pulldown","Lunge","Lunges","Med Ball Slams","Mountain Climbers","Overhead Press","Push-Ups","Rowing Machine","Russian Twists","Sandbag Clean & Press","Shuttle Runs","Side Plank","Sit-Ups","Ski Erg","Sled Push","T-Bar Row","Tall Kneeling Press","Wall Balls"];
+const ADVANCED = ["Arnold Press","Barbell Burpee Over Bar","Barbell Clean","Barbell Complex","Barbell Deadlift","Barbell Thruster","Battle Rope Slams","Bear Crawl","Broad Jumps","Bulgarian Split Squat","Cable Woodchop","DB Clean","DB Snatch","Dips","Hollow Hold","KB Clean to Press","KB Complex","KB Thruster","KB Windmill","Lateral Bounds","Pendlay Row","Pike Push-Up","Plyo Push-Ups","Push Press","Sandbag Shouldering","Single Arm KB Snatch","Toes to Bar","Tuck Jumps","Chin-Up","Pull-Up","Z Press"];
+const BEGINNER = ["Air Squats","Assault Bike","Barbell Bench Press","Barbell Floor Press","Barbell Row","Bike Erg","Box Jumps","Burpees","Cable Row","Chest-Supported Row","Close Grip Bench Press","Crunches","DB Push Press","DB Romanian Deadlift","DB Row","DB Shoulder Press","DB Thruster","Dead Bug","Elbow-to-Knee","Face Pull","Flat DB Press","Flutter Kicks","Glute Bridge","Hanging Knee Raises","Inchworms","Incline Barbell Press","Incline DB Press","Inverted Row","Jump Squats","KB Deadlift","KB Farmer Carry","KB Floor Press","KB Gorilla Row","KB Single Arm Row","KB Swings","Lat Pulldown","Lunge","Med Ball Slams","Mountain Climbers","Overhead Press","Push-Ups","Rowing Machine","Russian Twists","Sandbag Clean & Press","Shuttle Runs","Side Plank","Sit-Ups","Ski Erg","Sled Push","T-Bar Row","Tall Kneeling Press","Wall Balls"];
 
 // Muscle group mappings — each exercise maps to one or more high-level groups
 const MUSCLE_MAP = {
@@ -1155,12 +1147,12 @@ const MUSCLE_MAP = {
   "Flat DB Press":          ["chest"],
   "Overhead Press":         ["shoulders"],
   "Close Grip Bench Press": ["chest"],
-  "Dips (Weighted)":        ["chest"],
+  "Dips":        ["chest"],
   "Push Press":             ["shoulders","legs"],
   "Z Press":                ["shoulders","core"],
   "Barbell Row":            ["back"],
-  "Weighted Pull-Up":       ["back"],
-  "Weighted Chin-Up":       ["back"],
+  "Pull-Up":       ["back"],
+  "Chin-Up":       ["back"],
   "Pendlay Row":            ["back"],
   "DB Row":                 ["back"],
   "Cable Row":              ["back"],
@@ -1230,10 +1222,9 @@ const MUSCLE_MAP = {
   "Sit-Ups":                ["core"],
   "Crunches":               ["core"],
   "Air Squats":             ["legs"],
-  "Lunges":                 ["legs"],
   "Side Plank":             ["core"],
-  "Ski Erg":                ["back","full"],
-  "Rowing Machine":         ["back","full"],
+  "Ski Erg":                ["back","shoulders","full"],
+  "Rowing Machine":         ["back","legs","full"],
   "Assault Bike":           ["full"],
   "Bike Erg":               ["legs"],
   "Shuttle Runs":           ["legs","full"],
@@ -1248,15 +1239,15 @@ const EQUIP_MAP = {
   "Flat DB Press":          ["dumbbell"],
   "Overhead Press":         ["barbell"],
   "Close Grip Bench Press": ["barbell"],
-  "Dips (Weighted)":        ["bodyweight"],
+  "Dips":        ["bodyweight"],
   "Push Press":             ["barbell"],
   "Z Press":                ["barbell"],
   "DB Shoulder Press":      ["dumbbell"],
   "Arnold Press":           ["dumbbell"],
   "Barbell Floor Press":    ["barbell"],
   "Barbell Row":            ["barbell"],
-  "Weighted Pull-Up":       ["bodyweight"],
-  "Weighted Chin-Up":       ["bodyweight"],
+  "Pull-Up":       ["bodyweight"],
+  "Chin-Up":       ["bodyweight"],
   "Pendlay Row":            ["barbell"],
   "DB Row":                 ["dumbbell"],
   "Cable Row":              ["machine"],
@@ -1329,7 +1320,6 @@ const EQUIP_MAP = {
   "Sit-Ups":                ["bodyweight"],
   "Crunches":               ["bodyweight"],
   "Air Squats":             ["bodyweight"],
-  "Lunges":                 ["bodyweight"],
   "Side Plank":             ["bodyweight"]
 };
 
@@ -1925,20 +1915,37 @@ function exportWorkout() {
   const hr = reelData['bR2'] || '';
   const cardio = reelData['bR3'] || '';
   const date = new Date().toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' });
-  // Locale-aware short date: UK = 4/4/26, US would be 4/4/26 — use user's locale
   const shortDate = new Date().toLocaleDateString(undefined, { day:'numeric', month:'numeric', year:'2-digit' });
-  const dayShort = new Date().toLocaleDateString('en-GB', { weekday:'short' }).toUpperCase();
-
-  // Short WOD title: emoji + WOD + push/pull summary + date
   const wodTitle = `🏋️ WOD — ${push} & ${pull} · ${shortDate}`;
-
   const warmupText = document.getElementById('warmupBody')?.textContent || '';
+
+  // Determine tracking fields based on equipment
+  const NO_EQUIP = ['Push-Ups','Pike Push-Up','Dips','Pull-Up','Chin-Up','Inverted Row',
+    'Hanging Knee Raises','Toes to Bar','Box Jumps','Burpees','Tuck Jumps','Broad Jumps',
+    'Jump Squats','Plyo Push-Ups','Lateral Bounds','Bear Crawl','Mountain Climbers','Inchworms',
+    'Russian Twists','Dead Bug','Hollow Hold','Flutter Kicks','Elbow-to-Knee','Sit-Ups',
+    'Crunches','Air Squats','Lunge','Side Plank','Bulgarian Split Squat','Glute Bridge',
+    'Shuttle Runs','Barbell Burpee Over Bar'];
+  const CARDIO = ['Ski Erg','Rowing Machine','Assault Bike','Bike Erg','Sled Push','KB Complex'];
+  const DISTANCE = ['Ski Erg','Rowing Machine','Shuttle Runs','Sled Push'];
+
+  const trackA = (ex) => NO_EQUIP.includes(ex)
+    ? `reps:`
+    : `kg:                                              reps:`;
+
+  const trackB = (ex) => DISTANCE.includes(ex)
+    ? `distance:                                        cals:`
+    : CARDIO.includes(ex)
+      ? `cals:`
+      : NO_EQUIP.includes(ex)
+        ? `reps:`
+        : `kg:                                              reps:`;
+
+  // Format description line for Block B
+  const bFmtLine = aFmtDesc ? `${bFmt}  (${bFmtDesc.split('.')[0]})` : bFmt;
 
   const text = `🏋️ WORKOUT OF THE DAY
 ${date.toUpperCase()}
-
-${push} · ${pull}
-${weighted} · ${hr} · ${cardio}
 
 ━━━━━━━━━━━━━━━━━━
 ADVISED WARM-UP
@@ -1948,24 +1955,34 @@ ${warmupText}
 ━━━━━━━━━━━━━━━━━━
 BLOCK A — STRENGTH
 ━━━━━━━━━━━━━━━━━━
-Push:  ${push}
-Pull:  ${pull}
-
 Format: ${aFmt}
-${aFmtDesc}
+
+${push}
+${trackA(push)}
+
+${pull}
+${trackA(pull)}
 
 ━━━━━━━━━━━━━━━━━━
 BLOCK B — CONDITIONING
 ━━━━━━━━━━━━━━━━━━
-Weighted:  ${weighted}
-HR Spike:  ${hr}
-Cardio:    ${cardio}
-
 Format: ${bFmt}
-${bFmtDesc}
+
+${weighted}
+${trackB(weighted)}
+
+${hr}
+${trackB(hr)}
+
+${cardio}
+${trackB(cardio)}
+
+Notes:
 
 ━━━━━━━━━━━━━━━━━━
-${window.location.hostname}`;
+${window.location.hostname}
+
+Log to Strava → https://www.strava.com/activities/new?type=WeightTraining`;
 
   const btn = document.getElementById('exportBtn');
 
