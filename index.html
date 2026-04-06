@@ -19,11 +19,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #181818; --bg2: #202020; --bg3: #0e0e0e;
+    --bg2: #202020; --bg3: #0e0e0e;
     --text: #f0f0f0; --text2: #666666;
     --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.12);
-    --teal: #00D4A0; --teal-bg: #003d2e; --teal-light: rgba(0,212,160,0.08); --teal-text: #5fffd4;
-    --pink: #F0379A; --pink-bg: #3a0e24; --pink-light: rgba(240,55,154,0.08); --pink-text: #f9a8d4;
+    --teal: #00D4A0; --teal-bg: #003d2e; --teal-text: #5fffd4;
+    --pink: #F0379A; --pink-bg: #3a0e24; --pink-text: #f9a8d4;
     --fmt-bg: #282828; --fmt-border: rgba(255,255,255,0.15); --fmt-text: #bbbbbb;
     --radius: 14px; --radius-sm: 9px;
   }
@@ -75,11 +75,11 @@
   .chip { font-size: 12px; font-weight: 500; padding: 5px 10px; border-radius: 6px; border: 1px solid var(--border2); background: var(--bg3); color: var(--text2); cursor: pointer; transition: border-color 0.15s, background 0.15s, color 0.15s; user-select: none; touch-action: manipulation; }
   @media (hover: hover) { .chip:hover { border-color: var(--teal); color: var(--teal); } }
   .chip.active { border-color: var(--teal); background: var(--teal-bg); color: var(--teal-text); }
-  .chip:not(.active) { border-color: var(--border2); background: var(--bg3); color: var(--text2); }
 
   .card { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--radius); margin-bottom: 1rem; overflow: hidden; }
   .card-head { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: var(--bg3); border-bottom: 1px solid var(--border2); }
   .card-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1.5px; color: var(--teal); }
+  .card-desc { font-size: 11px; color: var(--text2); margin-top: 2px; }
 
   .reels { display: flex; gap: 8px; padding: 6px 16px 10px; }
   .reel { flex: 1; min-width: 0; position: relative; background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--radius-sm); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 42px 8px 32px; min-height: 104px; cursor: default; transition: border-color 0.15s, background 0.15s; user-select: none; touch-action: manipulation; will-change: border-color, background; }
@@ -116,7 +116,7 @@
   .b-fmt-box.has-value { cursor: pointer; }
   .b-fmt-box.has-value:hover { border-color: rgba(255,255,255,0.28); }
   .b-fmt-box.locked { border-color: var(--teal); background: var(--teal-bg); }
-  .b-fmt-box.locked .b-fmt-lbl { color: var(--teal-text); opacity: 0.7; }
+  .b-fmt-box.locked
   .b-fmt-box.locked .b-fmt-name { color: var(--teal-text); }
   .b-fmt-box.locked .b-fmt-desc { color: var(--teal-text); opacity: 0.7; }
   .b-fmt-name.spinning { animation: tick 0.09s linear infinite; }
@@ -128,7 +128,6 @@
   .b-fmt-box.has-value .fmt-lock-icon { display: flex; }
   .b-fmt-box.locked .fmt-lock-icon .unlock-svg { display: none; }
   .b-fmt-box.locked .fmt-lock-icon .locked-svg { display: block; }
-  .b-fmt-lbl { font-size: 10px; font-weight: 500; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text2); margin-bottom: 4px; }
   .b-fmt-name { font-family: 'Bebas Neue', sans-serif; font-size: 17px; color: var(--text); margin-bottom: 3px; letter-spacing: 0.5px; }
   .b-fmt-desc { font-size: 12px; color: var(--fmt-text); line-height: 1.6; }
 
@@ -145,6 +144,10 @@
   @keyframes spin-arrow { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
 
   .footer { text-align: center; margin-top: 6px; font-size: 11px; color: var(--text2); }
+  .workout-name-card-head { flex-direction: column; align-items: flex-start; gap: 4px; padding: 10px 16px 12px; }
+  .workout-name-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1.5px; color: var(--teal); }
+  .workout-name-title-row { display: flex; align-items: baseline; gap: 10px; }
+  .workout-name-field { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; color: var(--text); line-height: 1.2; outline: none; cursor: text; min-width: 60px; border-bottom: 1px solid var(--border2); padding-bottom: 2px; display: block; width: 100%; }
   #workoutName:empty::before { content: attr(data-placeholder); color: var(--text2); font-style: italic; font-size: 13px; letter-spacing: 0.2px; font-family: 'DM Sans', sans-serif; pointer-events: none; }
   .bmc-wrap { margin: 1.5rem 0 0.75rem; text-align: center; }
   .bmc-sub { font-size: 12px; color: var(--text2); line-height: 1.5; margin-bottom: 10px; }
@@ -169,16 +172,22 @@
   .share-btn.ready:hover { background: var(--teal-bg); }
   .share-btn.ready:active { transform: scale(0.98); }
 
-  .modal-nav { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; border-bottom: 1px solid var(--border2); flex-shrink: 0; }
+  .modal-nav { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; flex-shrink: 0; }
   .modal-nav-btn { background: none; border: 1px solid var(--border2); border-radius: 7px; padding: 6px 12px; font-size: 12px; font-weight: 500; color: var(--text2); cursor: pointer; touch-action: manipulation; transition: all 0.15s; display: flex; align-items: center; gap: 5px; }
   .modal-nav-btn:hover { border-color: var(--teal); color: var(--teal-text); background: var(--teal-bg); }
   .modal-nav-btn:active { transform: scale(0.96); }
+  .swipe-arrow { position: absolute; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0; transition: opacity 0.15s; font-size: 28px; color: var(--teal); font-weight: bold; z-index: 10; text-shadow: 0 0 20px rgba(0,212,160,0.4); }
+  .swipe-arrow.left { left: 16px; }
+  .swipe-arrow.right { right: 16px; }
+  .swipe-arrow.visible { opacity: 1; }
   .modal-nav-btn:disabled { opacity: 0.25; cursor: default; pointer-events: none; }
-  .modal-nav-pos { font-size: 11px; color: var(--text2); }
+  .modal-nav-dots { display: flex; gap: 6px; align-items: center; }
+  .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); transition: background 0.2s; flex-shrink: 0; }
+  .nav-dot.active { background: var(--teal); }
 
   .modal-wrap { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: none; align-items: flex-end; justify-content: center; position: fixed; inset: 0; z-index: 200; }
   .modal-wrap.open { display: flex; }
-  .modal { background: var(--bg2); border-radius: 18px 18px 0 0; width: 100%; max-width: 680px; max-height: 90vh; max-height: 90dvh; overflow-y: auto; overscroll-behavior: contain; padding-bottom: max(2.5rem, env(safe-area-inset-bottom)); display: flex; flex-direction: column; will-change: transform; }
+  .modal { position: relative; background: var(--bg2); border-radius: 18px 18px 0 0; width: 100%; max-width: 680px; max-height: 90vh; max-height: 90dvh; overflow-y: auto; overscroll-behavior: contain; padding-bottom: max(2.5rem, env(safe-area-inset-bottom)); display: flex; flex-direction: column; will-change: transform; }
   .modal-handle-wrap { padding: 8px 0 4px; cursor: pointer; touch-action: none; }
   .modal-handle { width: 48px; height: 5px; background: var(--border2); border-radius: 3px; margin: 0 auto; flex-shrink: 0; transition: background 0.15s; }
   .modal-handle-wrap:active .modal-handle { background: var(--text2); }
@@ -189,7 +198,9 @@
   .modal-body { padding: 18px 20px; }
   .video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; background: var(--bg3); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 18px; }
   .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-  .video-spinner { width: 22px; height: 22px; border: 2px solid var(--border2); border-top-color: var(--teal); border-radius: 50%; animation: spin-arrow 0.7s linear infinite; }
+  .video-loading-bar { width: 100%; height: 3px; background: var(--border2); border-radius: 2px; margin-bottom: 18px; overflow: hidden; }
+  .video-loading-fill { height: 100%; width: 40%; background: var(--teal); border-radius: 2px; animation: loading-slide 1.2s ease-in-out infinite; }
+  @keyframes loading-slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(350%); } }
   .guide-benefit { font-size: 13px; font-weight: 500; color: var(--teal-text); line-height: 1.5; margin-bottom: 12px; padding: 10px 14px; background: var(--teal-bg); border-radius: var(--radius-sm); border-left: 3px solid var(--teal); }
   .guide-benefit-label { font-size: 10px; font-weight: 500; letter-spacing: 0.7px; text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 4px; }
   .guide-overview { font-size: 13px; color: var(--fmt-text); line-height: 1.7; margin-bottom: 18px; }
@@ -224,7 +235,7 @@
     </svg>
     Generator</div>
   </div>
-  <div class="hdr-sub">Shuffle to create a workout in seconds.</div>
+  <div class="hdr-sub">Shuffle to create a functional workout in seconds.</div>
 
   <div class="inputs-panel">
     <div class="inputs-row">
@@ -273,8 +284,9 @@
 
 
   <div class="card">
-    <div class="card-head">
+    <div class="card-head" style="flex-direction:column;align-items:flex-start;">
       <span class="card-name">Block A — Strength</span>
+      <span class="card-desc">Build your strength base. The rest takes care of itself.</span>
     </div>
     <div class="spin-row"><button class="spin-btn" id="spinA" onclick="spinBlock('A')"><span class="spin-arrow">↺</span><span class="spin-label">Shuffle</span></button></div>
     <div class="reels">
@@ -307,8 +319,9 @@
   </div>
 
   <div class="card">
-    <div class="card-head">
+    <div class="card-head" style="flex-direction:column;align-items:flex-start;">
       <span class="card-name">Block B — Conditioning</span>
+      <span class="card-desc">Train your body to sustain effort and avoid fatigue.</span>
     </div>
     <div class="spin-row"><button class="spin-btn" id="spinB" onclick="spinBlock('B')"><span class="spin-arrow">↺</span><span class="spin-label">Shuffle</span></button></div>
     <div class="reels">
@@ -360,12 +373,12 @@
   </div>
 
   <div class="card" id="workoutNameCard">
-    <div class="card-head" style="flex-direction:column;align-items:flex-start;gap:4px;padding:10px 16px 12px;">
-      <div style="display:flex;align-items:baseline;gap:10px;">
-        <span style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1.5px;color:var(--teal);">Workout Name</span>
+    <div class="card-head workout-name-card-head">
+      <div class="workout-name-title-row">
+        <span class="workout-name-title">Workout Name</span>
         <span style="font-size:11px;color:var(--text2);">Tap to edit</span>
       </div>
-      <span id="workoutName" contenteditable="true" spellcheck="false" data-placeholder="Name your workout — or shuffle to generate one" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--text);line-height:1.2;outline:none;cursor:text;min-width:60px;border-bottom:1px solid var(--border2);padding-bottom:2px;display:block;width:100%;"></span>
+      <span id="workoutName" class="workout-name-field" contenteditable="true" spellcheck="false" data-placeholder="Name your workout — or shuffle to generate one"></span>
     </div>
   </div>
 
@@ -410,10 +423,11 @@
     </div>
     <div class="modal-nav" id="modalNav" style="display:none">
       <button class="modal-nav-btn" id="modalPrev" onclick="modalNavStep(-1)">← Prev</button>
-      <span class="modal-nav-pos" id="modalNavPos"></span>
+      <div class="modal-nav-dots" id="modalNavPos"></div>
       <button class="modal-nav-btn" id="modalNext" onclick="modalNavStep(1)">Next →</button>
     </div>
     <div class="modal-body" id="mBody"></div>
+    <div class="swipe-arrow" id="swipeArrow"></div>
   </div>
 </div>
 
@@ -1052,17 +1066,83 @@ const GUIDES = {
     muscles_primary: ["Full body", "Cardiovascular system"], muscles_secondary: ["Grip", "Core", "Shoulders"],
     tip: "A simple sequence: 10 swings → 5 cleans per side → 5 presses per side → 10 squats. Repeat for time. That's your cardio."
   }
+,
+  "Air Squats": {
+    benefit: "A fundamental lower body movement requiring zero equipment — builds leg endurance and reinforces the squat pattern.",
+    equipment: "Bodyweight",
+    overview: "The air squat is a full bodyweight squat performed through the full range of motion. High rep air squats in a conditioning context are deceptively demanding and build real lower body endurance.",
+    cues: ["Feet shoulder-width, toes slightly out", "Send hips back and down — not just down", "Knees track over toes throughout", "Hit depth — crease of hip below top of knee", "Drive through the whole foot to stand"],
+    muscles_primary: ["Quadriceps", "Glutes"], muscles_secondary: ["Hamstrings", "Core"],
+    tip: "Speed up the descent slightly and pause at the bottom to keep tension on the muscles — don't bounce out of the hole."
+  },
+  "Lunge": {
+    benefit: "Unilateral leg training with no equipment — exposes and corrects left-right imbalances.",
+    equipment: "Bodyweight",
+    overview: "The bodyweight lunge trains each leg independently through a step and lower pattern. Forward, reverse or walking lunges all work — choose based on space available.",
+    cues: ["Step far enough that your front shin stays vertical", "Lower until back knee is just above the floor", "Keep your torso upright throughout", "Drive through your front heel to return", "Keep hips level — don't let them rotate"],
+    muscles_primary: ["Quadriceps", "Glutes"], muscles_secondary: ["Hamstrings", "Core", "Hip flexors"],
+    tip: "Reverse lunges are easier on the knees than forward lunges and allow better control — start there if knees are a concern."
+  },
+  "Bulgarian Split Squat": {
+    benefit: "One of the most effective bodyweight lower body movements — challenges balance, strength and mobility simultaneously.",
+    equipment: "Bodyweight",
+    overview: "The Bulgarian split squat elevates the rear foot on a bench or box and loads the front leg through a deep single-leg squat. Bodyweight alone is sufficient to make this genuinely hard.",
+    cues: ["Rear foot elevated hip height on a bench or box", "Front foot far enough forward that your shin stays vertical", "Lower until front thigh is parallel", "Drive through the front heel — not the toes", "Keep your torso upright or slightly forward"],
+    muscles_primary: ["Quadriceps", "Glutes"], muscles_secondary: ["Hamstrings", "Hip flexors", "Core"],
+    tip: "This is harder than it looks. If balance is an issue, hold a wall lightly with one hand until you find your position."
+  },
+  "Glute Bridge": {
+    benefit: "Builds posterior chain strength and glute activation with zero equipment.",
+    equipment: "Bodyweight",
+    overview: "The glute bridge is performed lying on your back, feet flat on the floor, driving the hips up to full extension. High rep sets build real glute and hamstring endurance and reinforce hip extension — a pattern that carries over to almost everything.",
+    cues: ["Feet flat, hip-width, knees bent to 90 degrees", "Drive through your heels — not your toes", "Squeeze glutes hard at the top", "Hold the top position for a beat before lowering", "Keep your ribs down — don't hyperextend your lower back"],
+    muscles_primary: ["Glutes", "Hamstrings"], muscles_secondary: ["Core", "Hip flexors"],
+    tip: "Single-leg glute bridges are a big step up in difficulty if bodyweight bilateral becomes too easy."
+  }
+,
+  "Barbell Thruster": {
+    benefit: "A full-body barbell movement combining a front squat and overhead press — brutal conditioning.",
+    equipment: "Barbell",
+    overview: "The barbell thruster links a front squat directly into an overhead press using the momentum from the squat to drive the bar overhead. A staple conditioning movement that taxes the whole body.",
+    cues: ["Bar in front rack — elbows high", "Squat to full depth", "Drive hard out of the hole — use the momentum", "Press the bar overhead as you stand", "Full lockout overhead before the next rep"],
+    muscles_primary: ["Quadriceps", "Anterior deltoid", "Triceps"], muscles_secondary: ["Glutes", "Core", "Trapezius"],
+    tip: "The transition from squat to press should be seamless — the moment your hips extend, the bar should already be moving up."
+  },
+  "Barbell Complex": {
+    benefit: "A flowing barbell sequence done without putting the bar down — extreme conditioning stimulus.",
+    equipment: "Barbell",
+    overview: "A barbell complex links multiple movements — typically deadlift, hang clean, front squat, press — performed back to back without releasing the bar. Done for rounds or time, it is one of the most demanding conditioning formats available.",
+    cues: ["Use a weight you can press overhead — that's your limiting factor", "Smooth transitions between movements", "Breathe on every rep", "Don't drop the bar between movements", "Go lighter than you think — you will gas out fast"],
+    muscles_primary: ["Full body"], muscles_secondary: ["Cardiovascular system", "Grip", "Core"],
+    tip: "A simple sequence: 6 deadlifts → 6 hang cleans → 6 front squats → 6 overhead press. One round non-stop. Rest 90 seconds. Repeat."
+  },
+  "Barbell Burpee Over Bar": {
+    benefit: "A high-intensity HR spike combining a burpee with a lateral jump over the barbell.",
+    equipment: "Barbell",
+    overview: "The barbell burpee over bar is a burpee performed next to a loaded or unloaded barbell, finishing with a two-foot lateral jump over the bar. High reps spike the heart rate fast and add a plyometric element to a standard burpee.",
+    cues: ["Burpee to one side of the bar", "Both feet jump over the bar — don't step", "Land softly — bend your knees on landing", "Immediate transition into the next burpee on the other side", "Keep moving — the rest is built into the format"],
+    muscles_primary: ["Full body"], muscles_secondary: ["Cardiovascular system", "Core"],
+    tip: "You can scale this by stepping over the bar instead of jumping — still effective, much lower impact."
+  },
+  "Barbell Clean": {
+    benefit: "An explosive pull from the floor to the front rack — builds power and spikes HR fast at high reps.",
+    equipment: "Barbell",
+    overview: "The barbell clean drives a barbell from the floor or hang to the front rack position in one explosive movement. At conditioning weights and high reps, cleans are a serious cardiovascular and full-body conditioning tool.",
+    cues: ["Start with the bar over mid-foot", "Explosive hip extension drives the movement — not your arms", "Pull the bar close to your body throughout", "Catch in a partial squat with elbows high", "Stand tall before the next rep"],
+    muscles_primary: ["Glutes", "Hamstrings", "Trapezius"], muscles_secondary: ["Core", "Quadriceps", "Forearms"],
+    tip: "Use 50-60% of your max clean for conditioning work. The point is speed and volume, not load."
+  }
 };
 
 const A_PUSH_ALL = ["KB Floor Press","Barbell Bench Press","Incline Barbell Press","Incline DB Press","Flat DB Press","Overhead Press","Close Grip Bench Press","Dips (Weighted)","Push Press","Z Press","DB Shoulder Press","Arnold Press","Barbell Floor Press","Pike Push-Up","Push-Ups"];
 const A_PULL_ALL = ["KB Single Arm Row","KB Deadlift","Barbell Row","Weighted Pull-Up","Weighted Chin-Up","Pendlay Row","DB Row","Cable Row","T-Bar Row","Lat Pulldown","Face Pull","Barbell Deadlift","Chest-Supported Row","DB Romanian Deadlift","Inverted Row","Hanging Knee Raises","Toes to Bar"];
-const B_WEIGHTED_ALL = ["Cable Woodchop","DB Snatch","DB Clean","DB Push Press","KB Swings","KB Clean to Press","KB Gorilla Row","Single Arm KB Snatch","KB Windmill","Tall Kneeling Press","KB Thruster","DB Thruster","KB Farmer Carry","Sandbag Clean & Press","Sandbag Shouldering","Wall Balls","Med Ball Slams"];
-const B_HR_ALL = ["Box Jumps","Burpees","Tuck Jumps","Broad Jumps","Jump Squats","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Bear Crawl","Mountain Climbers","Inchworms","Russian Twists","Dead Bug","Hollow Hold","Flutter Kicks","Elbow-to-Knee","Sit-Ups","Crunches","Air Squats","Lunges","Side Plank"];
+const B_WEIGHTED_ALL = ["Barbell Thruster","Barbell Complex","Air Squats","Lunge","Bulgarian Split Squat","Glute Bridge","Cable Woodchop","DB Snatch","DB Clean","DB Push Press","KB Swings","KB Clean to Press","KB Gorilla Row","Single Arm KB Snatch","KB Windmill","Tall Kneeling Press","KB Thruster","DB Thruster","KB Farmer Carry","Sandbag Clean & Press","Sandbag Shouldering","Wall Balls","Med Ball Slams"];
+const B_HR_ALL = ["Barbell Burpee Over Bar","Barbell Clean","DB Snatch","DB Clean","KB Swings","KB Thruster","Box Jumps","Burpees","Tuck Jumps","Broad Jumps","Jump Squats","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Bear Crawl","Mountain Climbers","Inchworms","Russian Twists","Dead Bug","Hollow Hold","Flutter Kicks","Elbow-to-Knee","Sit-Ups","Crunches","Air Squats","Lunges","Side Plank"];
 const B_CARDIO_ALL = ["KB Complex","Ski Erg","Rowing Machine","Assault Bike","Bike Erg","Shuttle Runs","Sled Push"];
 
 // Level: beginner excludes advanced movements, advanced excludes beginner ones
-const ADVANCED = ["Z Press","Pendlay Row","Single Arm KB Snatch","KB Windmill","Plyo Push-Ups","Battle Rope Slams","Lateral Bounds","Arnold Press","KB Thruster","Barbell Deadlift","Bear Crawl","Sandbag Shouldering","Pike Push-Up","Toes to Bar","Hollow Hold"];
-const BEGINNER = ["Lat Pulldown","DB Row","Incline DB Press","Flat DB Press","Box Jumps","Jump Squats","Rowing Machine","Bike Erg","DB Shoulder Press","DB Romanian Deadlift","DB Thruster","Chest-Supported Row","Barbell Floor Press","Inverted Row","Inchworms","Mountain Climbers","Wall Balls","Dead Bug","Flutter Kicks","Russian Twists","Elbow-to-Knee","Hanging Knee Raises","Push-Ups","Sit-Ups","Crunches","Air Squats","Lunges","Side Plank"];
+const ADVANCED = ["Arnold Press","Barbell Burpee Over Bar","Barbell Clean","Barbell Complex","Barbell Deadlift","Barbell Thruster","Battle Rope Slams","Bear Crawl","Broad Jumps","Bulgarian Split Squat","Cable Woodchop","DB Clean","DB Snatch","Dips (Weighted)","Hollow Hold","KB Clean to Press","KB Complex","KB Thruster","KB Windmill","Lateral Bounds","Pendlay Row","Pike Push-Up","Plyo Push-Ups","Push Press","Sandbag Shouldering","Single Arm KB Snatch","Toes to Bar","Tuck Jumps","Weighted Chin-Up","Weighted Pull-Up","Z Press"];
+const BEGINNER = ["Air Squats","Assault Bike","Barbell Bench Press","Barbell Floor Press","Barbell Row","Bike Erg","Box Jumps","Burpees","Cable Row","Chest-Supported Row","Close Grip Bench Press","Crunches","DB Push Press","DB Romanian Deadlift","DB Row","DB Shoulder Press","DB Thruster","Dead Bug","Elbow-to-Knee","Face Pull","Flat DB Press","Flutter Kicks","Glute Bridge","Hanging Knee Raises","Inchworms","Incline Barbell Press","Incline DB Press","Inverted Row","Jump Squats","KB Deadlift","KB Farmer Carry","KB Floor Press","KB Gorilla Row","KB Single Arm Row","KB Swings","Lat Pulldown","Lunge","Lunges","Med Ball Slams","Mountain Climbers","Overhead Press","Push-Ups","Rowing Machine","Russian Twists","Sandbag Clean & Press","Shuttle Runs","Side Plank","Sit-Ups","Ski Erg","Sled Push","T-Bar Row","Tall Kneeling Press","Wall Balls"];
 
 // Muscle group mappings — each exercise maps to one or more high-level groups
 const MUSCLE_MAP = {
@@ -1124,13 +1204,25 @@ const MUSCLE_MAP = {
   "DB Snatch":              ["full","shoulders"],
   "DB Clean":               ["full","legs"],
   "KB Complex":             ["full"],
+  "Air Squats":               ["legs"],
+  "Lunge":                   ["legs"],
+  "Bulgarian Split Squat":   ["legs"],
+  "Glute Bridge":            ["legs","core"],
+  "Barbell Thruster":        ["legs","shoulders","full"],
+  "Barbell Complex":         ["full"],
+  "Barbell Burpee Over Bar": ["full"],
+  "Barbell Clean":           ["legs","full"],
   "Russian Twists":         ["core"],
   "Dead Bug":               ["core"],
   "Hollow Hold":            ["core"],
   "Flutter Kicks":          ["core","legs"],
   "Elbow-to-Knee":          ["core"],
   "Hanging Knee Raises":    ["core"],
-  "Toes to Bar":            ["core"],
+  "Toes to Bar":             ["core"],
+  "Barbell Thruster":        ["legs","shoulders","full"],
+  "Barbell Complex":         ["full"],
+  "Barbell Burpee Over Bar": ["full"],
+  "Barbell Clean":           ["legs","full"],
   "Push-Ups":               ["chest","shoulders"],
   "Sit-Ups":                ["core"],
   "Crunches":               ["core"],
@@ -1211,13 +1303,25 @@ const EQUIP_MAP = {
   "DB Snatch":              ["dumbbell"],
   "DB Clean":               ["dumbbell"],
   "KB Complex":             ["kettlebell"],
+  "Air Squats":               ["bodyweight"],
+  "Lunge":                   ["bodyweight"],
+  "Bulgarian Split Squat":   ["bodyweight"],
+  "Glute Bridge":            ["bodyweight"],
+  "Barbell Thruster":        ["barbell"],
+  "Barbell Complex":         ["barbell"],
+  "Barbell Burpee Over Bar": ["barbell"],
+  "Barbell Clean":           ["barbell"],
   "Russian Twists":         ["bodyweight"],
   "Dead Bug":               ["bodyweight"],
   "Hollow Hold":            ["bodyweight"],
   "Flutter Kicks":          ["bodyweight"],
   "Elbow-to-Knee":          ["bodyweight"],
   "Hanging Knee Raises":    ["bodyweight"],
-  "Toes to Bar":            ["bodyweight"],
+  "Toes to Bar":             ["bodyweight"],
+  "Barbell Thruster":        ["barbell"],
+  "Barbell Complex":         ["barbell"],
+  "Barbell Burpee Over Bar": ["barbell"],
+  "Barbell Clean":           ["barbell"],
   "Push-Ups":               ["bodyweight"],
   "Sit-Ups":                ["bodyweight"],
   "Crunches":               ["bodyweight"],
@@ -1382,7 +1486,9 @@ function updateModalNav() {
   nav.style.display = 'flex';
   document.getElementById('modalPrev').disabled = modalCurrentIdx === 0;
   document.getElementById('modalNext').disabled = modalCurrentIdx === modalExerciseList.length - 1;
-  document.getElementById('modalNavPos').textContent = `${modalCurrentIdx + 1} / ${modalExerciseList.length}`;
+  document.getElementById('modalNavPos').innerHTML = modalExerciseList.map((_, i) =>
+    `<div class="nav-dot${i === modalCurrentIdx ? ' active' : ''}"></div>`
+  ).join('');
 }
 
 // ── Share workout ─────────────────────────────────────────────────────────────
@@ -1412,36 +1518,7 @@ function shareWorkout() {
   }
 }
 
-// ── Dare Me ───────────────────────────────────────────────────────────────────
-function dareMe() {
-  // Force advanced + longest duration, reset all locks
-  document.querySelectorAll('.chip[data-group="duration"]').forEach(c => c.classList.remove('active'));
-  document.querySelector('.chip[data-group="duration"][data-val="45"]').classList.add('active');
-  document.querySelectorAll('.chip[data-group="level"]').forEach(c => c.classList.remove('active'));
-  document.querySelector('.chip[data-group="level"][data-val="advanced"]').classList.add('active');
-  document.querySelectorAll('.chip[data-group="muscle"]').forEach(c => c.classList.remove('active'));
-  document.querySelector('.chip[data-group="muscle"][data-val="all"]').classList.add('active');
-  document.querySelectorAll('.chip[data-group="equip"]').forEach(c => c.classList.remove('active'));
-  document.querySelector('.chip[data-group="equip"][data-val="all"]').classList.add('active');
-  // Clear all locks
-  Object.keys(locked).forEach(k => delete locked[k]);
-  Object.keys(fmtLocked).forEach(k => delete fmtLocked[k]);
-  document.querySelectorAll('.reel.locked').forEach(r => r.classList.remove('locked'));
-  // Spin Block A first, then Block B once A completes — ensures getActiveAMoves() has values
-  spinBlockWithCallback('A', () => spinBlock('B'));
-  // Dare-specific one-liner — fires after both blocks have had time to complete
-  const dareLines = [
-    "You're going to regret this. In a good way.",
-    "Abandon all hope. Begin.",
-    "You literally asked for this.",
-    "There is no scaling. Only pain."
-  ];
-  setTimeout(() => {
-    const el = document.getElementById('oneLiner');
-    el.textContent = pick(dareLines);
-    el.style.display = 'block';
-  }, 2500);
-}
+
 
 function getSettings() {
   return {
@@ -1459,7 +1536,7 @@ function filterBySettings(arr) {
   const equips = [...document.querySelectorAll('.chip.active[data-group="equip"]')].map(c => c.dataset.val);
   const allMuscles = muscles.includes('all');
   const allEquip = equips.includes('all');
-  return arr.filter(ex => {
+  const result = arr.filter(ex => {
     if (level === 'beginner' && ADVANCED.includes(ex)) return false;
     if (level === 'advanced' && BEGINNER.includes(ex)) return false;
     if (!allMuscles) {
@@ -1469,8 +1546,12 @@ function filterBySettings(arr) {
     if (!allEquip) {
       const exEquip = EQUIP_MAP[ex] || [];
       if (!equips.some(e => exEquip.includes(e))) return false;
-    }    return true;
+    }
+    return true;
   });
+  // Only fall back to full array when All equipment is selected and level filter alone produced nothing
+  if (result.length === 0 && allEquip) return arr;
+  return result;
 }
 
 function isBlockAllLocked(block) {
@@ -1595,24 +1676,23 @@ function spinBlockWithCallback(block, onComplete) {
       fmtData['bFmt'] = fmt;
     }
     const excluded = getActiveAMoves();
-    const weightedPool = filterBySettings(B_WEIGHTED_ALL);
-    const hrPool = filterBySettings(B_HR_ALL);
-    const cardioPool = filterBySettings(B_CARDIO_ALL);
-    const wPool = weightedPool.length ? weightedPool : B_WEIGHTED_ALL;
-    const hPool = hrPool.length ? hrPool : B_HR_ALL;
-    const cPool = cardioPool.length ? cardioPool : B_CARDIO_ALL;
+    const wPool = filterBySettings(B_WEIGHTED_ALL);
+    const hPool = filterBySettings(B_HR_ALL);
+    const cPool = filterBySettings(B_CARDIO_ALL);
 
-    // KB duplicate prevention — if weighted slot has a KB movement, exclude KB Complex from cardio
+    // KB duplicate prevention
     const KB_EXERCISES = ['KB Swings','KB Clean to Press','KB Gorilla Row','Single Arm KB Snatch','KB Windmill','KB Thruster','KB Farmer Carry','KB Floor Press','KB Single Arm Row','KB Deadlift'];
-    const wFinal = pickExcluding(wPool, excluded);
-    const hFinal = pickExcluding(hPool, [...excluded, wFinal]);
-    const cExcluded = [...excluded, wFinal, hFinal];
-    if (KB_EXERCISES.includes(wFinal)) cExcluded.push('KB Complex');
-    const cFinal = pickExcluding(cPool, cExcluded);
+    const wFinal = wPool.length ? pickExcluding(wPool, excluded) : null;
+    const hFinal = hPool.length ? pickExcluding(hPool, [...excluded, wFinal].filter(Boolean)) : null;
+    const cExcluded = [...excluded, wFinal, hFinal].filter(Boolean);
+    if (wFinal && KB_EXERCISES.includes(wFinal)) cExcluded.push('KB Complex');
+    const cFinal = cPool.length ? pickExcluding(cPool, cExcluded) : pickExcluding(B_CARDIO_ALL, cExcluded);
 
-    spinReel('bR1', wPool, wFinal, 0);
-    spinReel('bR2', hPool, hFinal, 100);
-    spinReel('bR3', cPool, cFinal, 200, () => {
+    if (wFinal) spinReel('bR1', wPool, wFinal, 0);
+    else { reelData['bR1'] = null; document.getElementById('bR1v').textContent = '—'; }
+    if (hFinal) spinReel('bR2', hPool, hFinal, 100);
+    else { reelData['bR2'] = null; document.getElementById('bR2v').textContent = '—'; }
+    spinReel('bR3', cPool.length ? cPool : B_CARDIO_ALL, cFinal, 200, () => {
       if (!fmtLocked['bFmt']) {
         const fmtBox = document.getElementById('bFmtBox');
         fmtBox.style.display = 'block';
@@ -1643,16 +1723,51 @@ async function renderModal(id) {
   if (!name || name === '—') return;
   document.getElementById('mTitle').textContent = name;
   updateModalNav();
-  document.getElementById('mBody').innerHTML = `
-    <div style="text-align:center;padding:2rem 0">
-      <div class="video-spinner" style="margin:0 auto 10px;"></div>
-      <div style="font-size:12px;color:var(--text2)">Loading guide…</div>
-    </div>`;
-  document.getElementById('modalWrap').classList.add('open');
 
   const g = GUIDES[name];
 
-  // Timeout helper — prevents spinner hanging indefinitely
+  // ── Phase 1: render instantly from GUIDES data ───────────────────────────
+  const benefitText = g?.benefit || '';
+  const equipText = g?.equipment || '';
+  const benefitHtml = benefitText
+    ? `<div class="guide-benefit"><span class="guide-benefit-label">Why this movement</span>${benefitText}${equipText ? `<span class="equip-tag">📦 ${equipText}</span>` : ''}</div>` : '';
+
+  const overviewText = g?.overview || 'No guide available for this exercise.';
+  const cuesHtml = g?.cues?.length
+    ? `<div class="guide-section"><div class="guide-section-title">Coaching cues</div><ul class="cues-list">${g.cues.map(c=>`<li>${c}</li>`).join('')}</ul></div>` : '';
+  const primaryMuscles = g?.muscles_primary?.map(m=>`<span class="muscle-tag primary">${m}</span>`).join('') || '';
+  const secondaryMuscles = g?.muscles_secondary?.map(m=>`<span class="muscle-tag">${m}</span>`).join('') || '';
+  const musclesHtml = (primaryMuscles || secondaryMuscles)
+    ? `<div class="guide-section"><div class="guide-section-title">Muscles</div><div class="muscles-row">${primaryMuscles}${secondaryMuscles}</div></div>` : '';
+  const tipHtml = g?.tip ? `<div class="pro-tip">${g.tip}</div>` : '';
+
+  document.getElementById('mBody').innerHTML = `
+    <div id="videoSlot"><div class="video-loading-bar"><div class="video-loading-fill"></div></div></div>
+    ${benefitHtml}
+    <div class="guide-overview">${overviewText}</div>
+    <div id="apiSlot"></div>
+    ${cuesHtml}
+    ${musclesHtml}
+    ${tipHtml}`;
+
+  document.getElementById('modalWrap').classList.add('open');
+
+  // Hint motion — peek left on first open to signal swipeability
+  if (modalExerciseList.length > 1 && !sessionStorage.getItem('swipeHintSeen')) {
+    sessionStorage.setItem('swipeHintSeen', '1');
+    const body = document.getElementById('mBody');
+    setTimeout(() => {
+      body.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      body.style.transform = 'translateX(-28px)';
+      setTimeout(() => {
+        body.style.transition = 'transform 0.4s cubic-bezier(0.32, 0.72, 0, 1)';
+        body.style.transform = 'translateX(0)';
+        setTimeout(() => { body.style.transition = ''; }, 400);
+      }, 380);
+    }, 600);
+  }
+
+  // ── Phase 2: enhance with API data in background ─────────────────────────
   const withTimeout = (promise, ms) => Promise.race([promise, new Promise(r => setTimeout(() => r(null), ms))]);
 
   const [apiData, ytId] = await Promise.all([
@@ -1674,45 +1789,35 @@ async function renderModal(id) {
     })(), 5000)
   ]);
 
-  const videoHtml = ytId
-    ? `<div class="video-wrap"><iframe id="modalVideo" src="https://www.youtube.com/embed/${ytId}?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe></div>`
-    : `<div style="font-size:12px;color:var(--text2);padding:10px 0 14px;text-align:center;">Video unavailable — check your connection or API key.</div>`;
+  // Inject video — replace loading bar
+  const videoSlot = document.getElementById('videoSlot');
+  if (videoSlot) {
+    videoSlot.innerHTML = ytId
+      ? `<div class="video-wrap"><iframe id="modalVideo" src="https://www.youtube.com/embed/${ytId}?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe></div>`
+      : `<div style="font-size:12px;color:var(--text2);padding:10px 0 14px;text-align:center;">Video unavailable — check your connection or API key.</div>`;
+  }
 
-  const benefitText = g?.benefit || '';
-  const equipText = g?.equipment || '';
-  const benefitHtml = benefitText
-    ? `<div class="guide-benefit"><span class="guide-benefit-label">Why this movement</span>${benefitText}${equipText ? `<span class="equip-tag">📦 ${equipText}</span>` : ''}</div>` : '';
-
-  const overviewText = apiData?.description || g?.overview || 'No guide available for this exercise.';
-  const diffHtml = apiData?.difficulty ? `<span class="diff-badge diff-${apiData.difficulty}">${apiData.difficulty}</span>` : '';
-
-  const instructionsHtml = apiData?.instructions?.length
-    ? `<div class="guide-section"><div class="guide-section-title">Instructions</div><ol class="steps-ol">${apiData.instructions.map(s=>`<li>${s}</li>`).join('')}</ol></div>` : '';
-
-  const primaryMuscles = apiData?.target
-    ? `<span class="muscle-tag primary">${apiData.target}</span>`
-    : (g?.muscles_primary?.map(m=>`<span class="muscle-tag primary">${m}</span>`).join('') || '');
-  const secondaryMuscles = apiData?.secondaryMuscles?.length
-    ? apiData.secondaryMuscles.map(m=>`<span class="muscle-tag">${m}</span>`).join('')
-    : (g?.muscles_secondary?.map(m=>`<span class="muscle-tag">${m}</span>`).join('') || '');
-  const musclesHtml = (primaryMuscles || secondaryMuscles)
-    ? `<div class="guide-section"><div class="guide-section-title">Muscles</div><div class="muscles-row">${primaryMuscles}${secondaryMuscles}</div></div>`
-    : '';
-
-  const cuesHtml = g?.cues?.length
-    ? `<div class="guide-section"><div class="guide-section-title">Coaching cues</div><ul class="cues-list">${g.cues.map(c=>`<li>${c}</li>`).join('')}</ul></div>` : '';
-
-  const tipHtml = g?.tip ? `<div class="pro-tip">${g.tip}</div>` : '';
-
-  document.getElementById('mBody').innerHTML = `
-    ${videoHtml}
-    ${benefitHtml}
-    ${diffHtml ? `<div style="margin-bottom:10px;">${diffHtml}</div>` : ''}
-    <div class="guide-overview">${overviewText}</div>
-    ${instructionsHtml}
-    ${cuesHtml}
-    ${musclesHtml}
-    ${tipHtml}`;
+  // Inject API enhancements — instructions + difficulty
+  const apiSlot = document.getElementById('apiSlot');
+  if (apiSlot && apiData) {
+    const diffHtml = apiData.difficulty ? `<div style="margin-bottom:10px;"><span class="diff-badge diff-${apiData.difficulty}">${apiData.difficulty}</span></div>` : '';
+    const instructionsHtml = apiData.instructions?.length
+      ? `<div class="guide-section"><div class="guide-section-title">Instructions</div><ol class="steps-ol">${apiData.instructions.map(s=>`<li>${s}</li>`).join('')}</ol></div>` : '';
+    // Override overview and muscles with richer API data if available
+    if (apiData.description) {
+      const ov = document.querySelector('#mBody .guide-overview');
+      if (ov) ov.textContent = apiData.description;
+    }
+    if (apiData.target || apiData.secondaryMuscles?.length) {
+      const muscleEl = document.querySelector('#mBody .muscles-row');
+      if (muscleEl) {
+        const pm = apiData.target ? `<span class="muscle-tag primary">${apiData.target}</span>` : primaryMuscles;
+        const sm = apiData.secondaryMuscles?.length ? apiData.secondaryMuscles.map(m=>`<span class="muscle-tag">${m}</span>`).join('') : secondaryMuscles;
+        muscleEl.innerHTML = pm + sm;
+      }
+    }
+    apiSlot.innerHTML = diffHtml + instructionsHtml;
+  }
 }
 
 function generateWarmup() {
@@ -1917,45 +2022,122 @@ function closeModal() {
 }
 function closeModalOutside(e) { if (e.target === document.getElementById('modalWrap')) closeModal(); }
 
-// Drag-to-dismiss — follows finger, snaps closed or back
+// Drag-to-dismiss + horizontal swipe navigation
 (function() {
-  let startY = 0, currentY = 0, startTime = 0, dragging = false;
+  let startX = 0, startY = 0, currentX = 0, currentY = 0, startTime = 0;
+  let dragDir = null; // 'vertical' | 'horizontal' | null
   const modal = document.getElementById('modalInner');
+  const body = document.getElementById('mBody');
 
   modal.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
+    currentX = startX;
     currentY = startY;
     startTime = Date.now();
-    dragging = modal.scrollTop <= 0;
+    dragDir = null;
     modal.style.transition = 'none';
   }, { passive: true });
 
   modal.addEventListener('touchmove', (e) => {
+    currentX = e.touches[0].clientX;
     currentY = e.touches[0].clientY;
-    const delta = currentY - startY;
-    if (dragging && delta > 0) {
-      e.preventDefault();
-      // Rubber-band resistance — feels native
-      modal.style.transform = `translateY(${delta * 0.92}px)`;
-    } else if (modal.scrollTop <= 0 && delta > 0) {
-      dragging = true;
-      e.preventDefault();
+    const dx = currentX - startX;
+    const dy = currentY - startY;
+
+    // Lock direction on first meaningful movement
+    if (!dragDir && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+      dragDir = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
+    }
+
+    if (dragDir === 'vertical') {
+      if (modal.scrollTop <= 0 && dy > 0) {
+        e.preventDefault();
+        modal.style.transform = `translateY(${dy * 0.92}px)`;
+      }
+    } else if (dragDir === 'horizontal') {
+      // Only swipe if nav is visible (multiple exercises)
+      const nav = document.getElementById('modalNav');
+      if (nav.style.display !== 'none') {
+        e.preventDefault();
+        // Rubber-band if at edges
+        const atStart = modalCurrentIdx === 0 && dx > 0;
+        const atEnd = modalCurrentIdx === modalExerciseList.length - 1 && dx < 0;
+        const resistance = (atStart || atEnd) ? 0.2 : 0.85;
+        body.style.transition = 'none';
+        body.style.transform = `translateX(${dx * resistance}px)`;
+
+        // Live directional arrow
+        const arrow = document.getElementById('swipeArrow');
+        if (Math.abs(dx) > 20) {
+          const goingRight = dx > 0;
+          const canGo = goingRight ? modalCurrentIdx > 0 : modalCurrentIdx < modalExerciseList.length - 1;
+          arrow.className = 'swipe-arrow ' + (goingRight ? 'left' : 'right') + (canGo ? ' visible' : '');
+          arrow.textContent = goingRight ? '←' : '→';
+        } else {
+          document.getElementById('swipeArrow').className = 'swipe-arrow';
+        }
+      }
     }
   }, { passive: false });
 
   modal.addEventListener('touchend', () => {
-    const delta = currentY - startY;
+    const dx = currentX - startX;
+    const dy = currentY - startY;
     const elapsed = Date.now() - startTime;
-    const velocity = delta / elapsed; // px/ms
-    // Close if dragged far enough OR flicked quickly downward
-    if (dragging && (delta > 80 || velocity > 0.5)) {
-      closeModal();
-    } else {
-      modal.style.transition = 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
-      modal.style.transform = 'translateY(0)';
-      setTimeout(() => { modal.style.transition = ''; }, 300);
+    const vx = dx / elapsed;
+    const vy = dy / elapsed;
+
+    if (dragDir === 'vertical') {
+      if (modal.scrollTop <= 0 && (dy > 80 || vy > 0.5)) {
+        closeModal();
+      } else {
+        modal.style.transition = 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
+        modal.style.transform = 'translateY(0)';
+        setTimeout(() => { modal.style.transition = ''; }, 300);
+      }
+    } else if (dragDir === 'horizontal') {
+      const nav = document.getElementById('modalNav');
+      if (nav.style.display !== 'none') {
+        const threshold = Math.abs(dx) > 60 || Math.abs(vx) > 0.4;
+        if (threshold && dx > 0 && modalCurrentIdx > 0) {
+          // Swipe right — go to prev
+          body.style.transition = 'transform 0.2s ease';
+          body.style.transform = 'translateX(100%)';
+          setTimeout(() => {
+            body.style.transition = 'none';
+            body.style.transform = 'translateX(-100%)';
+            modalNavStep(-1);
+            requestAnimationFrame(() => {
+              body.style.transition = 'transform 0.2s ease';
+              body.style.transform = 'translateX(0)';
+              setTimeout(() => { body.style.transition = ''; body.style.transform = ''; }, 200);
+            });
+          }, 150);
+        } else if (threshold && dx < 0 && modalCurrentIdx < modalExerciseList.length - 1) {
+          // Swipe left — go to next
+          body.style.transition = 'transform 0.2s ease';
+          body.style.transform = 'translateX(-100%)';
+          setTimeout(() => {
+            body.style.transition = 'none';
+            body.style.transform = 'translateX(100%)';
+            modalNavStep(1);
+            requestAnimationFrame(() => {
+              body.style.transition = 'transform 0.2s ease';
+              body.style.transform = 'translateX(0)';
+              setTimeout(() => { body.style.transition = ''; body.style.transform = ''; }, 200);
+            });
+          }, 150);
+        } else {
+          // Snap back
+          body.style.transition = 'transform 0.25s cubic-bezier(0.32, 0.72, 0, 1)';
+          body.style.transform = 'translateX(0)';
+          setTimeout(() => { body.style.transition = ''; body.style.transform = ''; }, 250);
+        }
+      }
     }
-    dragging = false;
+    dragDir = null;
+    document.getElementById('swipeArrow').className = 'swipe-arrow';
   }, { passive: true });
 })();
 
